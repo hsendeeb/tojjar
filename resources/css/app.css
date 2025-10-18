@@ -1,0 +1,128 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@media screen and (min-width:900px){
+    #mainImage {
+        display: none;
+    }
+    
+}
+@media screen and (max-width:768px) {
+  #logo {
+      font-family:Impact, Arial Black;
+      font-size: 60px;
+      font-weight: 900;
+      font-style: italic;
+      fill: #ff0000;
+    }
+}
+
+.login {
+    background-image:url("/resources/images/loginImage.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+}
+
+  
+
+
+
+.glass-price {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 12px;
+  color: #fff;
+  font-weight: bolder;
+  font-size: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  
+}
+.card  {
+  overflow: hidden;
+  position: relative;
+}
+
+.card img {
+  transition: transform 0.4s ease, filter 0.4s ease;
+  display: block;
+}
+
+.card:hover  img {
+  transform: scale(1.1);
+  filter: brightness(70%);
+}
+.notHover:hover img{
+  transform: scale(1);
+  filter: brightness(100%);
+
+}
+.archivo {
+  font-family: "Archivo Black", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  
+}
+#car-details {
+     background-image:url("/resources/images/carparts.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+.brush{
+  background-image:url("/resources/images/textBackground.png");
+    background-position:center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    mix-blend-mode: multiply;
+    transition: ease 0.3s;
+    
+}
+#backToTop {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  padding: 10px 15px;
+  height: 90px;
+  width: 80px;
+   transition: transform 0.6s ease;
+
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  display: none; /* Hidden by default */
+  z-index: 1000;
+  transition: opacity 0.3s ease;
+}
+  
+
+.glass-button {
+  display: none;
+  z-index: 1000;
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+ background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #fff;
+  font-weight: bolder;
+ 
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.glass-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
+}
+
+
+
+
+
+
+
+
