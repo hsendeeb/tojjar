@@ -40,7 +40,7 @@ Route::post("/vehicles/filter", [VehicleController::class, 'filteredSearch'])
 Route::post('/detect-car', [VehicleController::class, 'detect'])->name('detect.car');
 
 Route::middleware(['auth', 'admin'])->group(function () {
-     Route::get("/admin/dashboard", [AdminController::class, 'index'])->name('admin.dashboard');
+     Route::get("/admin", [AdminController::class, 'index'])->name('admin.dashboard');
      Route::get("/admin/show/users", [AdminController::class, 'showUsers'])->name('admin.showUsers');
      Route::get("/admin/show/vehicles", [AdminController::class, 'showVehicles'])->name('admin.showVehicles');
      Route::post("/admin/company", [CompanyController::class, 'store'])->name('company.store');
@@ -48,7 +48,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
      Route::put('/admin/block/{id}', [AdminController::class, 'block'])->name('admin.block');
      Route::put('/admin/unblock/{id}', [AdminController::class, 'unBlock'])->name('admin.unBlock');
      Route::post('/admin', [AdminController::class, 'store'])->name('admin.store');
-     Route::get('/admin', [AdminController::class, 'showAdmins'])->name('admin.showAdmins');
+     Route::get('/admin/show', [AdminController::class, 'showAdmins'])->name('admin.showAdmins');
      Route::delete('/admin/{id}', [AdminController::class, 'destroy'])->name('admin.delete');
 });
 

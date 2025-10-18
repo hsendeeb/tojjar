@@ -20,9 +20,8 @@
               </div>
                     @endguest
                 @auth
-                    <a class="btn btn-sm btn-danger" href="{{ route('placeAdView') }}">Place Ad <i
-                            class="bi bi-file-arrow-up-fill"></i></a>
-                @endauth
+                    <a class="btn btn-sm px-4  btn-danger archivo" href="{{ route('placeAdView') }}">Ad</a>
+                    @endauth
 
             </div>
 

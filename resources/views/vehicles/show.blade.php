@@ -27,9 +27,9 @@
 
                     @foreach($vehicle->image as $index => $image)
                         <img src="{{ asset('storage/' . $image->image_url) }}"
-                            class="img-thumbnail border-danger object-fit-cover"
+                            class="img-thumbnail object-fit-cover"
                             style="width: 100px; height: 60px; cursor: pointer;" data-bs-target="#vehicleCarousel"
-                            data-bs-slide-to="{{ $index }}" aria-label="Slide {{ $index + 1 }}">
+                            data-bs-slide-to="{{ $index }}" aria-label="Slide {{ $index + 1 }}" aria-current="true">
                     @endforeach
                 </div>
 
@@ -38,7 +38,7 @@
             <div class="col-lg-6 mt-4">
                 <div class="d-flex gap-3 flex-wrap">
                     <h1 class="h1 text-start archivo">
-                        {{$vehicle->company->company_name . " " . $vehicle->model->model_name . " " . $vehicle->year}}</h1>
+                        {{$vehicle->company->company_name. " " . $vehicle->year . " " . $vehicle->model->model_name }}</h1>
                     <h1 class=" h1  text-end archivo text-danger"> ${{$vehicle->price}}</h1>
                 </div>
                 <div class="container-fluid">
@@ -61,11 +61,11 @@
                         </tr>
                          <tr>
                             <td class="d-flex"><img class="me-1" style="width: 20px;height:20px" src="/images/pistons.png" alt=""> <span class="fw-bold">Engine cylinders: </span>
-                                {{$vehicle->engineType->type}}</td>
+                                {{$vehicle?->engineType?->type}}</td>
                         </tr>
                          <tr>
                             <td class="d-flex"><img class="me-1" style="width: 20px;height:20px" src="/images/car-engine.png" alt=""><span class="fw-bold">Engine size: </span>
-                                {{$vehicle->engineSize->size}}</td>
+                                {{$vehicle?->engineSize?->size}}</td>
                         </tr>
                         <tr>
                             <td style="color:{{ ($vehicle->color->color == 'white') ? 'black' : $vehicle->color->color}}">
@@ -91,8 +91,8 @@
             </div>
         </div>
         <div class="d-flex gap-3 justify-content-start">
-            <a class="btn btn-danger px-3"><i class="bi bi-telephone-fill "></i> {{$vehicle->user->phone}}</a>
-            <a class="btn btn-outline-success px-3"><i class="bi bi-whatsapp"></i> Whatsapp</a>
+            <a href="tel:{{ $vehicle->user->phone }}" class="btn btn-danger px-3"><i class="bi bi-telephone-fill "></i> {{$vehicle->user->phone}}</a>
+            <a  href="https://wa.me/{{ $vehicle->user->phone }}" class="btn btn-outline-success px-3"><i class="bi bi-whatsapp"></i> Whatsapp</a>
         </div>
 
     </div>
