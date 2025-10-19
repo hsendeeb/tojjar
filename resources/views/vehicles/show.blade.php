@@ -6,10 +6,27 @@
                     <div class="carousel-inner  rounded-3">
                         @foreach($vehicle->image as $index => $image)
                             <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
-                                <img style="height: 300px" class="img-fluid rounded-3 object-fit-cover"
+                                <img style="height: 300px;cursor: pointer;" class="img-fluid rounded-3 object-fit-cover"
+                                    data-bs-toggle="modal" data-bs-target="#imageModal_{{ $index }}"
                                     src="{{ asset('storage/' . $image->image_url) }}" class="d-block w-100"
                                     alt="Vehicle Image {{ $index + 1 }}">
                             </div>
+                            <div class="modal fade" id="imageModal_{{ $index }}" tabindex="-1"
+                                aria-labelledby="imageModalLabel" aria-hidden="true">
+                                <div class="modal-dialog   modal-dialog-centered">
+                                    <div class="modal-content bg-transparent border-0">
+                                        <div class="modal-header border-0">
+                                            <button type="button" class="btn-close btn-close-white ms-auto"
+                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body text-center">
+                                            <img src="{{ asset('storage/' . $image->image_url) }}" alt="full image"
+                                                class="img-fluid rounded">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         @endforeach
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#vehicleCarousel"
@@ -26,8 +43,7 @@
                 <div class="thumbnail-scroll d-flex flex-nowrap overflow-auto gap-2 py-2">
 
                     @foreach($vehicle->image as $index => $image)
-                        <img src="{{ asset('storage/' . $image->image_url) }}"
-                            class="img-thumbnail object-fit-cover"
+                        <img src="{{ asset('storage/' . $image->image_url) }}" class="img-thumbnail object-fit-cover"
                             style="width: 100px; height: 60px; cursor: pointer;" data-bs-target="#vehicleCarousel"
                             data-bs-slide-to="{{ $index }}" aria-label="Slide {{ $index + 1 }}" aria-current="true">
                     @endforeach
@@ -37,11 +53,20 @@
             </div>
             <div class="col-lg-6 mt-4">
                 <div class="d-flex gap-3 flex-wrap">
+                    
                     <h1 class="h1 text-start archivo">
-                        {{$vehicle->company->company_name. " " . $vehicle->year . " " . $vehicle->model->model_name }}</h1>
+                        {{$vehicle->company->company_name . " " . $vehicle->year . " " . $vehicle->model->model_name }}
+                    </h1>
                     <h1 class=" h1  text-end archivo text-danger"> ${{$vehicle->price}}</h1>
                 </div>
-                <div class="container-fluid">
+                <div> 
+                     @if($vehicle->available)
+                        <span class="fs-6 badge rounded-pill text-bg-success text-success fw-bolder bg-opacity-10">Available</span>
+                    @else
+                     <span class="fs-6 badge rounded-pill text-bg-danger text-danger fw-bolder bg-opacity-10">Sold</span>
+                    @endif
+                </div>
+                <div class="container-fluid mt-2">
                     <table class="table table-striped">
                         <tr>
                             <td><i class="fa-solid fa-gauge-high"></i> <span class="fw-bold">Odometer :</span>
@@ -59,18 +84,22 @@
                             <td><i class="fa-solid fa-car-side"></i><span class="fw-bold"> Body type :</span>
                                 {{$vehicle->body->body_type}}</td>
                         </tr>
-                         <tr>
-                            <td class="d-flex"><img class="me-1" style="width: 20px;height:20px" src="/images/pistons.png" alt=""> <span class="fw-bold">Engine cylinders: </span>
+                        <tr>
+                            <td class="d-flex"><img class="me-1" style="width: 20px;height:20px"
+                                    src="/images/pistons.png" alt=""> <span class="fw-bold">Engine cylinders: </span>
                                 {{$vehicle?->engineType?->type}}</td>
                         </tr>
-                         <tr>
-                            <td class="d-flex"><img class="me-1" style="width: 20px;height:20px" src="/images/car-engine.png" alt=""><span class="fw-bold">Engine size: </span>
+                        <tr>
+                            <td class="d-flex"><img class="me-1" style="width: 20px;height:20px"
+                                    src="/images/car-engine.png" alt=""><span class="fw-bold">Engine size: </span>
                                 {{$vehicle?->engineSize?->size}}</td>
                         </tr>
                         <tr>
-                            <td style="color:{{ ($vehicle->color->color == 'white') ? 'black' : $vehicle->color->color}}">
+                            <td
+                                style="color:{{ ($vehicle->color->color == 'white') ? 'black' : $vehicle->color->color}}">
                                 <i class="bi bi-droplet-fill"></i> <span class="fw-bold">Color :</span>
-                                {{$vehicle->color->color}}</td>
+                                {{$vehicle->color->color}}
+                            </td>
                         </tr>
                         <tr>
                             <td><i class="bi bi-fuel-pump-fill"></i> <span class="fw-bold">Fuel : </span>
@@ -91,8 +120,10 @@
             </div>
         </div>
         <div class="d-flex gap-3 justify-content-start">
-            <a href="tel:{{ $vehicle->user->phone }}" class="btn btn-danger px-3"><i class="bi bi-telephone-fill "></i> {{$vehicle->user->phone}}</a>
-            <a  href="https://wa.me/{{ $vehicle->user->phone }}" class="btn btn-outline-success px-3"><i class="bi bi-whatsapp"></i> Whatsapp</a>
+            <a href="tel:{{ $vehicle->user->phone }}" class="btn btn-danger px-3"><i class="bi bi-telephone-fill "></i>
+                {{$vehicle->user->phone}}</a>
+            <a href="https://wa.me/{{ $vehicle->user->phone }}" class="btn btn-outline-success px-3"><i
+                    class="bi bi-whatsapp"></i> Whatsapp</a>
         </div>
 
     </div>
@@ -107,21 +138,22 @@
             <div class="col-lg-6 mt-2  ">
                 <h2 class="h2 archivo">User details</h2>
                 <div>
-                    <a href="{{ route('profile.show',$vehicle->user->id) }}">
+                    <a href="{{ route('profile.show', $vehicle->user->id) }}">
                         @if($vehicle->user->image != 'public/images/avatar.jpg')
-                        <img src="{{ Storage::url($vehicle->user->image)}}"
-                            style="width:40px; height:40px; object-fit:cover;" class="rounded-circle me-2"
-                            loading="lazy">
-                    @else
+                            <img src="{{ Storage::url($vehicle->user->image)}}"
+                                style="width:40px; height:40px; object-fit:cover;" class="rounded-circle me-2"
+                                loading="lazy">
+                        @else
                             <img src="/images/avatar.jpg" style="width:25px; height:25px; object-fit:cover;"
                                 class="rounded-circle me-2" loading="lazy">
-                        @endif 
+                        @endif
                         {{$vehicle->user->name}}
                     </a>
                     <p><i class="bi bi-geo-alt-fill"></i> {{$vehicle->location}}</p>
                     <p><i class="bi bi-telephone-fill"></i> {{$vehicle->user->phone}}</p>
                     <p class="text-secondary"><i class="bi bi-clock-fill"></i> Joined on :
-                        {{date_format($vehicle->user->created_at, 'd,M,Y')}}</p>
+                        {{date_format($vehicle->user->created_at, 'd,M,Y')}}
+                    </p>
 
                 </div>
             </div>

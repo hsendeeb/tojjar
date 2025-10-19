@@ -33,6 +33,7 @@ $("#company").on("change", function () {
 
 $("#search").on("keyup", function () {
     $("#suggestions").show();
+
     let input = $(this).val();
   
     if (input) {
@@ -119,11 +120,7 @@ setTimeout(() => {
     }
 }, 3000); // dismiss after 3 seconds
 
-document.getElementById("search").addEventListener("blur", () => {
-    setTimeout(() => {
-        $("#suggestions").hide();
-    }, 100);
-});
+
 // filter functions
 //get companies of specific category
 $('#company').hide();
@@ -178,10 +175,20 @@ $("#company").on('change',function() {
          $("#company").removeClass("bg-info bg-opacity-50 ");
 
     }
-})
+});
+
+
+
+
+
 backToTopBtn.addEventListener("click", () => {
     window.scrollTo({
         top: 0,
         behavior: "smooth",
     });
+});
+document.getElementById("search").addEventListener("blur", () => {
+    setTimeout(() => {
+        $("#suggestions").hide();
+    }, 100);
 });

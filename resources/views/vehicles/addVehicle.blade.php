@@ -107,7 +107,7 @@
                 <label for="color_id" class="form-label fw-bold">color :</label>
                 <select class="form-control" name="color_id" id="color_id">
                     @foreach($colors as $color)
-                        <option style="//background-color: {{ $color->color }}" value="{{ $color->id }}">{{ $color->color }}</option>
+                        <option style="background-color: {{ $color->color }}" value="{{ $color->id }}">{{ $color->color }}</option>
                         
                     @endforeach
                 </select>

@@ -106,9 +106,8 @@ class ProfileController extends Controller
             'condition',
             'image'
         ])
-            ->when(Auth::check(), function ($query) use ($id) {
-                $query->where("user_id", $id);
-            })->orderBy('created_at', 'desc') // 👈 Ensures consistent ordering
+            ->where("user_id", $id)
+            ->orderBy('created_at', 'desc') // 👈 Ensures consistent ordering
 
             ->get();
 

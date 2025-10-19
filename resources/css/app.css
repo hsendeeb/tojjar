@@ -118,6 +118,15 @@
   background: rgba(255, 255, 255, 0.2);
   transform: scale(1.05);
 }
+.redBrush{
+  background-image:url("/resources/images/redBrush.png");
+    background-position:40px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    mix-blend-mode: multiply;
+    transition: ease 0.3s;
+    
+}
 
 
 

@@ -21,14 +21,17 @@ Route::middleware('auth')->group(function () {
      Route::get('/edit', [ProfileController::class, 'edit'])->name('profile.edit');
      Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
      Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-     Route::get("/profile/show/{id}", [ProfileController::class, 'show'])->name('profile.show');
+
      Route::get("/placeAd", [VehicleController::class, 'create'])->name('placeAdView');
      Route::post("/placeAd", [VehicleController::class, 'store'])->name('placeAd');
-     Route::get("/vehicle/show/{vehicle}", [VehicleController::class, 'show'])->name("vehicle.show");
+
      Route::get("/vehicle/edit/{vehicle}", [VehicleController::class, 'edit'])->name('vehicle.edit');
      Route::delete('/vehicle/{vehicle}', [VehicleController::class, 'destroy'])->name('vehicle.destroy');
      Route::put('/vehicle/{vehicle}', [VehicleController::class, 'update'])->name('vehicle.update');
+     Route::put("/sold/{id}",[VehicleController::class,'markAsSold'])->name('markSold');
+      Route::put("/available/{id}",[VehicleController::class,'markAsAvailable'])->name('markAvailable');
 });
+Route::get("/profile/show/{id}", [ProfileController::class, 'show'])->name('profile.show');
 Route::get("/get-companies/{id}", [VehicleController::class, 'getCompanies'])->name('getCompanies');
 Route::get("/company/show/{name?}", [CompanyController::class, 'show'])->name('company.show');
 Route::get("/get-models/{id}", [CarModelController::class, "getModels"])
@@ -38,6 +41,7 @@ Route::get("/get-suggestions/{input}", [CompanyController::class, 'suggest'])
 Route::post("/vehicles/filter", [VehicleController::class, 'filteredSearch'])
      ->name('filteredSearch');
 Route::post('/detect-car', [VehicleController::class, 'detect'])->name('detect.car');
+Route::get("/vehicle/show/{vehicle}", [VehicleController::class, 'show'])->name("vehicle.show");
 
 Route::middleware(['auth', 'admin'])->group(function () {
      Route::get("/admin", [AdminController::class, 'index'])->name('admin.dashboard');

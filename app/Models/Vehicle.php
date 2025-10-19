@@ -23,7 +23,8 @@ class Vehicle extends Model
 "location",
 "description",
 "engineSize_id",
-"engineType_id"
+"engineType_id",
+"available"
     ];
     public function user(){
       return $this->belongsTo(User::class);

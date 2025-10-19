@@ -23,12 +23,6 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use App\Models\EngineType;
-
-
-
-
-
-
 class VehicleController extends Controller
 
 {
@@ -296,4 +290,21 @@ class VehicleController extends Controller
        
         
     }
+    public function markAsSold(string $id) {
+        $vehicle=Vehicle::findOrFail($id);
+        $vehicle->available=false;
+        $vehicle->save();
+        
+    // Dispatch deletion job after 10 seconds
+    \App\Jobs\DeleteVehicleJob::dispatch($vehicle->id)
+        ->delay(now()->addDays(1));
+
+        return back();
+    }
+        public function markAsAvailable(string $id) {
+        $vehicle=Vehicle::findOrFail($id);
+        $vehicle->available=true;
+        $vehicle->save();
+        return back();
+        }
 }

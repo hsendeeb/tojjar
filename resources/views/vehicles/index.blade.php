@@ -40,10 +40,10 @@
                 @endforeach
 
             </select>
-            <select class="opacity-50 rounded-pill border-0 " name="company_id" id="company" disabled>
+            <select class="opacity-50 text-primary fw-bolder rounded-pill border-0 " name="company_id" id="company" disabled>
                 <option value="" disabled selected>select company</option>
             </select>
-            <select class="opacity-50 rounded-pill border-0" name="model_id" id="model">
+            <select class="opacity-50 text-primary rounded-pill fw-bolder border-0" name="model_id" id="model">
                 <option value="" disabled selected>select model</option>
             </select>
             <button type="submit" class="btn btn-primary    px-3 py-0  text-white rounded-pill fw-bold">search</button>
@@ -69,12 +69,12 @@
                                 </div>
                             </div>
 
-                            <div class="card-body  py-2 px-2">
+                            <div class="card-body  px-2"  >
                                 <h3 class="card-title  fw-bolder bg-opacity-25  py-1">
                                     {{$vehicle->company->company_name}} <span
                                         class="fw-bolder  rounded-3 brush  bg-warning bg-opacity-25 px-4  py-1">{{$vehicle->model->model_name}}</span>
                                 </h3>
-                                <div class="d-flex flex-wrap gap-2 mt-1">
+                                <div class="d-flex flex-wrap gap-2 mt-3">
                                     <span class="bg-warning bg-opacity-10 fw-bolder rounded-pill text-warning px-2"><i
                                             class="bi bi-calendar3"></i> {{$vehicle->year}}</span>
                                     <span
@@ -90,16 +90,16 @@
 
                                 </div>
                                 <hr class="mt-2 ">
-                                <div class="text-sm mt-2">
-                                    <pre>{{ Str::words(wordwrap($vehicle->description, 30, "\n"), 3)}}</pre>
+                                <div class="text-sm mt-2" style="height: 50px">
+                                    <pre>{{ Str::words(wordwrap($vehicle->description, 30, "\n"), 8)}}</pre>
                                 </div>
 
 
-                                <div class="text-end p-2">
+                                <div class="text-end ">
                                     <i class="bi bi-geo-alt-fill"></i>
                                     <small class="ms-1">{{ $vehicle->location }}</small><br>
 
-                                    <div class="d-inline-flex align-items-center justify-content-end mt-1">
+                                    <div class="d-inline-flex align-items-center justify-content-end mt-2">
                                        @if($vehicle->user->image !='public/images/avatar.jpg')
                                         <img src="{{ Storage::url($vehicle->user->image)}}"
                                             style="width:25px; height:25px; object-fit:cover;" class="rounded-circle me-2"
@@ -113,11 +113,15 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class=" card-footer p-0 mb-0">
+                            <div class="card-footer bg-white p-0 mt-1">
+                                @if($vehicle->available)
                                 <a href="{{ route('vehicle.show', $vehicle) }}"
                                     class="btn bg-warning fw-bolder bg-opacity-75 w-100">view more <i
                                         class="bi bi-arrow-right-circle-fill"></i></a>
-                            </div>
+                                 @else
+                                 <h4 class=" mb-0 bg-danger bg-opacity-25 text-danger h4 archivo text-center py-1">Sold</h4>
+                                 @endif
+                                    </div>
                         </div>
                     </a>
                 </div>
