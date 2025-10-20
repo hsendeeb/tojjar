@@ -25,7 +25,12 @@ class ProfileUpdateRequest extends FormRequest
                 'max:255',
                 Rule::unique(User::class)->ignore($this->user()->id),
             ],
-            'image'=>'image|mimes:jpeg,png,jpg,gif|max:2048'
-        ];
+            'image'=>'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+             'phone' => [
+        'required',
+        'string',
+        'regex:/^(?:\+961|961|0)?(3|70|71|76|78|79|81|82|83|84|85|88|89)\d{6}$/',
+        ]
+             ];
     }
 }

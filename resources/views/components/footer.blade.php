@@ -44,13 +44,16 @@
             <li class="mb-2">
               <a href="#!" class="text-danger">Cars under 2000$</a>
             </li>
+            
             <li class="mb-2">
               <a href="#!" class="text-danger">featured vehicles</i></a>
             </li>
             <li class="mb-2">
               <a href="#!" class="text-danger"></i>Dealers</a>
             </li>
-            
+             <li class="mb-2">
+              <a href="{{ route('aboutUs') }}" class="text-danger">About us</a>
+            </li>
           </ul>
         </div>
         <!--Grid column-->

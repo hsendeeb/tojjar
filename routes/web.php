@@ -5,6 +5,7 @@ use App\Http\Controllers\CarModelController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VehicleController;
+use App\Http\Controllers\Controller;
 use App\Models\CarModel;
 use App\Http\Middleware\admin;
 use App\Http\Middleware\useStatus;
@@ -42,6 +43,9 @@ Route::post("/vehicles/filter", [VehicleController::class, 'filteredSearch'])
      ->name('filteredSearch');
 Route::post('/detect-car', [VehicleController::class, 'detect'])->name('detect.car');
 Route::get("/vehicle/show/{vehicle}", [VehicleController::class, 'show'])->name("vehicle.show");
+Route::get('/AboutUs',function () {
+     return view ('aboutUs');
+})->name('aboutUs');
 
 Route::middleware(['auth', 'admin'])->group(function () {
      Route::get("/admin", [AdminController::class, 'index'])->name('admin.dashboard');

@@ -53,17 +53,18 @@
             </div>
             <div class="col-lg-6 mt-4">
                 <div class="d-flex gap-3 flex-wrap">
-                    
+
                     <h1 class="h1 text-start archivo">
                         {{$vehicle->company->company_name . " " . $vehicle->year . " " . $vehicle->model->model_name }}
                     </h1>
                     <h1 class=" h1  text-end archivo text-danger"> ${{$vehicle->price}}</h1>
                 </div>
-                <div> 
-                     @if($vehicle->available)
-                        <span class="fs-6 badge rounded-pill text-bg-success text-success fw-bolder bg-opacity-10">Available</span>
+                <div>
+                    @if($vehicle->available)
+                        <span
+                            class="fs-6 badge rounded-pill text-bg-success text-success fw-bolder bg-opacity-10">Available</span>
                     @else
-                     <span class="fs-6 badge rounded-pill text-bg-danger text-danger fw-bolder bg-opacity-10">Sold</span>
+                        <span class="fs-6 badge rounded-pill text-bg-danger text-danger fw-bolder bg-opacity-10">Sold</span>
                     @endif
                 </div>
                 <div class="container-fluid mt-2">
@@ -110,7 +111,7 @@
                                 {{$vehicle->condition->condition}}</td>
                         </tr>
                         <tr>
-                            <td><i class="bi bi-geo-alt-fill"></i> <span class="fw-bold">Location : </span>
+                            <td class="bg-primary bg-opacity-10"><i class="bi bi-geo-alt-fill"></i> <span class="fw-bold">Location : </span>
                                 {{$vehicle->location}}</td>
                         </tr>
 
@@ -119,22 +120,33 @@
                 </div>
             </div>
         </div>
-        <div class="d-flex gap-3 justify-content-start">
-            <a href="tel:{{ $vehicle->user->phone }}" class="btn btn-danger px-3"><i class="bi bi-telephone-fill "></i>
-                {{$vehicle->user->phone}}</a>
-            <a href="https://wa.me/{{ $vehicle->user->phone }}" class="btn btn-outline-success px-3"><i
-                    class="bi bi-whatsapp"></i> Whatsapp</a>
+        
+    </div>
+    <div id="car-details" class="container-fluid  bg-white rounded-3 p-4">
+            <h2 class="h2 archivo">Description</h2>
+            <div>
+                <pre>{{ wordwrap($vehicle->description, 30, "\n")}}</pre>
+            </div>
         </div>
+    <div class="container-fluid bg-white p-3 mt-2">
+        <h5 class="h5 text-center">
+            Payment: <span class="bg-success fw-bolder bg-opacity-10 text-success rounded-pill px-3 py-0">{{ $vehicle->payment }}</span>
+        </h5>
 
     </div>
-    <div id="car-details" class="container-fluid bg-white mt-3">
+    <div class="mt-2">
+        <p class="text-secondary text-center">posted on : {{ date_format($vehicle->created_at ,'d/m/Y')}}</p>
+    </div>
+    <div class="d-flex gap-3 mt-3 justify-content-center">
+        <a href="tel:{{ $vehicle->user->phone }}" class="btn btn-danger px-3"><i class="bi bi-telephone-fill "></i>
+            {{$vehicle->user->phone}}</a>
+        <a href="https://wa.me/{{ $vehicle->user->phone }}" class="btn btn-outline-success px-3"><i
+                class="bi bi-whatsapp"></i> Whatsapp</a>
+    </div>
+
+    <div class="container-fluid  mt-3">
         <div class="row p-2">
-            <div class="col-lg-6">
-                <h2 class="h2 archivo">More details</h2>
-                <div>
-                    <pre>{{ wordwrap($vehicle->description, 30, "\n")}}</pre>
-                </div>
-            </div>
+
             <div class="col-lg-6 mt-2  ">
                 <h2 class="h2 archivo">User details</h2>
                 <div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use GuzzleHttp\Psr7\UploadedFile;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -53,8 +54,16 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
+       
+        $image=$request->file('image');
+        if($image){
+                $path = $image->store('avatars', 'public');
+        } else{
+               $path=$request->input('hiddenImage');
+
+        }
+      
     
-        $path = $request->file('image')->store('avatars', 'public');
         
         $request->user()->fill(
             $request->validated()
