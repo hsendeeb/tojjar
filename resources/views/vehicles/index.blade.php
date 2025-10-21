@@ -1,4 +1,9 @@
 <x-app-layout>
+      <div id="loader-wrapper">
+    <div class="spinner"></div>
+  </div>
+
+
     <button id="glass-button" class="glass-button px-4 py-1 rounded-pill text-dark"><i
             class="bi bi-arrow-up-circle-fill"></i></button>
 
@@ -56,7 +61,7 @@
         <div class="row">
             @forelse($paginatedVehicles as $vehicle)
                 <div class="col-md-3 mt-5">
-                    <a class="" href="{{ route('vehicle.show', $vehicle) }}">
+                    <a name="viewMore" href="{{ route('vehicle.show', $vehicle) }}">
                         <div class="card shadow ">
 
                             <div class="position-relative d-inline-block">
@@ -102,7 +107,7 @@
                                     <div class="d-inline-flex align-items-center justify-content-end mt-2">
                                        @if($vehicle->user->image !='public/images/avatar.jpg')
                                         <img src="{{ Storage::url($vehicle->user->image)}}"
-                                            style="width:25px; height:25px; object-fit:cover;" class="rounded-circle me-2"
+                                            style="width:25px; height:25px; object-fit:cover;" class="rounded-circle me-2" alt="user image"
                                             loading="lazy">
                                             @else
                                              <img src="/images/avatar.jpg"
@@ -115,7 +120,7 @@
                             </div>
                             <div class="card-footer bg-white p-0 mt-1">
                                 @if($vehicle->available)
-                                <a href="{{ route('vehicle.show', $vehicle) }}"
+                                <a name="viewMore" href="{{ route('vehicle.show', $vehicle) }}"
                                     class="btn bg-warning fw-bolder bg-opacity-75 w-100">view more <i
                                         class="bi bi-arrow-right-circle-fill"></i></a>
                                  @else

@@ -127,9 +127,78 @@
     transition: ease 0.3s;
     
 }
+ .spinner {
+      width: 60px;
+      height: 60px;
+      border: 6px solid transparent;
+      border-top: 6px solid #e53935;
+      border-right: 6px solid #e53935;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      position: relative;
+    }
+
+    .spinner::before {
+      content: "";
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      right: 8px;
+      bottom: 8px;
+      border: 4px solid transparent;
+      border-bottom: 4px solid #e53935;
+      border-left: 4px solid #e53935;
+      border-radius: 50%;
+      animation: spinReverse 0.6s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+      @keyframes spinReverse {
+      0% { transform: rotate(360deg); }
+      100% { transform: rotate(0deg); }
+    }
 
 
+    #loader-wrapper {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+    
+    .btn-spinner {
+      width: 16px;
+      height: 16px;
+      border: 2px solid transparent;
+      border-top: 2px solid white;
+      border-right: 2px solid white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      position: relative;
+    }
 
+    .btn-spinner::before {
+      content: "";
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      right: 2px;
+      bottom: 2px;
+      border: 1.5px solid transparent;
+      border-bottom: 1.5px solid white;
+      border-left: 1.5px solid white;
+      border-radius: 50%;
+      animation: spinReverse 0.6s linear infinite;
+    }
 
 
 

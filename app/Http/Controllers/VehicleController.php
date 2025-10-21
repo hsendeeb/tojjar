@@ -105,13 +105,13 @@ class VehicleController extends Controller
             'company_id' => 'required',
             'model_id' => 'required',
             'category_id' => 'required',
-            'condition_id' => 'required',
+            'condition_id' => 'nullable',
             'year' => 'required',
             'body_id' => 'required',
             'gearbox_id' => 'required',
             'fuel_id' => 'required',
             'mileage' => 'required|min:0',
-            'payment' => 'required',
+            'payment' => 'nullable',
             'color_id' => 'required',
             'location' => ['required', 'string', 'max:100'],
             'price' => ['required', 'integer', 'min:0'],
@@ -173,13 +173,13 @@ class VehicleController extends Controller
             'company_id' => 'required',
             'model_id' => 'required',
             'category_id' => 'required',
-            'condition_id' => 'required',
+            'condition_id' => 'nullable',
             'year' => 'required',
             'body_id' => 'required',
             'gearbox_id' => 'required',
             'fuel_id' => 'required',
             'mileage' => 'required|min:0',
-            'payment' => 'required',
+            'payment' => 'nullable',
             'color_id' => 'required',
             'location' => ['required', 'string', 'max:100'],
             'price' => ['required', 'integer', 'min:0'],
@@ -262,9 +262,11 @@ class VehicleController extends Controller
 
         return back()->with('result', $result);
     }
-    public function filteredSearch(Request $request)
+    public function filteredSearch(Request $request,?string $category_name=null)
     {
-        
+      
+        $c_id=Category::where('category','LIKE',$category_name)->first()?->id;
+       
         $category_id = $request->input("category_id");
         $company_id = $request->input("company_id") ?? null;
         $model_id = $request->input("model_id") ?? null;
@@ -275,13 +277,18 @@ class VehicleController extends Controller
                ->when($request->input('category_id'),function($query) use($category_id){
                 $query->where("category_id",$category_id);
                })
+               
                ->when($request->input('company_id'),function($query) use($company_id){
                 $query->where("company_id",$company_id);
                })
                ->when($request->input('model_id'),function($query) use($model_id){
                 $query->where("model_id",$model_id);
                })
+               ->when(!empty($c_id),function($query) use($c_id) {
+                $query->where("category_id",$c_id);
+               })
                 ->get();
+                
               
 
        

@@ -108,7 +108,7 @@
                         </tr>
                         <tr>
                             <td><i class="bi bi-wrench-adjustable"></i> <span class="fw-bold">Condition : </span>
-                                {{$vehicle->condition->condition}}</td>
+                                {{$vehicle?->condition?->condition}}</td>
                         </tr>
                         <tr>
                             <td class="bg-primary bg-opacity-10"><i class="bi bi-geo-alt-fill"></i> <span class="fw-bold">Location : </span>
@@ -130,7 +130,7 @@
         </div>
     <div class="container-fluid bg-white p-3 mt-2">
         <h5 class="h5 text-center">
-            Payment: <span class="bg-success fw-bolder bg-opacity-10 text-success rounded-pill px-3 py-0">{{ $vehicle->payment }}</span>
+            Payment: <span class="bg-success fw-bolder bg-opacity-10 text-success rounded-pill px-3 py-0">{{ $vehicle->payment ?: 'no info' }}</span>
         </h5>
 
     </div>

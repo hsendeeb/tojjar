@@ -66,17 +66,33 @@
 
           <ul class="list-unstyled">
             <li>
-              <a href="">Cars</a>
+              <form action="/vehicles/filter/car" method="POST">
+              @csrf
+                <button type="submit">car</button>
+
+              </form>
+            
             </li>
-            <li>
-              <a href="">Motorcycles</a>
+           <li>
+              <form action="/vehicles/filter/trucks" method="POST">
+              @csrf
+                <button type="submit">Trucks</button>
+
+              </form>
+            
             </li>
-            <li>  
-             <a href="">Trucks</a>
-            </li>
-            <li>
-             <a href="">Van</a>
-            </li>
+           <li>
+              <form action="/vehicles/filter/Van" method="POST">
+              @csrf
+                <button type="submit">Van</button>
+
+              </form>
+           <li>
+              <form action="/vehicles/filter/motorcycles" method="POST">
+              @csrf
+                <button type="submit">motorcycles</button>
+
+              </form>
           </ul>
         </div>
         <!--Grid column-->

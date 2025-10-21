@@ -2,7 +2,11 @@ import $ from "jquery";
 import TomSelect from "tom-select";
 // resources/js/car-models.js
 
-$("#company").on("change", function () {
+ window.addEventListener('load', function () {
+      document.getElementById('loader-wrapper').style.display = 'none';
+    });
+
+$("#company_id").on("change", function () {
     let carId = $(this).val();
      $("#carModel").empty().append('<option value="">Loading...</option>');
 
@@ -25,7 +29,7 @@ $("#company").on("change", function () {
                     );
                 });
             },
-        });
+        })
     } else {
         $("#carModel").empty().append('<option value="">Select Model</option>');
     }
@@ -37,7 +41,7 @@ $("#search").on("keyup", function () {
     let input = $(this).val();
   
     if (input) {
-          $("#suggestions").empty().append('<p class="text-center">Loading...</p>');    
+          $("#suggestions").empty().append('<p class="text-center p-2">Loading...</p>');    
         $.ajax({
             url: "/get-suggestions/" + input,
             type: "GET",
@@ -64,7 +68,7 @@ $("#search").on("keyup", function () {
                     $("#suggestions").append(item);
                 });
             },
-        });
+        })
     } else {
         $("suggestions").append("<small>No results </small>");
     }
@@ -175,6 +179,10 @@ $("#company").on('change',function() {
          $("#company").removeClass("bg-info bg-opacity-50 ");
 
     }
+});
+
+document.getElementById('addVehicle').addEventListener('submit', function() {
+    document.getElementById('btn-spinner').style.display = 'block';
 });
 
 
