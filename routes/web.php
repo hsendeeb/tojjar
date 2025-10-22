@@ -39,7 +39,7 @@ Route::get("/get-models/{id}", [CarModelController::class, "getModels"])
      ->name("getModels");
 Route::get("/get-suggestions/{input}", [CompanyController::class, 'suggest'])
      ->name("suggestions");
-Route::post("/vehicles/filter/{category_name?}", [VehicleController::class, 'filteredSearch'])
+Route::get("/vehicles/filter/{category_name?}{price?}", [VehicleController::class, 'filteredSearch'])
      ->name('filteredSearch');
 Route::post('/detect-car', [VehicleController::class, 'detect'])->name('detect.car');
 Route::get("/vehicle/show/{vehicle}", [VehicleController::class, 'show'])->name("vehicle.show");

@@ -262,7 +262,7 @@ class VehicleController extends Controller
 
         return back()->with('result', $result);
     }
-    public function filteredSearch(Request $request,?string $category_name=null)
+    public function filteredSearch(Request $request,?string $category_name=null,?int $price=2000)
     {
       
         $c_id=Category::where('category','LIKE',$category_name)->first()?->id;
@@ -286,6 +286,9 @@ class VehicleController extends Controller
                })
                ->when(!empty($c_id),function($query) use($c_id) {
                 $query->where("category_id",$c_id);
+               })
+               ->when(!empty($price),function($query) use($price) {
+                $query->where("price","<=",$price);
                })
                 ->get();
                 

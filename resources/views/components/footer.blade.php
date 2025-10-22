@@ -42,7 +42,7 @@
 
           <ul class="list-unstyled">
             <li class="mb-2">
-              <a href="#!" class="text-danger">Cars under 2000$</a>
+              <a href="/vehicles/filter/2000" class="text-danger">Cars under 2000$</a>
             </li>
             
             <li class="mb-2">

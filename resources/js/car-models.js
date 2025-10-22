@@ -113,6 +113,15 @@ window.addEventListener("scroll", () => {
         backToTopBtn.style.display = "none";
     }
 });
+if(backToTopBtn) {
+backToTopBtn.addEventListener("click", () => {
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+    });
+});
+}
+
 
 
 setTimeout(() => {
@@ -180,23 +189,28 @@ $("#company").on('change',function() {
 
     }
 });
+document.addEventListener("DOMContentLoaded",function () {
+    const form=document.getElementById('addVehicle');
+    const backToTopBtn=document.getElementById('glass-button');
 
+    if(form){
 document.getElementById('addVehicle').addEventListener('submit', function() {
     document.getElementById('btn-spinner').style.display = 'block';
 });
+    }
+
+})
 
 
 
 
 
-backToTopBtn.addEventListener("click", () => {
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth",
-    });
-});
+
+
 document.getElementById("search").addEventListener("blur", () => {
     setTimeout(() => {
         $("#suggestions").hide();
     }, 100);
 });
+
+   

@@ -48,6 +48,15 @@
 
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
+        <div id="radio" class="mt-4">
+            Account type :
+            
+            <input class="form-control" id="private" type="radio" name="account_type" value="private">
+            <label class="me-4" for="private">private user</label>
+             <input class="form-control" id="dealer" type="radio" name="account_type" value="dealer">
+              <label  for="dealer">Dealer</label>
+             
+        </div>
 
         <div class="flex items-center justify-end mt-4">
             <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('login') }}">
