@@ -38,7 +38,7 @@
                         <div class="card shadow ">
 
                             <div class="position-relative d-inline-block">
-                                <img src="{{ Storage::url($vehicle->image[0]->image_url) }}" loading="lazy"
+                                <img src="{{ Storage::url($vehicle->images[0]->image_url) }}" loading="lazy"
                                     class="img-fluid rounded object-fit-cover" style="height: 250px;width:1000px"
                                     alt="Vehicle Image">
                                 <div

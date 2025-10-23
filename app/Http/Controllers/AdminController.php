@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Dealer;
 use App\Models\Vehicle;
 use App\Models\Company;
 use App\Models\Admin;
@@ -23,7 +24,8 @@ class AdminController extends Controller
         $users=User::all();
         $vehicles=Vehicle::all();
         $companies=Company::all();
-        return view('admin.dashboard',compact('users','vehicles','companies'));
+        $dealers=Dealer::all();
+        return view('admin.dashboard',compact('users','vehicles','companies','dealers'));
     }
 
     /**
@@ -119,7 +121,7 @@ class AdminController extends Controller
                 'model',
                 'category',
                 'condition',
-                'image',
+                'images',
                 'engineType',
                 'engineSize'
             ])->get();
@@ -146,4 +148,9 @@ class AdminController extends Controller
         $admins=Admin::with('user')->get();
         return view('admin.showAdmins',compact('admins','companies'));
     }
+     public function showDealers() {
+        $dealers=Dealer::with('user')->get();
+        $companies=Company::all();
+        return view('admin.showDealers',compact('dealers','companies'));
+}
 }

@@ -1,5 +1,5 @@
 import $ from "jquery";
-import TomSelect from "tom-select";
+
 // resources/js/car-models.js
 
  window.addEventListener('load', function () {
@@ -191,7 +191,7 @@ $("#company").on('change',function() {
 });
 document.addEventListener("DOMContentLoaded",function () {
     const form=document.getElementById('addVehicle');
-    const backToTopBtn=document.getElementById('glass-button');
+   
 
     if(form){
 document.getElementById('addVehicle').addEventListener('submit', function() {

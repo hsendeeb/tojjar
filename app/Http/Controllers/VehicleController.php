@@ -49,7 +49,7 @@ class VehicleController extends Controller
                 'model',
                 'category',
                 'condition',
-                'image',
+                'images',
                 'engineType',
                 'engineSize'
             ])
@@ -214,6 +214,7 @@ class VehicleController extends Controller
             $images = $vehicle->image;
             foreach ($images as $image) {
                 $image->delete();
+                Storage::delete($image);
             }
             $vehicle->delete();
             return redirect()->back()->with("deleteMessage", "vehicle deleted");
@@ -262,17 +263,24 @@ class VehicleController extends Controller
 
         return back()->with('result', $result);
     }
-    public function filteredSearch(Request $request,?string $category_name=null,?int $price=2000)
+    public function filteredSearch(Request $request,?string $category_name=null)
     {
-      
-        $c_id=Category::where('category','LIKE',$category_name)->first()?->id;
+   
+
+      if($category_name){
+         $c_id=Category::where('category','LIKE',$category_name)->first()?->id;
+
+      } else {
+        $c_id=null;
+      }
+       
        
         $category_id = $request->input("category_id");
         $company_id = $request->input("company_id") ?? null;
         $model_id = $request->input("model_id") ?? null;
         
        
-        $vehicles = Vehicle::with(['company', 'body', 'gearbox', 'color', 'fuel', 'model', 'category', 'condition', 'image'])
+        $vehicles = Vehicle::with(['company', 'body', 'gearbox', 'color', 'fuel', 'model', 'category', 'condition', 'images'])
                 ->where("vehicles.user_id", "<>", Auth::id())
                ->when($request->input('category_id'),function($query) use($category_id){
                 $query->where("category_id",$category_id);
@@ -287,9 +295,7 @@ class VehicleController extends Controller
                ->when(!empty($c_id),function($query) use($c_id) {
                 $query->where("category_id",$c_id);
                })
-               ->when(!empty($price),function($query) use($price) {
-                $query->where("price","<=",$price);
-               })
+               
                 ->get();
                 
               
@@ -307,7 +313,7 @@ class VehicleController extends Controller
         
     // Dispatch deletion job after 10 seconds
     \App\Jobs\DeleteVehicleJob::dispatch($vehicle->id)
-        ->delay(now()->addDays(1));
+        ->delay(now()->addSeconds(5));
 
         return back();
     }

@@ -4,7 +4,7 @@
             <div class="col-lg-6">
                 <div id="vehicleCarousel" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner  rounded-3">
-                        @foreach($vehicle->image as $index => $image)
+                        @foreach($vehicle->images as $index => $image)
                             <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
                                 <img style="height: 300px;cursor: pointer;" class="img-fluid rounded-3 object-fit-cover"
                                     data-bs-toggle="modal" data-bs-target="#imageModal_{{ $index }}"
@@ -42,7 +42,7 @@
                 </div>
                 <div class="thumbnail-scroll d-flex flex-nowrap overflow-auto gap-2 py-2">
 
-                    @foreach($vehicle->image as $index => $image)
+                    @foreach($vehicle->images as $index => $image)
                         <img src="{{ asset('storage/' . $image->image_url) }}" class="img-thumbnail object-fit-cover"
                             style="width: 100px; height: 60px; cursor: pointer;" data-bs-target="#vehicleCarousel"
                             data-bs-slide-to="{{ $index }}" aria-label="Slide {{ $index + 1 }}" aria-current="true">

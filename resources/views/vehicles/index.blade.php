@@ -45,7 +45,7 @@
                 @endforeach
 
             </select>
-            <select class="opacity-50 text-primary fw-bolder rounded-pill border-0 " name="company_id" id="company" disabled>
+            <select class="opacity-50 text-primary fw-bolder rounded-pill border-0 " name="company_id" id="company" disabled autocomplete="off">
                 <option value="" disabled selected>select company</option>
             </select>
             <select class="opacity-50 text-primary rounded-pill fw-bolder border-0" name="model_id" id="model">
@@ -56,7 +56,7 @@
 
     </div>
 
-    <h1 class="h1 text-center mt-5 archivo brush">Featured cars</h1>
+    <h1 id="featured" class="h1 text-center mt-5 archivo brush">Featured cars</h1>
     <div id="body" class="container-fluid mt-3">
         <div class="row">
             @forelse($paginatedVehicles as $vehicle)
@@ -65,7 +65,7 @@
                         <div class="card shadow ">
 
                             <div class="position-relative d-inline-block">
-                                <img src="{{ Storage::url($vehicle->image[0]->image_url) }}" loading="lazy"
+                                <img src="{{ Storage::url($vehicle->images[0]->image_url) }}" loading="lazy"
                                     class="img-fluid rounded object-fit-cover" style="height: 250px;width:1000px"
                                     alt="Vehicle Image">
                                 <div
@@ -79,15 +79,14 @@
                                     {{$vehicle->company->company_name}} <span
                                         class="fw-bolder  rounded-3 brush  bg-warning bg-opacity-25 px-4  py-1">{{$vehicle->model->model_name}}</span>
                                 </h3>
-                                <div class="d-flex flex-wrap gap-2 mt-3">
+                                <div class="d-flex flex-wrap gap-2 mt-3 " >
                                     <span class="bg-warning bg-opacity-10 fw-bolder rounded-pill text-warning px-2"><i
                                             class="bi bi-calendar3"></i> {{$vehicle->year}}</span>
                                     <span
                                         style="background-color:{{ ($vehicle->color->color == 'white') ? 'silver' : $vehicle->color->color }};"
                                         class=" text-white bg-opacity-25 fs-6 fw-bolder rounded-pill px-2">
                                         <i class=" bi bi-droplet-fill"></i> {{$vehicle->color->color}}</span>
-                                    <span class=" bg-secondary bg-opacity-25 fs-6 fw-bolder rounded-pill px-2"> <i
-                                            class="fa-solid fa-car-side"></i> {{$vehicle->body->body_type}}</span>
+                                    
                                     <span class="text-sm bg-secondary bg-opacity-25 fs-6 fw-bolder rounded-pill px-2"> <i
                                             class="fa-solid fa-gears"></i> {{$vehicle->gearbox->gearbox_type}}</span>
                                     <span class="bg-info bg-opacity-25  fw-bolder rounded-pill px-2"><i
@@ -100,7 +99,7 @@
                                 </div>
 
 
-                                <div class="text-end ">
+                                <div class="text-end mt-4">
                                     <i class="bi bi-geo-alt-fill"></i>
                                     <small class="ms-1">{{ $vehicle->location }}</small><br>
 

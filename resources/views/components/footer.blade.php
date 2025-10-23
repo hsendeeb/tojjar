@@ -42,14 +42,17 @@
 
           <ul class="list-unstyled">
             <li class="mb-2">
-              <a href="/vehicles/filter/2000" class="text-danger">Cars under 2000$</a>
+             <form   action="{{ route('filteredSearch',[null,2000]) }}" method="post">
+              @csrf
+              <button class="btn-link text-decoration-none text-danger p-0 m-0 align-baseline">Vehicles under 2000$</button>
+             </form>
             </li>
             
             <li class="mb-2">
-              <a href="#!" class="text-danger">featured vehicles</i></a>
+              <a href="#featured" class="text-danger">featured vehicles</i></a>
             </li>
             <li class="mb-2">
-              <a href="#!" class="text-danger"></i>Dealers</a>
+              <a href="{{ route('dealers.index') }}" class="text-danger"></i>Dealers</a>
             </li>
              <li class="mb-2">
               <a href="{{ route('aboutUs') }}" class="text-danger">About us</a>

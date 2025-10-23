@@ -45,17 +45,16 @@ class CompanyController extends Controller
     {
         $page = request()->get('page', 1);
        $name = $request->input("company_name") ?: $Cname;
-       $cacheKey="company.search.{$page}".md5($name);
+      
 
-$vehicles = Cache::remember( $cacheKey,"2800",function () use($page,$name) {
+ 
     
-     return Vehicle::with(['company', 'body', 'gearbox', 'color', 'fuel', 'model', 'category', 'condition', 'image'])
+     $vehicles = Vehicle::with(['company', 'body', 'gearbox', 'color', 'fuel', 'model', 'category', 'condition', 'images'])
     ->where("user_id", "<>", Auth::id())
     ->whereHas('company', function ($query) use ($name) {
-        $query->where('company_name', 'LIKE', '%' . $name . '%');
-    })
-    ->paginate(20, ['*'], 'page', $page);
-});
+        $query->where('company_name', 'LIKE', '%' . $name . '%');   
+}) ->paginate(20, );
+;
         if ($vehicles->isNotEmpty()) {
             return view('vehicles.company.show', ['vehicles' => $vehicles]);
         } else {

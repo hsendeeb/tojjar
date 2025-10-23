@@ -15,18 +15,18 @@
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
           <li class="nav-item">
             <a class="nav-link {{(request()->routeIs('admin.dashboard')) ? 'active text-primary' : '' }}"
-              aria-current="page" href="{{ route('admin.dashboard') }}">Dashboard</a>
+              aria-current="page" href="{{ route('admin.dashboard') }}"><span class="me-2"><i class="bi bi-diagram-3-fill"></i></span> Dashboard</a>
           </li>
           <li class="nav-item">
             <a href="{{ route('admin.showUsers')}}"
               class="nav-link  mt-2 py-1 {{(request()->routeIs('admin.showUsers')) ? 'active text-primary' : '' }} ">
-              Users
+             <span class="me-2"><i class="bi bi-person-fill-gear"></i></span> Users
             </a>
           </li>
           <li class="nav-item mt-2 ">
             <a href="{{ route('admin.showVehicles')}}"
               class="nav-link mt-2 py-1 {{(request()->routeIs('admin.showVehicles')) ? 'active text-primary' : '' }} ">
-              Vehicles
+             <span class="me-2"><i class="bi bi-car-front-fill"></i></span> Vehicles
             </a>
           </li>
           <div class="dropdown mt-3 ">
@@ -37,23 +37,26 @@
             <ul class="dropdown-menu dropdown-menu-dark text-small shadow " aria-labelledby="dropdownUser1" style="">
               <li>
                 <button type="button" class="dropdown-item btn text-white" data-bs-toggle="modal" data-bs-target="#company-modal">
-                  New company
+                 <span class="me-2"><i class="bi bi-building-fill-add"></i></span> New company
                 </button>
               </li>
               <li>
                 <button type="button" class="dropdown-item btn text-white" data-bs-toggle="modal" data-bs-target="#model-modal">
-                  New model
+                  <span class="me-2"><i class="bi bi-node-plus-fill"></i></span>New model
                 </button>
               </li>
               <li>
                 <button type="button" class="dropdown-item btn text-white" data-bs-toggle="modal" data-bs-target="#admin-modal">
-                  New admin
+              <span class="me-2"><i class="bi bi-person-fill-add"></i></span> New admin
                 </button>
               </li>
               
             </ul>
             <li class="nav-item mt-2">
-              <a href="{{ route('admin.showAdmins') }}" class="nav-link {{ (request()->routeIs('admin.showAdmins')) ? 'active text-primary' : '' }}">Admins</a>
+              <a href="{{ route('admin.showAdmins') }}" class="nav-link {{ (request()->routeIs('admin.showAdmins')) ? 'active text-primary' : '' }}">   <span class="me-2"><i class="bi bi-person-fill-lock"></i></span>Admins</a>
+            </li>
+              <li class="nav-item mt-2">
+              <a href="{{ route('showDealers') }}" class="nav-link {{ (request()->routeIs('showDealers')) ? 'active text-primary' : '' }}"><span class="me-2"><i class="bi bi-person-vcard-fill"></i></span>Dealers</a>
             </li>
           </div>
 

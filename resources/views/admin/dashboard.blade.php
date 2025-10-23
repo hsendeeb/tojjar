@@ -66,12 +66,12 @@
         </a>
       </div>
       <div class="col-md-4">
-        <a href="">
+        <a href="{{ route('showDealers') }}">
           <div class="card text-bg-primary mb-3"
             style="width: 18rem;background: linear-gradient(to right, #1a8b3c, #2eb85d, #3fe07d)">
             <div class="card-header fw-bolder">Dealers</div>
             <div class="card-body">
-              <h2 class="card-title h2 text-end archivo">{{$users->count() }}</h2>
+              <h2 class="card-title h2 text-end archivo">{{$dealers->count() }}</h2>
             </div>
           </div>
         </a>

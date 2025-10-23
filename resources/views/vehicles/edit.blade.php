@@ -147,12 +147,12 @@
                 <div class="d-flex flex-wrap gap-2 justify-content-center">
                    
                    @php
-    $existingImageCount = count($vehicle->image);
+    $existingImageCount = count($vehicle->images);
     
 @endphp
 
 <div id="imageInputs" class="container">
-    @foreach ($vehicle->image as $index => $image)
+    @foreach ($vehicle->images as $index => $image)
         <div class="mb-2">
             <label class="btn btn-outline-danger upload-label">
             <input type="file" name="images[{{ $index }}]" class="form-control image-input">

@@ -24,7 +24,7 @@
                         <div class="card shadow ">
 
                             <div class="position-relative d-inline-block">
-                                <img src="{{ Storage::url($vehicle->image[0]->image_url) }}"
+                                <img src="{{ Storage::url($vehicle->images[0]->image_url) }}"
                                     class="img-fluid rounded object-fit-cover" style="height: 250px;width:1000px"
                                     alt="Vehicle Image">
                                 <div
@@ -46,25 +46,34 @@
                                         class=" text-white bg-opacity-25 fs-6 fw-bolder rounded-pill px-2">
                                         <i class="bi bi-droplet-fill"></i> {{$vehicle->color->color}}</span>
                                     <span class="bg-secondary bg-opacity-25 fs-6 fw-bolder rounded-pill px-2"> <i
-                                            class="fa-solid fa-car-side"></i> {{$vehicle->body->body_type}}</span>
-                                    <span class="bg-secondary bg-opacity-25 fs-6 fw-bolder rounded-pill px-2"> <i
                                             class="fa-solid fa-gears"></i> {{$vehicle->gearbox->gearbox_type}}</span>
                                     <span class="bg-info bg-opacity-25 fw-bolder rounded-pill px-2"><i
                                             class="fa-solid fa-gauge-high"></i> {{$vehicle->mileage}} KM</span>
 
                                 </div>
-                                <div class=" d-flex justify-content-start align-items-center mt-3 ">
-                                    <i class="bi bi-geo-alt-fill"></i>
-                                    <small class="ms-1"> {{$vehicle->location}}</small>
-                                </div>
-                                <div class="text-sm">
+                               
+                                <div class="text-sm mt-2">
                                     <pre>{{ Str::words(wordwrap($vehicle->description, 30, "\n"), 3)}}</pre>
                                 </div>
+                                
 
 
-                                <div class="d-flex  justify-content-end align-items-center">
-                                    <i class="bi bi-person-circle"></i>
-                                    <small class="ms-1 fw-bolder"> {{$vehicle->user->name}}</small>
+                                <div class="text-end mt-4">
+                                    <i class="bi bi-geo-alt-fill"></i>
+                                    <small class="ms-1">{{ $vehicle->location }}</small><br>
+
+                                    <div class="d-inline-flex align-items-center justify-content-end mt-2">
+                                       @if($vehicle->user->image !='public/images/avatar.jpg')
+                                        <img src="{{ Storage::url($vehicle->user->image)}}"
+                                            style="width:25px; height:25px; object-fit:cover;" class="rounded-circle me-2" alt="user image"
+                                            loading="lazy">
+                                            @else
+                                             <img src="/images/avatar.jpg"
+                                            style="width:25px; height:25px; object-fit:cover;" class="rounded-circle me-2"
+                                            loading="lazy">
+                                            @endif
+                                        <small class="fw-bolder">{{ $vehicle->user->name }}</small>
+                                    </div>
                                 </div>
                             </div>
                             <div class=" card-footer p-0 mb-0">

@@ -6,6 +6,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\DealerController;
 use App\Models\CarModel;
 use App\Http\Middleware\admin;
 use App\Http\Middleware\useStatus;
@@ -39,13 +40,14 @@ Route::get("/get-models/{id}", [CarModelController::class, "getModels"])
      ->name("getModels");
 Route::get("/get-suggestions/{input}", [CompanyController::class, 'suggest'])
      ->name("suggestions");
-Route::get("/vehicles/filter/{category_name?}{price?}", [VehicleController::class, 'filteredSearch'])
+Route::post("/vehicles/filter/{category_name?}{price?}", [VehicleController::class, 'filteredSearch'])
      ->name('filteredSearch');
 Route::post('/detect-car', [VehicleController::class, 'detect'])->name('detect.car');
 Route::get("/vehicle/show/{vehicle}", [VehicleController::class, 'show'])->name("vehicle.show");
 Route::get('/AboutUs',function () {
      return view ('aboutUs');
 })->name('aboutUs');
+Route::get('/dealers',[DealerController::class,'index'])->name('dealers.index');
 
 Route::middleware(['auth', 'admin'])->group(function () {
      Route::get("/admin", [AdminController::class, 'index'])->name('admin.dashboard');
@@ -58,6 +60,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
      Route::post('/admin', [AdminController::class, 'store'])->name('admin.store');
      Route::get('/admin/show', [AdminController::class, 'showAdmins'])->name('admin.showAdmins');
      Route::delete('/admin/{id}', [AdminController::class, 'destroy'])->name('admin.delete');
+     Route::get('/admin/show/dealers', [AdminController::class, 'showDealers'])->name('showDealers');
 });
 
 

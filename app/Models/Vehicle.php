@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Vehicle extends Model
 {
@@ -53,14 +54,19 @@ class Vehicle extends Model
      public function condition(){
        return $this->belongsTo(Condition::class);
     }
-    public function image(){
-      return $this->hasMany(Vehicle_image::class);
-    }
+
+   
+    
+    
+
     public function engineType(){
       return $this->belongsTo(EngineType::class,"engineType_id","id");
     }
     public function engineSize(){
       return $this->belongsTo(EngineSize::class,"engineSize_id","id");
+    }
+     public function images(){
+      return $this->hasMany(Vehicle_image::class);
     }
 }
 

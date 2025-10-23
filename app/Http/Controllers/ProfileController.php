@@ -32,7 +32,7 @@ class ProfileController extends Controller
             'model',
             'category',
             'condition',
-            'image'
+            'images'
         ])
             ->when(Auth::check(), function ($query) use ($id) {
                 $query->where("user_id", $id);
@@ -113,7 +113,7 @@ class ProfileController extends Controller
             'model',
             'category',
             'condition',
-            'image'
+            'images'
         ])
             ->where("user_id", $id)
             ->orderBy('created_at', 'desc') // 👈 Ensures consistent ordering
