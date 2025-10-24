@@ -111,7 +111,8 @@
                                 {{$vehicle?->condition?->condition}}</td>
                         </tr>
                         <tr>
-                            <td class="bg-primary bg-opacity-10"><i class="bi bi-geo-alt-fill"></i> <span class="fw-bold">Location : </span>
+                            <td class="bg-primary bg-opacity-10"><i class="bi bi-geo-alt-fill"></i> <span
+                                    class="fw-bold">Location : </span>
                                 {{$vehicle->location}}</td>
                         </tr>
 
@@ -120,22 +121,23 @@
                 </div>
             </div>
         </div>
-        
+
     </div>
-    <div id="car-details" class="container-fluid  bg-white rounded-3 p-4">
-            <h2 class="h2 archivo">Description</h2>
-            <div>
-                <pre>{{ wordwrap($vehicle->description, 30, "\n")}}</pre>
-            </div>
+    <div class="container-fluid  bg-white rounded-3 p-4">
+        <h4 class="h4 archivo">Description</h4>
+        <div>
+            <pre class="font-sans">{{ wordwrap($vehicle->description, 30, "\n")}}</pre>
         </div>
+    </div>
     <div class="container-fluid bg-white p-3 mt-2">
         <h5 class="h5 text-center">
-            Payment: <span class="bg-success fw-bolder bg-opacity-10 text-success rounded-pill px-3 py-0">{{ $vehicle->payment ?: 'no info' }}</span>
+            Payment: <span
+                class="bg-success fw-bolder bg-opacity-10 text-success rounded-pill px-3 py-0">{{ $vehicle->payment ?: 'no info' }}</span>
         </h5>
 
     </div>
     <div class="mt-2">
-        <p class="text-secondary text-center">posted on : {{ date_format($vehicle->created_at ,'d/m/Y')}}</p>
+        <p class="text-secondary text-center">posted on : {{ date_format($vehicle->created_at, 'd/m/Y')}}</p>
     </div>
     <div class="d-flex gap-3 mt-3 justify-content-center">
         <a href="tel:{{ $vehicle->user->phone }}" class="btn btn-danger px-3"><i class="bi bi-telephone-fill "></i>
@@ -148,26 +150,30 @@
         <div class="row p-2">
 
             <div class="col-lg-6 mt-2  ">
-                <h2 class="h2 archivo">User details</h2>
-                <div>
-                    <a href="{{ route('profile.show', $vehicle->user->id) }}">
+                <h6 class="h6 archivo">Posted by :</h6>
+                <a href="{{ route('profile.show', $vehicle->user->id) }}">
+
+                    <div class="d-flex align-items-center">
+
                         @if($vehicle->user->image != 'public/images/avatar.jpg')
                             <img src="{{ Storage::url($vehicle->user->image)}}"
-                                style="width:40px; height:40px; object-fit:cover;" class="rounded-circle me-2"
+                                style="width:60px; height:60px; object-fit:cover;" class="rounded-circle me-2"
                                 loading="lazy">
                         @else
-                            <img src="/images/avatar.jpg" style="width:25px; height:25px; object-fit:cover;"
+                            <img src="/images/avatar.jpg" style="width:60px; height:60px; object-fit:cover;"
                                 class="rounded-circle me-2" loading="lazy">
                         @endif
-                        {{$vehicle->user->name}}
-                    </a>
-                    <p><i class="bi bi-geo-alt-fill"></i> {{$vehicle->location}}</p>
-                    <p><i class="bi bi-telephone-fill"></i> {{$vehicle->user->phone}}</p>
-                    <p class="text-secondary"><i class="bi bi-clock-fill"></i> Joined on :
-                        {{date_format($vehicle->user->created_at, 'd,M,Y')}}
-                    </p>
 
-                </div>
+                        <div>
+                            <p class="archivo">{{$vehicle->user->name." ". $vehicle->user->last_name}}</p>
+                            <small><i class="bi bi-clock-fill"></i> joined at: {{date_format( $vehicle->user->created_at,'M,Y') }}</small>
+                           <p><a class=" rounded-pill fw-bolder" href="{{ route('profile.show',$vehicle->user->id) }}">view profile <i class="bi bi-arrow-right-short"></i></a></p>
+                        </div>
+
+                    </div>
+                </a>
+
+
             </div>
         </div>
     </div>

@@ -1,23 +1,23 @@
 <x-app-layout>
-     
+
     <button id="glass-button" class="glass-button px-4 py-1 rounded-pill text-dark"><i
             class="bi bi-arrow-up-circle-fill"></i></button>
-    <div class="input-group container   bg-transparent mt-5">
-       <form class="d-flex justify-content-center  gap-2 form-control bg-transparent" method="GET" action="{{ route('company.show') }}">
-        <input id="search" name="company_name" type="text" class="form-control w-75  py-1 rounded-pill" placeholder="search for any car">
-        <button type="submit" class="btn btn-danger px-3  text-white rounded-pill"> <i
-                class="bi bi-search"></i></button>
+   <div class="container-fluid pt-4 d-flex gap-2 p-1 bg-transparent mt-5">
+        <form class="d-flex justify-content-center form-control bg-transparent" method="GET"
+            action="{{ route('company.show') }}">
+            <input id="search" name="company_name" type="text" class="form-control w-100 " required
+                placeholder="search for any car">
+            <button type="submit" class=" text-dark px-2 fs-3"> <i class="bi bi-search"></i></button>
 
- </form>
-        <div style="display: none;height:100px;" class="bg-white w-100 z-1 overflow-y-auto px-3  " id="suggestions">
-        </div>
-
+        </form>
+    </div>
+    <div style="display: none;height:100px;" class="bg-white  shadow z-1 overflow-y-auto px-3  " id="suggestions">
     </div>
 
-    <h1 class=" h1 text-center mt-5 archivo brush">{{"(".count($vehicles)." "."results)"}}</h1>
+    <h1 class=" h1 text-center mt-5 archivo brush">{{"(" . count($vehicles) . " " . "results)"}}</h1>
     <div id="body" class="container-fluid mt-3">
         <div class="row">
-          
+
             @forelse($vehicles as $vehicle)
                 <div class="col-md-3 mt-5">
                     <a class="" href="{{ route('vehicle.show', $vehicle) }}">
@@ -51,11 +51,11 @@
                                             class="fa-solid fa-gauge-high"></i> {{$vehicle->mileage}} KM</span>
 
                                 </div>
-                               
+
                                 <div class="text-sm mt-2">
                                     <pre>{{ Str::words(wordwrap($vehicle->description, 30, "\n"), 3)}}</pre>
                                 </div>
-                                
+
 
 
                                 <div class="text-end mt-4">
@@ -63,15 +63,14 @@
                                     <small class="ms-1">{{ $vehicle->location }}</small><br>
 
                                     <div class="d-inline-flex align-items-center justify-content-end mt-2">
-                                       @if($vehicle->user->image !='public/images/avatar.jpg')
-                                        <img src="{{ Storage::url($vehicle->user->image)}}"
-                                            style="width:25px; height:25px; object-fit:cover;" class="rounded-circle me-2" alt="user image"
-                                            loading="lazy">
-                                            @else
-                                             <img src="/images/avatar.jpg"
-                                            style="width:25px; height:25px; object-fit:cover;" class="rounded-circle me-2"
-                                            loading="lazy">
-                                            @endif
+                                        @if($vehicle->user->image != 'public/images/avatar.jpg')
+                                            <img src="{{ Storage::url($vehicle->user->image)}}"
+                                                style="width:25px; height:25px; object-fit:cover;" class="rounded-circle me-2"
+                                                alt="user image" loading="lazy">
+                                        @else
+                                            <img src="/images/avatar.jpg" style="width:25px; height:25px; object-fit:cover;"
+                                                class="rounded-circle me-2" loading="lazy">
+                                        @endif
                                         <small class="fw-bolder">{{ $vehicle->user->name }}</small>
                                     </div>
                                 </div>
@@ -85,14 +84,14 @@
                     </a>
                 </div>
             @empty
-            <div class="text-center mb-2">
-                <img class="w-50 mx-auto  mb-3 mix-blend-multiply" src="/images/noResults.jpg">
-                <a href="{{ route('dashboard') }}" class="btn btn-outline-danger rounded-pill px-4">Go back</a>
-           </div>
-                @endforelse
+                <div class="text-center mb-2">
+                    <img class="w-50 mx-auto  mb-3 mix-blend-multiply" src="/images/noResults.jpg">
+                    <a href="{{ route('dashboard') }}" class="btn btn-outline-danger rounded-pill px-4">Go back</a>
+                </div>
+            @endforelse
         </div>
 
-     
+
     </div>
 
 </x-app-layout>

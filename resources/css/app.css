@@ -1,6 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@media(prefers-color-scheme: dark){
+  :root{
+    color-scheme: light  only;
+    background: white;
+    color: black;
+  }
+}
 @media screen and (min-width:900px){
     #mainImage {
         display: none;
@@ -198,6 +206,13 @@
       border-left: 1.5px solid white;
       border-radius: 50%;
       animation: spinReverse 0.6s linear infinite;
+    }
+    #dealer {
+      transition: 0.2s ease;
+    }
+    #dealer:hover{
+      transform:translateY(-10px)
+
     }
 
 

@@ -1,4 +1,7 @@
 <x-app-layout>
+        <div id="loader-wrapper">
+        <div class="spinner"></div>
+    </div>
     <button id="glass-button" class="glass-button px-4 py-1 rounded-pill text-dark"><i
             class="bi bi-arrow-up-circle-fill"></i></button>
     @if (session('message'))
@@ -93,7 +96,7 @@
                             </div>
                             <div class=" card-footer p-0 mb-0">
                                 <a href="{{ route('vehicle.show', $vehicle) }}"
-                                    class="btn bg-warning fw-bolder bg-opacity-75 w-100">view more <i
+                                    class="btn bg-black text-white fw-bolder w-100">view more <i
                                         class="bi bi-arrow-right-circle-fill"></i></a>
                             </div>
                         </div>

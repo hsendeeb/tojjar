@@ -25,7 +25,7 @@
                             </div>
 
                             <div class="card-body  px-2"  >
-                                <h3 class=" h3 text-center card-title archivo  fw-bolder bg-opacity-25  py-1">
+                                <h3 class="text-nowrap h3 text-center card-title archivo  fw-bolder bg-opacity-25  py-1">
                                     {{$dealer->name}} 
                                 </h3>
               

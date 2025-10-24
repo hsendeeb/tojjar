@@ -23,6 +23,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use App\Models\EngineType;
+use App\Models\Dealer;  
 class VehicleController extends Controller
 
 {
@@ -35,6 +36,9 @@ class VehicleController extends Controller
         $categories = Category::all();
         $companies = Company::all();
         $model = CarModel::all();
+        $dealers=Dealer::with('user')
+        ->where('dealers.user_id','<>',Auth::id())
+        ->get();
 
 
         $perPage = 10;
@@ -70,7 +74,7 @@ class VehicleController extends Controller
         );
 
 
-        return view("vehicles.index", compact('paginatedVehicles', 'companies', 'categories', 'model'));
+        return view("vehicles.index", compact('paginatedVehicles', 'companies', 'categories', 'model','dealers'));
     }
 
 

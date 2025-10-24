@@ -61,6 +61,7 @@ $("#search").on("keyup", function () {
                     const item = document.createElement("a");
                     item.textContent = name.company_name;
                     item.classList.add("list-group-item");
+                    item.classList.add('mt-2');
                     item.style.cursor = "pointer";
                     item.href = `/company/show/${name.company_name}`;
                     item.onclick = () =>

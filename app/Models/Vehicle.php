@@ -54,11 +54,6 @@ class Vehicle extends Model
      public function condition(){
        return $this->belongsTo(Condition::class);
     }
-
-   
-    
-    
-
     public function engineType(){
       return $this->belongsTo(EngineType::class,"engineType_id","id");
     }
