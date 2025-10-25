@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="container mt-2 ">
+    <div class="container pt-6 ">
         <div class="row ">
             <div class="col-lg-6">
                 <div id="vehicleCarousel" class="carousel slide" data-bs-ride="carousel">

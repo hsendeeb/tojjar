@@ -213,5 +213,8 @@ document.getElementById("search").addEventListener("blur", () => {
         $("#suggestions").hide();
     }, 100);
 });
+$('#likeBtn').on('click',function () {
+    
+})
 
    

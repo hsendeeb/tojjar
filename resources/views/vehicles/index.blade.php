@@ -7,7 +7,7 @@
     <button id="glass-button" class="glass-button px-4 py-1 rounded-pill text-dark"><i
                 class="bi bi-arrow-up-circle-fill"></i></button>
 
-    <div class="container-fluid pt-4 d-flex gap-2 p-1 bg-transparent mt-5">
+    <div class="container-fluid  d-flex gap-2 p-1 bg-transparent ">
         <form class="d-flex justify-content-center form-control bg-transparent" method="GET"
             action="{{ route('company.show') }}">
             <input id="search" name="company_name" type="text" class="form-control w-100 " required
@@ -144,7 +144,7 @@
                                     <a name="viewMore" href="{{ route('vehicle.show', $vehicle) }}"
                                         class="btn bg-black fw-bolder text-white w-75">view more <i
                                             class="bi bi-arrow-right-circle-fill"></i></a>
-                                            <button class="fs-4 ms-4 p-0"><i class="bi bi-heart"></i></button>
+                                            <button id="likeBtn" class="fs-4 ms-4 p-0"><i class="bi bi-heart"></i></button>
                                             </div>
                                 @else
                                     <h4 class=" mb-0 bg-danger bg-opacity-25 text-danger h4 archivo text-center py-1">Sold</h4>

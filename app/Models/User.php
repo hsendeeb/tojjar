@@ -53,4 +53,13 @@ class User extends Authenticatable implements MustVerifyEmail
     public function admin() {
         return $this->hasOne(Admin::class);
     }
+    public function ad(){
+        return $this->hasMany(Ad::class);
+    }
+    public function hasLiked(Ad $ad){
+        return $this->likes()->where('user_id',$this->id)->exists();   
+    }
+    public function likes(){
+        return $this->belongsTo(Like::class);
+    }
 }

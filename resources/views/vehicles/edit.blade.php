@@ -5,7 +5,7 @@
     
     </div>
     
-    <div class="container-fluid bg-white p-3 mt-5 d-flex justify-content-center align-items-center">
+    <div class="container-fluid bg-white p-3 mt-5 d-flex justify-content-center align-items-center pt-16">
          
         <form  class="form-control" method="POST" action="{{ route('vehicle.update',$vehicle) }}" enctype="multipart/form-data">
             @csrf

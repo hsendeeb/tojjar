@@ -6,6 +6,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use App\Models\BodyType;
 use App\Models\Category;
 use App\Models\Vehicle;
+use App\Models\Ad;
 use App\Traits\CachesDropdowns;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -135,6 +136,13 @@ class VehicleController extends Controller
                 "image_url" => $path,
 
             ]);
+            Ad::create([
+                'user_id'=>Auth::id(),
+                'vehicle_id'=>$vehicle->id,
+                'likes'=>0,
+                'views'=>0,
+                'boosted'=>false,
+            ]);
         }
         return redirect()->route("dashboard");
     }
@@ -215,7 +223,7 @@ class VehicleController extends Controller
     {
         $user_id = $vehicle->user->id;
         if ($user_id == Auth::id()) {
-            $images = $vehicle->image;
+            $images = $vehicle->images;
             foreach ($images as $image) {
                 $image->delete();
                 Storage::delete($image);

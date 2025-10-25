@@ -10,11 +10,11 @@
         </div>
     @endif
 
-    <div class="container-fluid ">
+    <div class="container-fluid mt-5">
         <div class="row">
             <div class="col-12">
                 <div class="p-5 text-center">
-                    <div class="container d-flex justify-content-center">
+                    <div class="container d-flex justify-content-center mt-5">
                      
                         @if($user->image !='public/images/avatar.jpg')
                             <img src="{{ Storage::url($user->image)}}"
