@@ -6,6 +6,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\AdController;
 use App\Http\Controllers\DealerController;
 use App\Models\CarModel;
 use App\Http\Middleware\admin;
@@ -26,12 +27,12 @@ Route::middleware('auth')->group(function () {
 
      Route::get("/placeAd", [VehicleController::class, 'create'])->name('placeAdView');
      Route::post("/placeAd", [VehicleController::class, 'store'])->name('placeAd');
-
      Route::get("/vehicle/edit/{vehicle}", [VehicleController::class, 'edit'])->name('vehicle.edit');
      Route::delete('/vehicle/{vehicle}', [VehicleController::class, 'destroy'])->name('vehicle.destroy');
      Route::put('/vehicle/{vehicle}', [VehicleController::class, 'update'])->name('vehicle.update');
-     Route::put("/sold/{id}",[VehicleController::class,'markAsSold'])->name('markSold');
-      Route::put("/available/{id}",[VehicleController::class,'markAsAvailable'])->name('markAvailable');
+     Route::put("/sold/{id}", [VehicleController::class, 'markAsSold'])->name('markSold');
+     Route::put("/available/{id}", [VehicleController::class, 'markAsAvailable'])->name('markAvailable');
+     Route::put("/ad/like/{id}", [AdController::class, 'like'])->name('like');
 });
 Route::get("/profile/show/{id}", [ProfileController::class, 'show'])->name('profile.show');
 Route::get("/get-companies/{id}", [VehicleController::class, 'getCompanies'])->name('getCompanies');
@@ -44,10 +45,10 @@ Route::post("/vehicles/filter/{category_name?}{price?}", [VehicleController::cla
      ->name('filteredSearch');
 Route::post('/detect-car', [VehicleController::class, 'detect'])->name('detect.car');
 Route::get("/vehicle/show/{vehicle}", [VehicleController::class, 'show'])->name("vehicle.show");
-Route::get('/AboutUs',function () {
-     return view ('aboutUs');
+Route::get('/AboutUs', function () {
+     return view('aboutUs');
 })->name('aboutUs');
-Route::get('/dealers',[DealerController::class,'index'])->name('dealers.index');
+Route::get('/dealers', [DealerController::class, 'index'])->name('dealers.index');
 
 Route::middleware(['auth', 'admin'])->group(function () {
      Route::get("/admin", [AdminController::class, 'index'])->name('admin.dashboard');

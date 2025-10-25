@@ -19,5 +19,13 @@ class Ad extends Model
     public function vehicle() {
         return $this->belongsTo(Vehicle::class);
     }
+    public function likes() {
+    return $this->hasMany(Like::class);
+}
+public function isLikedBy(User $user): bool
+{
+    return $this->likes()->where('user_id', $user->id)->exists();
+}
+
     
 }

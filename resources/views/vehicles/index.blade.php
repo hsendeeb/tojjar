@@ -144,7 +144,10 @@
                                     <a name="viewMore" href="{{ route('vehicle.show', $vehicle) }}"
                                         class="btn bg-black fw-bolder text-white w-75">view more <i
                                             class="bi bi-arrow-right-circle-fill"></i></a>
-                                            <button id="likeBtn" class="fs-4 ms-4 p-0"><i class="bi bi-heart"></i></button>
+                                            
+                                            <button  data-id="{{ $vehicle->ad?->id }}" class="fs-4 ms-4 p-0 likeBtn"><i id="heart-icon" class="bi bi-heart"></i>
+                                                <span class="count">{{ $vehicle->ad?->likes->count() }}</span>
+                                            </button>
                                             </div>
                                 @else
                                     <h4 class=" mb-0 bg-danger bg-opacity-25 text-danger h4 archivo text-center py-1">Sold</h4>

@@ -63,6 +63,9 @@ class Vehicle extends Model
      public function images(){
       return $this->hasMany(Vehicle_image::class);
     }
+        public function ad() {
+        return $this->hasOne(Ad::class);
+    }
 }
 
 

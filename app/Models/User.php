@@ -57,7 +57,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Ad::class);
     }
     public function hasLiked(Ad $ad){
-        return $this->likes()->where('user_id',$this->id)->exists();   
+        return $this->likes()->where('ad_id',$ad->id)->exists();   
     }
     public function likes(){
         return $this->belongsTo(Like::class);
