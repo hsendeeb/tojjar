@@ -18,9 +18,16 @@
                         <div class="card shadow ">
 
                             <div class="position-relative d-inline-block">
+                                @if($dealer->user->image!='public/images/avatar.png')
                                 <img src="{{ Storage::url($dealer->user->image) }}" loading="lazy"
                                     class="img-fluid rounded object-fit-cover" style="height: 250px;width:1000px"
                                     alt="Vehicle Image">
+                                    @else
+                                     <img src="/images/avatar.jpg" loading="lazy"
+                                    class="img-fluid rounded object-fit-cover" style="height: 250px;width:1000px"
+                                    alt="Vehicle Image">
+                                    @endif
+
                                 
                             </div>
 

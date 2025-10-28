@@ -214,8 +214,7 @@
       transform:translateY(-10px)
 
     }
-
-
-
-
-
+    .liked {
+    color: red;
+    animation: pop 0.3s ease;
+}

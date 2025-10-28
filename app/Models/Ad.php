@@ -9,7 +9,6 @@ class Ad extends Model
     protected $fillable = [
         'user_id',
         'vehicle_id',
-        'likes',
         'views',
         'boosted'
     ];

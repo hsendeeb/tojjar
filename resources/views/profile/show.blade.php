@@ -16,7 +16,7 @@
                 <div class="p-5 text-center">
                     <div class="container d-flex justify-content-center mt-5">
                      
-                        @if($user->image !='public/images/avatar.jpg')
+                        @if($user->image !='public/images/avatar.png')
                             <img src="{{ Storage::url($user->image)}}"
                                 style="width:100px; height:100px; object-fit:cover;" class="rounded-circle me-2"
                                 loading="lazy">
@@ -81,7 +81,7 @@
                                     <small class="ms-1">{{ $vehicle->location }}</small><br>
 
                                     <div class="d-inline-flex align-items-center justify-content-end mt-1">
-                                       @if($vehicle->user->image !='public/images/avatar.jpg')
+                                       @if($vehicle->user->image !='public/images/avatar.png')
                                         <img src="{{ Storage::url($vehicle->user->image)}}"
                                             style="width:25px; height:25px; object-fit:cover;" class="rounded-circle me-2"
                                             loading="lazy">
@@ -95,9 +95,24 @@
                                 </div>
                             </div>
                             <div class=" card-footer p-0 mb-0">
-                                <a href="{{ route('vehicle.show', $vehicle) }}"
-                                    class="btn bg-black text-white fw-bolder w-100">view more <i
-                                        class="bi bi-arrow-right-circle-fill"></i></a>
+                                 <div class="d-flex gap-2 ">
+                                    <div class="w-75">
+                                    <a name="viewMore" href="{{ route('vehicle.show', $vehicle) }}"
+                                        class="btn bg-black fw-bolder text-white w-100">view more <i
+                                            class="bi bi-arrow-right-circle-fill"></i></a>
+                                             </div>
+                                             
+                            <div id="likeContainer" class=" px-2 py-1">
+                                        <button data-id="{{ $vehicle->ad?->id }}" class="fs-5 px-2 likeBtn"><i id="like-icon-{{ $vehicle->ad?->id }}"
+                                                class=" {{(Auth::check() && $vehicle->ad->isLikedBy(Auth::user())) ? 'bi bi-heart-fill text-danger' :'bi bi-heart' }}"></i>
+
+                                           <small id="like-count-{{ $vehicle->ad?->id }}">{{ $vehicle->ad?->likes->count() }}</small>
+                                        </button>
+                                       
+                                    </div>
+                                
+                                   
+                                </div>
                             </div>
                         </div>
                     </a>

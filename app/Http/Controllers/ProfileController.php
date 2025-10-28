@@ -21,6 +21,7 @@ class ProfileController extends Controller
     public function index(string $id)
     {
         $user = User::findOrFail($id);
+       
         $id = Auth::id();
 
         $vehicles =  Vehicle::with([
@@ -102,6 +103,9 @@ class ProfileController extends Controller
     }
     public function show(string $id){
           $user = User::findOrFail($id);
+           if(Auth::id()==$user->id) {
+            return redirect()->route('profile.index',Auth::id());
+        }
         $id = $user->id;
 
         $vehicles =  Vehicle::with([

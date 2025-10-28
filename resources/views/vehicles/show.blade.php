@@ -29,14 +29,14 @@
 
                         @endforeach
                     </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#vehicleCarousel"
+                    <button class="carousel-control-prev " type="button" data-bs-target="#vehicleCarousel"
                         data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="carousel-control-prev-icon " aria-hidden="true"></span>
                         <span class="visually-hidden">Previous</span>
                     </button>
                     <button class="carousel-control-next" type="button" data-bs-target="#vehicleCarousel"
                         data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="carousel-control-next-icon text-black" aria-hidden="true"></span>
                         <span class="visually-hidden">Next</span>
                     </button>
                 </div>
@@ -155,7 +155,7 @@
 
                     <div class="d-flex align-items-center">
 
-                        @if($vehicle->user->image != 'public/images/avatar.jpg')
+                        @if($vehicle->user->image != 'public/images/avatar.png')
                             <img src="{{ Storage::url($vehicle->user->image)}}"
                                 style="width:60px; height:60px; object-fit:cover;" class="rounded-circle me-2"
                                 loading="lazy">

@@ -16,7 +16,7 @@
                 <div class="p-5 text-center">
                     <div class="container d-flex justify-content-center">
 
-                        @if($user->image != 'public/images/avatar.jpg')
+                        @if($user->image != 'public/images/avatar.png')
                             <img src="{{ Storage::url($user->image)}}" style="width:100px; height:100px; object-fit:cover;"
                                 class="rounded-circle me-2" loading="lazy">
                         @else
@@ -56,8 +56,11 @@
                                         $ {{ number_format($vehicle->price) }}
                                     </div>
                                 </h5>
+                                 <p class="card-text"><small class="text-muted">
+                                    <i class="bi bi-heart-fill"></i> Likes:
+                                        {{ $vehicle->ad->likes->count() }}</small></p>
                                 <p class="card-text text-secondary">
-                                    <small class="bg-info bg-opacity-25 px-2 py-1 rounded-pill"><i
+                                    <small class="text-muted"><i
                                             class="bi bi-clock-fill"></i>
                                         {{date_format($vehicle->created_at, "d,M,Y")}}</small>
                                 </p>

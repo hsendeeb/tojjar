@@ -5,7 +5,7 @@
 
 
     <button id="glass-button" class="glass-button px-4 py-1 rounded-pill text-dark"><i
-                class="bi bi-arrow-up-circle-fill"></i></button>
+            class="bi bi-arrow-up-circle-fill"></i></button>
 
     <div class="container-fluid  d-flex gap-2 p-1 bg-transparent ">
         <form class="d-flex justify-content-center form-control bg-transparent" method="GET"
@@ -56,13 +56,18 @@
     </div>
 
 
-    <div class="d-flex flex-nowrap  gap-3 overflow-x-auto over mt-3 py-2">
+    <div class="d-flex flex-nowrap  gap-3 overflow-x-auto over mt-3 py-3">
 
         @forelse ($dealers as $dealer)
             <a id="dealer" href="{{ route('profile.show', $dealer->user->id) }}">
                 <div class="px-3">
+                    @if($dealer->user->image!='public/images/avatar.png')
                     <img class="rounded-circle object-fit-cover" style="width:55px;height:50px"
-                        src="{{ Storage::url($dealer->user->image) }}" alt=" logo">
+                        src="{{ Storage::url($dealer->user->image)}}" alt=" logo">
+                        @else
+                        <img class="rounded-circle object-fit-cover" style="width:55px;height:50px"
+                        src="/images/avatar.jpg" alt=" logo">
+                        @endif
                     <small class="text-nowrap fw-bold text-center mt-2">{{ $dealer->name }}</small>
 
                 </div>
@@ -82,79 +87,90 @@
         <div class="row">
             @forelse($paginatedVehicles as $vehicle)
                 <div class="col-md-3 mt-5">
-                   
-                        <div class="card shadow ">
 
-                            <div class="position-relative d-inline-block">
-                                <img src="{{ Storage::url($vehicle->images[0]->image_url) }}" loading="lazy"
-                                    class="img-fluid rounded object-fit-cover" style="height: 250px;width:1000px"
-                                    alt="Vehicle Image">
-                                <div
-                                    class="glass-price position-absolute top-0 end-0  text-white fw-bolder px-3 py-1 rounded-bottom-start shadow-sm">
-                                    $ {{ number_format($vehicle->price) }}
-                                </div>
-                            </div>
+                    <div class="card shadow ">
 
-                            <div class="card-body  px-2">
-                                <h3 class="card-title  fw-bolder bg-opacity-25  py-1">
-                                    {{$vehicle->company->company_name}} <span
-                                        class="fw-bolder  rounded-3 brush  bg-warning bg-opacity-25 px-4  py-1">{{$vehicle->model->model_name}}</span>
-                                </h3>
-                                <div class="d-flex flex-wrap gap-2 mt-3 ">
-                                    <span class="bg-success bg-opacity-10 fw-bolder rounded-pill text-success px-2"><i
-                                            class="bi bi-calendar3"></i> {{$vehicle->year}}</span>
-                                    <span
-                                        style="background-color:{{ ($vehicle->color->color == 'white') ? 'silver' : $vehicle->color->color }};"
-                                        class=" text-white bg-opacity-25 fs-6 fw-bolder rounded-pill px-2">
-                                        <i class=" bi bi-droplet-fill"></i> {{$vehicle->color->color}}</span>
-
-                                    <span class="text-sm bg-secondary bg-opacity-25 fs-6 fw-bolder rounded-pill px-2"> <i
-                                            class="fa-solid fa-gears"></i> {{$vehicle->gearbox->gearbox_type}}</span>
-                                    <span class="bg-info bg-opacity-25  fw-bolder rounded-pill px-2"><i
-                                            class="fa-solid fa-gauge-high"></i> {{$vehicle->mileage}} KM</span>
-
-                                </div>
-                                <hr class="mt-2 ">
-                                <div class="text-sm mt-2 bg-info bg-opacity-10 px-2  rounded-3" style="height: 80px">
-                                    <pre
-                                        class="font-semibold font-sans">{{ Str::words(wordwrap($vehicle->description, 30, "\n"), 8)}}</pre>
-                                </div>
-
-
-                                <div class="text-end mt-2 bg-warning bg-opacity-10 rounded-3 px-2">
-                                    <i class="bi bi-geo-alt-fill"></i>
-                                    <small class="ms-1">{{ $vehicle->location }}</small><br>
-
-                                    <div class="d-inline-flex align-items-center justify-content-end mt-2">
-                                        @if($vehicle->user->image != 'public/images/avatar.jpg')
-                                            <img src="{{ Storage::url($vehicle->user->image)}}"
-                                                style="width:25px; height:25px; object-fit:cover;" class="rounded-circle me-2"
-                                                alt="user image" loading="lazy">
-                                        @else
-                                            <img src="/images/avatar.jpg" style="width:25px; height:25px; object-fit:cover;"
-                                                class="rounded-circle me-2" loading="lazy">
-                                        @endif
-                                        <small class="fw-bolder">{{ $vehicle->user->name }}</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-footer bg-white p-2 mt-1">
-                                @if($vehicle->available)
-                                <div class="d-flex gap-4 justify-content-center">
-                                    <a name="viewMore" href="{{ route('vehicle.show', $vehicle) }}"
-                                        class="btn bg-black fw-bolder text-white w-75">view more <i
-                                            class="bi bi-arrow-right-circle-fill"></i></a>
-                                            
-                                            <button  data-id="{{ $vehicle->ad?->id }}" class="fs-4 ms-4 p-0 likeBtn"><i id="heart-icon" class="bi bi-heart"></i>
-                                                <span class="count">{{ $vehicle->ad?->likes->count() }}</span>
-                                            </button>
-                                            </div>
-                                @else
-                                    <h4 class=" mb-0 bg-danger bg-opacity-25 text-danger h4 archivo text-center py-1">Sold</h4>
-                                @endif
+                        <div class="position-relative d-inline-block">
+                            <img src="{{ Storage::url($vehicle->images[0]->image_url) }}" loading="lazy"
+                                class="img-fluid rounded object-fit-cover" style="height: 250px;width:1000px"
+                                alt="Vehicle Image">
+                            <div
+                                class="glass-price position-absolute top-0 end-0  text-white fw-bolder px-3 py-1 rounded-bottom-start shadow-sm">
+                                $ {{ number_format($vehicle->price) }}
                             </div>
                         </div>
-                    
+
+                        <div class="card-body  px-2">
+                            <h3 class="card-title  fw-bolder bg-opacity-25  py-1">
+                                {{$vehicle->company->company_name}} <span
+                                    class="fw-bolder  rounded-3 brush  bg-warning bg-opacity-25 px-4  py-1">{{$vehicle->model->model_name}}</span>
+                            </h3>
+                            <div class="d-flex flex-wrap gap-2 mt-3 ">
+                                <span class="bg-success bg-opacity-10 fw-bolder rounded-pill text-success px-2"><i
+                                        class="bi bi-calendar3"></i> {{$vehicle->year}}</span>
+                                <span
+                                    style="background-color:{{ ($vehicle->color->color == 'white') ? 'silver' : $vehicle->color->color }};"
+                                    class=" text-white bg-opacity-25 fs-6 fw-bolder rounded-pill px-2">
+                                    <i class=" bi bi-droplet-fill"></i> {{$vehicle->color->color}}</span>
+
+                                <span class="text-sm bg-secondary bg-opacity-25 fs-6 fw-bolder rounded-pill px-2"> <i
+                                        class="fa-solid fa-gears"></i> {{$vehicle->gearbox->gearbox_type}}</span>
+                                <span class="bg-info bg-opacity-25  fw-bolder rounded-pill px-2"><i
+                                        class="fa-solid fa-gauge-high"></i> {{$vehicle->mileage}} KM</span>
+
+                            </div>
+                            <hr class="mt-2 ">
+                            <div class="text-sm mt-2 bg-info bg-opacity-10 px-2  rounded-3" style="height: 80px">
+                                <pre
+                                    class="font-semibold font-sans">{{ Str::words(wordwrap($vehicle->description, 30, "\n"), 8)}}</pre>
+                            </div>
+
+
+                            <div class="text-end mt-2 bg-warning bg-opacity-10 rounded-3 px-2">
+                                <i class="bi bi-geo-alt-fill"></i>
+                                <small class="ms-1">{{ $vehicle->location }}</small><br>
+
+                                <div class="d-inline-flex align-items-center justify-content-end mt-2">
+                                    @if($vehicle->user->image != 'public/images/avatar.png')
+                                        <img src="{{ Storage::url($vehicle->user->image)}}"
+                                            style="width:25px; height:25px; object-fit:cover;" class="rounded-circle me-2"
+                                            alt="user image" loading="lazy">
+                                    @else
+                                        <img src="/images/avatar.jpg" style="width:25px; height:25px; object-fit:cover;"
+                                            class="rounded-circle me-2" loading="lazy">
+                                    @endif
+                                    <small class="fw-bolder">{{ $vehicle->user->name }}</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer  bg-white p-1 mt-1" >
+                            @if($vehicle->available)
+                           
+                                <div class="d-flex gap-2 ">
+                                    <div class="w-75">
+                                    <a name="viewMore" href="{{ route('vehicle.show', $vehicle) }}"
+                                        class="btn bg-black fw-bolder text-white w-100">view more <i
+                                            class="bi bi-arrow-right-circle-fill"></i></a>
+                                             </div>
+                                             
+                            <div id="likeContainer" class=" px-2 py-1">
+                                        <button data-id="{{ $vehicle->ad?->id }}" class="fs-5 px-2 likeBtn"><i id="like-icon-{{ $vehicle->ad?->id }}"
+                                                class=" {{(Auth::check() && $vehicle->ad?->isLikedBy(Auth::user())) ? 'bi bi-heart-fill text-danger' :'bi bi-heart' }}"></i>
+
+                                           <small id="like-count-{{ $vehicle->ad?->id }}">{{ ($vehicle->ad?->likes->count()>=1000) ? number_format($vehicle->ad?->likes->count()/1000,1).'K':$vehicle->ad?->likes->count() }}</small>
+                                        </button>
+                                       
+                                    </div>
+                                
+                                   
+                                </div>
+                                 
+                            @else
+                                <h4 class=" mb-0 bg-danger bg-opacity-25 text-danger h4 archivo text-center py-1">Sold</h4>
+                            @endif
+                        </div>
+                    </div>
+
                 </div>
             @empty
                 <h2 class="text-center">No results</h2>

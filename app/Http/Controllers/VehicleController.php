@@ -139,7 +139,6 @@ class VehicleController extends Controller
             Ad::create([
                 'user_id'=>Auth::id(),
                 'vehicle_id'=>$vehicle->id,
-                'likes'=>0,
                 'views'=>0,
                 'boosted'=>false,
             ]);
@@ -325,7 +324,7 @@ class VehicleController extends Controller
         
     // Dispatch deletion job after 10 seconds
     \App\Jobs\DeleteVehicleJob::dispatch($vehicle->id)
-        ->delay(now()->addSeconds(5));
+        ->delay(now()->addDays(1));
 
         return back();
     }

@@ -215,8 +215,11 @@ const token = document
     .getAttribute("content");
 
 document.querySelectorAll(".likeBtn").forEach((btn) => {
-    btn.addEventListener("click", function () {
+    
+    btn.addEventListener("click", function () {    
+
         const adId = btn.getAttribute("data-id");
+        const icon= this.closest(".likeBtn").querySelector("#like-icon-"+adId)
         $.ajax({
             url: "/ad/like/" + adId,
             method: "put",
@@ -225,9 +228,28 @@ document.querySelectorAll(".likeBtn").forEach((btn) => {
                 "X-CSRF-TOKEN": token,
             },
             success: function (data) {
-            console.log(data.likes);        
+            console.log(data.likes);
+            $('#like-count-'+adId).text(data.likes);
+            if(data.isLiked){
+                     icon.classList.remove("bi","bi-heart");
+                     icon.classList.add("bi","bi-heart-fill","text-danger");
+            } else {
+                icon.classList.remove('bi',"bi-heart-fill","text-danger");
+                icon.classList.add("bi","bi-heart");
+               
+            }
+       
+            
                 
             },
         });
     });
 });
+ 
+
+
+  function getRandomColor() {
+  const colors = ['#FFD700', '#FF69B4', '#00FFFF', '#ADFF2F', '#FF4500'];
+  return colors[Math.floor(Math.random() * colors.length)];
+}
+
