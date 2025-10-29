@@ -24,7 +24,6 @@ Route::middleware('auth')->group(function () {
      Route::get('/edit', [ProfileController::class, 'edit'])->name('profile.edit');
      Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
      Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
      Route::get("/placeAd", [VehicleController::class, 'create'])->name('placeAdView');
      Route::post("/placeAd", [VehicleController::class, 'store'])->name('placeAd');
      Route::get("/vehicle/edit/{vehicle}", [VehicleController::class, 'edit'])->name('vehicle.edit');
@@ -33,7 +32,9 @@ Route::middleware('auth')->group(function () {
      Route::put("/sold/{id}", [VehicleController::class, 'markAsSold'])->name('markSold');
      Route::put("/available/{id}", [VehicleController::class, 'markAsAvailable'])->name('markAvailable');
      Route::put("/ad/like/{id}", [AdController::class, 'like'])->name('like');
+
 });
+     Route::put('/views/{id}',[AdController::class,'incrementViews'])->name('views');
 Route::get("/profile/show/{id}", [ProfileController::class, 'show'])->name('profile.show');
 Route::get("/get-companies/{id}", [VehicleController::class, 'getCompanies'])->name('getCompanies');
 Route::get("/company/show/{name?}", [CompanyController::class, 'show'])->name('company.show');
@@ -41,8 +42,10 @@ Route::get("/get-models/{id}", [CarModelController::class, "getModels"])
      ->name("getModels");
 Route::get("/get-suggestions/{input}", [CompanyController::class, 'suggest'])
      ->name("suggestions");
-Route::post("/vehicles/filter/{category_name?}{price?}", [VehicleController::class, 'filteredSearch'])
+Route::post("/vehicles/filter/{category_name?}", [VehicleController::class, 'filteredSearch'])
      ->name('filteredSearch');
+     Route::post("/vehicle/filter/{price?}", [VehicleController::class, 'filteredPrice'])
+     ->name('filteredPrice');
 Route::post('/detect-car', [VehicleController::class, 'detect'])->name('detect.car');
 Route::get("/vehicle/show/{vehicle}", [VehicleController::class, 'show'])->name("vehicle.show");
 Route::get('/AboutUs', function () {

@@ -57,7 +57,7 @@
                     <h1 class="h1 text-start archivo">
                         {{$vehicle->company->company_name . " " . $vehicle->year . " " . $vehicle->model->model_name }}
                     </h1>
-                    <h1 class=" h1  text-end archivo text-danger"> ${{$vehicle->price}}</h1>
+                    <h1 class=" h1  text-end archivo text-danger"> ${{number_format($vehicle->price)}}</h1>
                 </div>
                 <div>
                     @if($vehicle->available)
@@ -128,13 +128,6 @@
         <div>
             <pre class="font-sans">{{ wordwrap($vehicle->description, 30, "\n")}}</pre>
         </div>
-    </div>
-    <div class="container-fluid bg-white p-3 mt-2">
-        <h5 class="h5 text-center">
-            Payment: <span
-                class="bg-success fw-bolder bg-opacity-10 text-success rounded-pill px-3 py-0">{{ $vehicle->payment ?: 'no info' }}</span>
-        </h5>
-
     </div>
     <div class="mt-2">
         <p class="text-secondary text-center">posted on : {{ date_format($vehicle->created_at, 'd/m/Y')}}</p>

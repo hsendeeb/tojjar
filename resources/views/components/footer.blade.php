@@ -42,7 +42,7 @@
 
           <ul class="list-unstyled">
             <li class="mb-2">
-             <form   action="{{ route('filteredSearch',[null,2000]) }}" method="post">
+             <form   action="{{ route('filteredPrice') }}" method="post">
               @csrf
               <button class="btn-link text-decoration-none text-danger p-0 m-0 align-baseline">Vehicles under 2000$</button>
              </form>
@@ -121,7 +121,7 @@
     <!-- Copyright -->
     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
         Developed by :
-      <a class="text-white" href="">Hussein deeb</a><br>
+      <a class="text-white" href="#">Hussein deeb</a><br>
      <small class="text-secondary">© {{ date("Y") }} All rights reserved</small> 
     
     </div>

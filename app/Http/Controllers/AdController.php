@@ -29,5 +29,12 @@ class AdController extends Controller
                 'isLiked'=>$isLiked
             ]);
     }
+    public function incrementViews(string $id){
+        $ad=Ad::findOrFail($id);
+        $ad->views++;
+        $ad->save();
+        return response()->json(["views"=>$ad->views]);
+
+    }
     
 }

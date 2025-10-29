@@ -116,7 +116,6 @@ class VehicleController extends Controller
             'gearbox_id' => 'required',
             'fuel_id' => 'required',
             'mileage' => 'required|min:0',
-            'payment' => 'nullable',
             'color_id' => 'required',
             'location' => ['required', 'string', 'max:100'],
             'price' => ['required', 'integer', 'min:0'],
@@ -190,7 +189,7 @@ class VehicleController extends Controller
             'gearbox_id' => 'required',
             'fuel_id' => 'required',
             'mileage' => 'required|min:0',
-            'payment' => 'nullable',
+            
             'color_id' => 'required',
             'location' => ['required', 'string', 'max:100'],
             'price' => ['required', 'integer', 'min:0'],
@@ -334,4 +333,12 @@ class VehicleController extends Controller
         $vehicle->save();
         return back();
         }
+        public function filteredPrice(?int $price=null) {
+        
+         $vehicles=Vehicle::where('price','<=',2000)->get();
+       
+        
+            return view('vehicles.filter',compact('vehicles'));
+           
+        }   
 }

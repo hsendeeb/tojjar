@@ -1,10 +1,23 @@
+
 import $ from "jquery";
 
 // resources/js/car-models.js
-
-window.addEventListener("load", function () {
+const loader = document.getElementById('loader-wrapper');
+if (loader) {
+  window.addEventListener("load", function () {
     document.getElementById("loader-wrapper").style.display = "none";
 });
+}
+const search=document.getElementById("search");
+if(search) {
+    document.getElementById("search").addEventListener("blur", () => {
+    setTimeout(() => {
+        $("#suggestions").hide();
+    }, 100);
+}); 
+}
+
+
 
 $("#company_id").on("change", function () {
     let carId = $(this).val();
@@ -108,14 +121,15 @@ document.querySelectorAll(".image-input").forEach((input) => {
 });
 const backToTopBtn = document.getElementById("glass-button");
 
-window.addEventListener("scroll", () => {
+
+if (backToTopBtn) {
+    window.addEventListener("scroll", () => {
     if (window.scrollY > 200) {
         backToTopBtn.style.display = "block";
     } else {
         backToTopBtn.style.display = "none";
     }
 });
-if (backToTopBtn) {
     backToTopBtn.addEventListener("click", () => {
         window.scrollTo({
             top: 0,
@@ -205,11 +219,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-document.getElementById("search").addEventListener("blur", () => {
-    setTimeout(() => {
-        $("#suggestions").hide();
-    }, 100);
-});
+
 const token = document
     .querySelector('meta[name="csrf-token"]')
     .getAttribute("content");
@@ -245,11 +255,33 @@ document.querySelectorAll(".likeBtn").forEach((btn) => {
         });
     });
 });
- 
+ document.querySelectorAll("#viewBtn").forEach((btn)=> {
+    btn.addEventListener('click',function() {
+          const adId = btn.getAttribute("data-id");
+        $.ajax({
+            url:'/views/'+adId,
+             method: "put",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": token,
+            },
+            success:function(data){
+                console.log(data.views);
+            },
+            error:function(error) {
+                console.log(error);
+
+            }
+        })
+        
+    })
+ })
+ // Initialize tooltips (Bootstrap 5)
+const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+tooltipTriggerList.forEach(el => new bootstrap.Tooltip(el));
 
 
-  function getRandomColor() {
-  const colors = ['#FFD700', '#FF69B4', '#00FFFF', '#ADFF2F', '#FF4500'];
-  return colors[Math.floor(Math.random() * colors.length)];
-}
+
+
+
 

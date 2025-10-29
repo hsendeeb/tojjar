@@ -20,7 +20,6 @@ class Vehicle extends Model
 "gearbox_id",
 "condition_id",
 "user_id",
-"payment",
 "location",
 "description",
 "engineSize_id",

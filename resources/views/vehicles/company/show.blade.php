@@ -24,6 +24,9 @@
                           <div class="card shadow ">
 
                         <div class="position-relative d-inline-block">
+                             @if(!$vehicle->available)
+                             <img class="position-absolute top-100 start-50 translate-middle" src="/images/sold.png" alt="sold">
+                            @endif
                             <img src="{{ Storage::url($vehicle->images[0]->image_url) }}" loading="lazy"
                                 class="img-fluid rounded object-fit-cover" style="height: 250px;width:1000px"
                                 alt="Vehicle Image">
@@ -87,7 +90,8 @@
                                              </div>
                                              
                             <div id="likeContainer" class=" px-2 py-1">
-                                        <button data-id="{{ $vehicle->ad?->id }}" class="fs-5 px-2 likeBtn"><i id="like-icon-{{ $vehicle->ad?->id }}"
+                                        <button data-bs-toggle="tooltip"
+                                            title="{{(!Auth::check()) ? 'log in required' : '' }}" data-id="{{ $vehicle->ad?->id }}" class="fs-5 px-2 likeBtn"><i id="like-icon-{{ $vehicle->ad?->id }}"
                                                 class=" {{(Auth::check() && $vehicle->ad->isLikedBy(Auth::user())) ? 'bi bi-heart-fill text-danger' :'bi bi-heart' }}"></i>
 
                                            <small id="like-count-{{ $vehicle->ad?->id }}">{{ $vehicle->ad?->likes->count() }}</small>

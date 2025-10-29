@@ -1,13 +1,8 @@
 <x-app-layout>
-    <div id="loader-wrapper">
-        <div class="spinner"></div>
-    </div>
-
 
     <button id="glass-button" class="glass-button px-4 py-1 rounded-pill text-dark"><i
             class="bi bi-arrow-up-circle-fill"></i></button>
-
-    <div class="container-fluid  d-flex gap-2 p-1 bg-transparent ">
+   <div class="container-fluid pt-4 d-flex gap-2 p-1 bg-transparent mt-5">
         <form class="d-flex justify-content-center form-control bg-transparent" method="GET"
             action="{{ route('company.show') }}">
             <input id="search" name="company_name" type="text" class="form-control w-100 " required
@@ -19,81 +14,18 @@
     <div style="display: none;height:100px;" class="bg-white  shadow z-1 overflow-y-auto px-3  " id="suggestions">
     </div>
 
-    <div id="alert" class="container d-flex justify-content-center">
-        @if(session("notFound"))
-            <small class="alert alert-danger py-1 px-4 bg-opacity-10 text-danger rounded-3">
-                {{ session('notFound') }}
-            </small>
-        @endif
-    </div>
-
-
-    <div class="container mt-3 px-2">
-        <form class="d-flex gap-2 flex-wrap justify-content-center" action="{{ route("filteredSearch") }}"
-            method="POST">
-            @csrf
-            <select class="rounded-pill border-0" name="category_id" id="category">
-                <option value="" disabled selected>select category</option>
-                @foreach ($categories as $category)
-                    <option value="{{ $category->id }}">{{ $category->category }}</option>
-                @endforeach
-
-            </select>
-            <select class="opacity-50 text-primary fw-bolder rounded-pill border-0 " name="company_id" id="company"
-                disabled autocomplete="off">
-                <option value="" disabled selected>select company</option>
-            </select>
-            <select class="opacity-50 text-primary rounded-pill fw-bolder border-0" name="model_id" id="model">
-                <option value="" disabled selected>select model</option>
-            </select>
-            <button type="submit" class="btn btn-primary    px-3 py-0  text-white rounded-pill fw-bold">search</button>
-        </form>
-
-    </div>
-    <h3 class="px-2 mt-3 fw-bold">Dealers</h3>
-    <div class="d-flex justify-content-end px-2">
-        <a class="text-danger" href="{{ route('dealers.index') }}">see all</a>
-    </div>
-
-
-    <div class="d-flex flex-nowrap  gap-3 overflow-x-auto over mt-3 py-3">
-
-        @forelse ($dealers as $dealer)
-            <a id="dealer" href="{{ route('profile.show', $dealer->user->id) }}">
-                <div class="px-3">
-                    @if($dealer->user->image != 'public/images/avatar.png')
-                        <img class="rounded-circle object-fit-cover" style="width:55px;height:50px"
-                            src="{{ Storage::url($dealer->user->image)}}" alt=" logo">
-                    @else
-                        <img class="rounded-circle object-fit-cover" style="width:55px;height:50px" src="/images/avatar.jpg"
-                            alt=" logo">
-                    @endif
-                    <small class="text-nowrap fw-bold text-center mt-2">{{ $dealer->name }}</small>
-
-                </div>
-            </a>
-
-
-        @empty
-            <p class="text-center text-muted">No dealers</p>
-
-        @endforelse
-
-
-    </div>
-
-    <h1 id="featured" class="h1 text-center mt-5 archivo brush">Featured cars</h1>
+    <h1 class=" h1 text-center mt-5 archivo brush">{{"(" . count($vehicles) . " " . "results)"}}</h1>
     <div id="body" class="container-fluid mt-3">
         <div class="row">
-            @forelse($paginatedVehicles as $vehicle)
-                <div class="col-lg-3 mt-5">
 
-                    <div class="card shadow ">
+            @forelse($vehicles as $vehicle)
+                <div class="col-md-3 mt-5">
+                    <a class="" href="{{ route('vehicle.show', $vehicle) }}">
+                          <div class="card shadow ">
 
                         <div class="position-relative d-inline-block">
-                            @if(!$vehicle->available)
-                                <img class="position-absolute top-100 start-50 translate-middle" src="/images/sold.png"
-                                    alt="sold">
+                             @if(!$vehicle->available)
+                             <img class="position-absolute top-100 start-50 translate-middle" src="/images/sold.png" alt="sold">
                             @endif
                             <img src="{{ Storage::url($vehicle->images[0]->image_url) }}" loading="lazy"
                                 class="img-fluid rounded object-fit-cover" style="height: 250px;width:1000px"
@@ -147,48 +79,44 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card-footer  bg-white p-1 mt-1">
+                        <div class="card-footer  bg-white p-2 mt-1">
                             @if($vehicle->available)
-
-                                <div class="d-flex gap-2 ">
+                           
+                              <div class="d-flex gap-2 ">
                                     <div class="w-75">
-                                        <a id="viewBtn" data-id="{{ $vehicle->ad->id }}" name="viewMore" href="{{ route('vehicle.show',$vehicle) }}"
-                                            class="btn bg-black fw-bolder text-white w-100">view more <i
-                                                class="bi bi-arrow-right-circle-fill"></i></a>
-                                    </div>
+                                    <a name="viewMore" href="{{ route('vehicle.show', $vehicle) }}"
+                                        class="btn bg-black fw-bolder text-white w-100">view more <i
+                                            class="bi bi-arrow-right-circle-fill"></i></a>
+                                             </div>
+                                             
+                            <div id="likeContainer" class=" px-2 py-1">
+                                        <button data-id="{{ $vehicle->ad?->id }}" class="fs-5 px-2 likeBtn"><i id="like-icon-{{ $vehicle->ad?->id }}"
+                                                class=" {{(Auth::check() && $vehicle->ad->isLikedBy(Auth::user())) ? 'bi bi-heart-fill text-danger' :'bi bi-heart' }}"></i>
 
-                                    <div id="likeContainer" class=" px-2 py-1">
-                                        <button  data-bs-toggle="tooltip"
-                                            title="{{(!Auth::check()) ? 'log in required' : '' }}" data-id="{{ $vehicle->ad?->id }}" class="fs-5 px-2 likeBtn"><i
-                                                id="like-icon-{{ $vehicle->ad?->id }}"
-                                                class=" {{(Auth::check() && $vehicle->ad?->isLikedBy(Auth::user())) ? 'bi bi-heart-fill text-danger' : 'bi bi-heart' }}"></i>
-
-                                            <small
-                                                id="like-count-{{ $vehicle->ad?->id }}">{{ ($vehicle->ad?->likes->count() >= 1000) ? number_format($vehicle->ad?->likes->count() / 1000, 1) . 'K' : $vehicle->ad?->likes->count() }}</small>
+                                           <small id="like-count-{{ $vehicle->ad?->id }}">{{ $vehicle->ad?->likes->count() }}</small>
                                         </button>
-                                        
-
+                                       
                                     </div>
-
-
+                                
+                                   
                                 </div>
-
+                                 
                             @else
                                 <h4 class=" mb-0 bg-danger bg-opacity-25 text-danger h4 archivo text-center py-1">Sold</h4>
-
                             @endif
                         </div>
                     </div>
-
+                    </a>
                 </div>
             @empty
-                <h2 class="text-center">No results</h2>
+                <div class="text-center mb-2">
+                    <img class="w-50 mx-auto  mb-3 mix-blend-multiply" src="/images/noResults.jpg">
+                    <a href="{{ route('dashboard') }}" class="btn btn-outline-danger rounded-pill px-4">Go back</a>
+                </div>
             @endforelse
         </div>
 
-        <div class="d-flex justify-content-center gap-2 mt-3 mb-3">
-            <span>{{ $paginatedVehicles->links('pagination::bootstrap-5') }}</span>
-        </div>
+
     </div>
 
 </x-app-layout>

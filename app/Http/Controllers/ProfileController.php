@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use App\Models\User;
 use App\Models\Vehicle;
+  use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Cache;
 
 class ProfileController extends Controller
@@ -20,6 +21,12 @@ class ProfileController extends Controller
      */
     public function index(string $id)
     {
+      
+
+$totalLikes = DB::table('likes')
+    ->join('ads', 'likes.ad_id', '=', 'ads.id')
+    ->where('ads.user_id', $id)
+    ->count();
         $user = User::findOrFail($id);
        
         $id = Auth::id();
@@ -41,7 +48,7 @@ class ProfileController extends Controller
 
             ->get();
 
-        return view("profile.index", compact('user', 'vehicles'));
+        return view("profile.index", compact('user', 'vehicles','totalLikes'));
     }
     public function edit(Request $request): View
     {
@@ -102,6 +109,10 @@ class ProfileController extends Controller
         return Redirect::to('/');
     }
     public function show(string $id){
+        $totalLikes = DB::table('likes')
+    ->join('ads', 'likes.ad_id', '=', 'ads.id')
+    ->where('ads.user_id', $id)
+    ->count();
           $user = User::findOrFail($id);
            if(Auth::id()==$user->id) {
             return redirect()->route('profile.index',Auth::id());
@@ -124,6 +135,6 @@ class ProfileController extends Controller
 
             ->get();
 
-        return view("profile.show", compact('user', 'vehicles'));
+        return view("profile.show", compact('user', 'vehicles','totalLikes'));
     }
 }

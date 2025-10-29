@@ -1,5 +1,5 @@
 <x-app-layout>
-        <div id="loader-wrapper">
+    <div id="loader-wrapper">
         <div class="spinner"></div>
     </div>
     <button id="glass-button" class="glass-button px-4 py-1 rounded-pill text-dark"><i
@@ -24,16 +24,31 @@
                                 class="rounded-circle me-2" loading="lazy">
                         @endif
                     </div>
-                    <h3 class="  h3 mt-3 archivo">{{$user->name}}</h3>
+                    <h3 class="h3 mt-1">{{$user->name}}</h3>
+                    <div class="d-flex justify-content-center gap-5 mt-2">
+                        <div>
+                            <h5>Ads</h5>
+                            <h4 class="h4 archivo mt-1">{{ ($user->ad->count() >= 1000) ? number_format($user->ad->count() / 1000, 1) . 'K' : $user->ad->count()}}</h4>
+                        </div>
+                        <div>
+                            <h5>Views</h5>
+                            <h4 class="h4 archivo mt-1">{{ ($user->ad->sum('views') >= 1000) ? number_format($user->ad->sum('views') / 1000, 1) . 'K' : $user->ad->sum('views') }}</h4>
+                        </div>
+                        <div>
+                            <h5>Likes</h5>
+                            <h4 class="h4 archivo mt-1">{{ ($totalLikes >= 1000) ? number_format($totalLikes/ 1000, 1) . 'K' : $totalLikes }}</h4>
+                        </div>
+                    </div>
                     @if(Auth::check() && $user->id == Auth::id())
-                        <a class=" underline text-danger" href="{{ route('profile.edit') }}">Edit profile</a>
+                        <a class="btn btn-danger px-2 py-1  mt-3" href="{{ route('profile.edit') }}">Edit profile</a>
                     @endif
                 </div>
+
             </div>
         </div>
 
         <div class="row ">
-            <h1 class=" text-center h1 archivo brush px-2">My Ads ({{ count($vehicles) }})</h1>
+            <h1 class=" text-center h1 archivo brush px-2">My Ads</h1>
             @forelse ($vehicles as $vehicle)
                 <div class="card mb-3 w-75 mx-auto p-0 mt-3 notHover">
                     <div class="row g-0">
@@ -43,25 +58,29 @@
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
-                                <h5 class="card-title">{{$vehicle->company->company_name}} 
+                                <h5 class="card-title">{{$vehicle->company->company_name}}
                                     <span class="brush px-3 py-1">{{$vehicle->model->model_name}}</span>
-                                    @if ($vehicle->available) 
-                                      <span class="badge rounded-pill text-bg-success bg-opacity-10 text-success">{{'Available' }}</span>
+                                    @if ($vehicle->available)
+                                        <span
+                                            class="badge rounded-pill text-bg-success bg-opacity-10 text-success">{{'Available' }}</span>
                                     @else
-                                     <span class="badge rounded-pill text-bg-danger bg-opacity-10 text-danger">{{'Sold' }}</span>
+                                        <span
+                                            class="badge rounded-pill text-bg-danger bg-opacity-10 text-danger">{{'Sold' }}</span>
                                     @endif
-                                  
+
                                     <div
                                         class="bg-white position-absolute top-0 end-0  fw-bolder px-3 py-1 rounded-bottom-start shadow-sm">
                                         $ {{ number_format($vehicle->price) }}
                                     </div>
                                 </h5>
-                                 <p class="card-text"><small class="text-muted">
-                                    <i class="bi bi-heart-fill"></i> Likes:
+                                <p class="card-text"><small class="text-muted">
+                                        <i class="bi bi-heart-fill"></i> Likes:
                                         {{ $vehicle->ad->likes->count() }}</small></p>
+                                <p class="card-text"><small class="text-muted">
+                                        <i class="bi bi-eye-fill"></i> views:
+                                        {{ $vehicle->ad->views}}</small></p>
                                 <p class="card-text text-secondary">
-                                    <small class="text-muted"><i
-                                            class="bi bi-clock-fill"></i>
+                                    <small class="text-muted"><i class="bi bi-clock-fill"></i>
                                         {{date_format($vehicle->created_at, "d,M,Y")}}</small>
                                 </p>
                                 <p class="card-text"><small class="text-muted">Last updated
@@ -70,32 +89,36 @@
                             <div class="card-footer d-flex justify-content-center align-items-center mb-0 d-flex gap-2">
                                 <form class="w-75" action="{{ route('vehicle.edit', $vehicle) }}">
                                     @csrf
-                                   
+
                                     <button class="btn btn-outline-primary w-100 mx-auto" type="submit">Edit</button>
                                 </form>
                                 <!-- Example split danger button -->
                                 <div class="btn-group">
-                                    
-                                    <button type="button" class="btn   text-center py-0  "
-                                        data-bs-toggle="dropdown" aria-expanded="false">
+
+                                    <button type="button" class="btn   text-center py-0  " data-bs-toggle="dropdown"
+                                        aria-expanded="false">
                                         <span class="fs-3"><i class="bi bi-three-dots"></i></i></span>
                                     </button>
                                     <ul class="dropdown-menu">
                                         @if($vehicle->available)
-                                       <form class="text-center" action="{{ route('markSold',$vehicle->id) }}" method="POST">
-                                        @csrf
-                                        @method('PUT')
-                                         <button type="submit" class="dropdown-item"   >Mark as <span class="badge text-bg-danger text-danger bg-opacity-10 fw-bolder rounded-pill">sold</span></button>
-                                       </form>
-                                       @else
-                                        <form class="text-center" action="{{ route('markAvailable',$vehicle->id) }}" method="POST">
-                                        @csrf
-                                        @method('PUT')
-                                         <button type="submit" class="dropdown-item"   >Mark as <span class="badge text-bg-success text-success bg-opacity-10 fw-bolder rounded-pill">available</span></button>
-                                       </form>
+                                            <form class="text-center" action="{{ route('markSold', $vehicle->id) }}"
+                                                method="POST">
+                                                @csrf
+                                                @method('PUT')
+                                                <button type="submit" class="dropdown-item">Mark as <span
+                                                        class="badge text-bg-danger text-danger bg-opacity-10 fw-bolder rounded-pill">sold</span></button>
+                                            </form>
+                                        @else
+                                            <form class="text-center" action="{{ route('markAvailable', $vehicle->id) }}"
+                                                method="POST">
+                                                @csrf
+                                                @method('PUT')
+                                                <button type="submit" class="dropdown-item">Mark as <span
+                                                        class="badge text-bg-success text-success bg-opacity-10 fw-bolder rounded-pill">available</span></button>
+                                            </form>
 
                                         @endif
-           
+
                                         <li>
                                             <hr class="dropdown-divider">
                                         </li>

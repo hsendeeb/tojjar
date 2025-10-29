@@ -31,35 +31,31 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-          $company_name=$request->input('company_name');
+        $company_name = $request->input('company_name');
         Company::create([
-            'company_name'=>$company_name
+            'company_name' => $company_name
         ]);
-        return redirect()->back()->with('created','created successfully');
+        return redirect()->back()->with('created', 'created successfully');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Request $request,?string $Cname=null)
+    public function show(Request $request, ?string $Cname = null)
     {
         $page = request()->get('page', 1);
-       $name = $request->input("company_name") ?: $Cname;
-      
+        $name = $request->input("company_name") ?: $Cname;
 
- 
-    
-     $vehicles = Vehicle::with(['company', 'body', 'gearbox', 'color', 'fuel', 'model', 'category', 'condition', 'images'])
-    ->where("user_id", "<>", Auth::id())
-    ->whereHas('company', function ($query) use ($name) {
-        $query->where('company_name', 'LIKE', '%' . $name . '%');   
-}) ->paginate(20, );
-;
-        if ($vehicles->isNotEmpty()) {
-            return view('vehicles.company.show', ['vehicles' => $vehicles]);
-        } else {
-            return redirect()->back()->with("notFound","No results");
-        }
+
+
+
+        $vehicles = Vehicle::with(['company', 'body', 'gearbox', 'color', 'fuel', 'model', 'category', 'condition', 'images'])
+            ->where("user_id", "<>", Auth::id())
+            ->whereHas('company', function ($query) use ($name) {
+                $query->where('company_name', 'LIKE', '%' . $name . '%');
+            })->paginate(20,);;
+
+        return view('vehicles.company.show', ['vehicles' => $vehicles]);
     }
 
     /**
@@ -92,5 +88,4 @@ class CompanyController extends Controller
 
         return response()->json($suggestion);
     }
-  
 }

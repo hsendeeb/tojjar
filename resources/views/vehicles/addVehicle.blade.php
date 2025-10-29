@@ -119,14 +119,7 @@
             <hr class="border-2 mt-5">
 
             <div class="mt-3">
-                <h3 class="h3 fw-bold">Accepted payment methods:</h3>
-                <input class=" p-2 me-1" type="radio" name="payment" value="LBP"> lebanese pound(LBP)<br> <br>
-                <input class=" p-2 me-1" type="radio" name="payment" value="USD"> USD<br><br>
-                <input class=" p-2 me-1" type="radio" name="payment" value="cheque"> cheque
-                <x-input-error :messages="$errors->get('payment')" class="mt-2" />
-            </div>
-            <div class="mt-3">
-                <h3 class="h3 fw-bold">Description & location</h3>
+                 <label for="description" class="form-label fw-bold">description :</label>
                 <textarea class="mt-2" name="description" id="description">
 
                 </textarea>
