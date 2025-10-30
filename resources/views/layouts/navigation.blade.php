@@ -60,6 +60,10 @@
                         @endif
 
                             </x-dropdown-link>
+                                 <a class="d-block w-100 px-4 py-2 text-start text-sm " href="{{route('likedAds',Auth::id()) }}">
+                                               
+                <span><i class="bi bi-heart-fill text-danger"></i></span> {{ __('Liked ads') }}
+                </a>
 
                             <!-- Authentication -->
                             <form method="POST" action="{{ route('logout') }}">
@@ -67,11 +71,13 @@
 
                                 <x-dropdown-link :href="route('logout')" onclick="event.preventDefault();
                                                     this.closest('form').submit();">
-                                    {{ __('Log Out') }}
+                                   <i class="bi bi-box-arrow-left"></i> {{ __('Log Out') }}
                                 </x-dropdown-link>
                             </form>
+                       
                         </x-slot>
                     </x-dropdown>
+                    
                 @endif
             </div>
 
@@ -100,6 +106,12 @@
             <x-responsive-nav-link :href="route('placeAdView')" :active="request()->routeIs('placeAdView')">
                 <i class="bi bi-cloud-arrow-up-fill"></i> {{ __('place AD') }}
             </x-responsive-nav-link>
+            @auth
+                <x-responsive-nav-link :href="route('likedAds', Auth::id())"
+                        :active="request()->routeIs('likedAds')">   
+                       <span><i class="bi bi-bookmark-heart-fill"></i></span> {{ __('likedAds') }}                       
+                    </x-responsive-nav-link>
+            @endauth
             @guest
                 <x-responsive-nav-link :href="route('login')">
                     <i class="bi bi-box-arrow-in-right"></i> {{ __('login') }}

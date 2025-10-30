@@ -2,7 +2,7 @@
 
     <button id="glass-button" class="glass-button px-4 py-1 rounded-pill text-dark"><i
             class="bi bi-arrow-up-circle-fill"></i></button>
-   <div class="container-fluid pt-4 d-flex gap-2 p-1 bg-transparent mt-5">
+   <div class="container-fluid pt-4 d-flex gap-2 p-1 bg-transparent ">
         <form class="d-flex justify-content-center form-control bg-transparent" method="GET"
             action="{{ route('company.show') }}">
             <input id="search" name="company_name" type="text" class="form-control w-100 " required
@@ -14,7 +14,7 @@
     <div style="display: none;height:100px;" class="bg-white  shadow z-1 overflow-y-auto px-3  " id="suggestions">
     </div>
 
-    <h1 class=" h1 text-center mt-5 archivo brush">{{"(" . count($vehicles) . " " . "results)"}}</h1>
+       <h3 class="d-inline-block h3 text-center bg-info bg-opacity-25 fw-bolder text-sm text-muted px-4 py-2 mt-5 ms-2 rounded-pill">{{ number_format( count($vehicles) )." " ."results"}}</h3>
     <div id="body" class="container-fluid mt-3">
         <div class="row">
 
@@ -111,7 +111,7 @@
                 </div>
             @empty
                 <div class="text-center mb-2">
-                    <img class="w-50 mx-auto  mb-3 mix-blend-multiply" src="/images/noResults.jpg">
+                    <img class="w-50 mx-auto  mb-3 mix-blend-multiply" src="/images/noResults.png">
                     <a href="{{ route('dashboard') }}" class="btn btn-outline-danger rounded-pill px-4">Go back</a>
                 </div>
             @endforelse

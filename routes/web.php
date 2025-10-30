@@ -11,6 +11,7 @@ use App\Http\Controllers\DealerController;
 use App\Models\CarModel;
 use App\Http\Middleware\admin;
 use App\Http\Middleware\useStatus;
+use App\Models\Vehicle;
 use Illuminate\Support\Facades\Route;
 
 
@@ -32,7 +33,8 @@ Route::middleware('auth')->group(function () {
      Route::put("/sold/{id}", [VehicleController::class, 'markAsSold'])->name('markSold');
      Route::put("/available/{id}", [VehicleController::class, 'markAsAvailable'])->name('markAvailable');
      Route::put("/ad/like/{id}", [AdController::class, 'like'])->name('like');
-
+     Route::get('/likedAds/{id}',[AdController::class,'likedAds'])->name('likedAds');
+     Route::delete('/image/{id}',[VehicleController::class,'deleteImage'])->name('deleteImage');
 });
      Route::put('/views/{id}',[AdController::class,'incrementViews'])->name('views');
 Route::get("/profile/show/{id}", [ProfileController::class, 'show'])->name('profile.show');

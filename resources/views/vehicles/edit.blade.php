@@ -19,17 +19,18 @@
                 </select>
                 <x-input-error :messages="$errors->get('category_id')" class="mt-2" />
             </div>
-            <div class="d-flex flex-wrap align-items-center mt-3">
-
-
-                <label for="company" class="form-label me-2">car model: </label>
-                <select class="form-control" name="company_id" id="company">
+            <div class="mt-3">
+                <label for="company" class="form-label me-2">car company: </label>
+                <select class="form-control" name="company_id" id="company_id">
                    <option value="">select a company</option>
                     @foreach($companies as $company)
                         <option value="{{ $company->id }}" @selected(old('company_id',$vehicle->company_id)==$company->id)>{{ $company->company_name }}</option>
                     @endforeach
                 </select>
                  <x-input-error :messages="$errors->get('company_id')" class="mt-2" />
+                 </div>
+                 <div class="mt-3">
+                    <label for="model_id">car model:</label>
                 <select class="form-control mt-2" name="model_id" id="carModel">
                     <option class="active" value="{{ $vehicle->model_id }}">{{$vehicle->model->model_name}}</option>
                 </select>
@@ -118,25 +119,17 @@
             </div>
             <hr class="border-2 mt-5">
 
+            
             <div class="mt-3">
-                <h3 class="h3 fw-bold">Accepted payment methods:</h3>
-                <input class=" p-2 me-1" type="radio" name="payment" value="LBP" @checked(old('payment',$vehicle->payment)=='LBP')> lebanese pound(LBP)<br> <br>
-                <input class=" p-2 me-1" type="radio" name="payment" value="USD" @checked(old('payment',$vehicle->payment)=='USD')> USD<br><br>
-                <input class=" p-2 me-1" type="radio" name="payment" value="cheque" @checked(old('payment',$vehicle->payment)=='cheque')> cheque
-               <x-input-error :messages="$errors->get('payment')" class="mt-2" />
-            </div>
-            <div class="mt-3">
-                <h3 class="h3 fw-bold">Description & location</h3>
-                <textarea class="mt-2" name="description" id="description">
+                <label class="fw-bold" for="description">Description</h3><br>
+                <textarea cols="200" class="mt-2 w-100" name="description" id="description">
                 {{ old('description',$vehicle->description) }}
-
-                
                 </textarea>
                  <x-input-error :messages="$errors->get('description')" class="mt-2" />
             </div>
             <div class="mt-3">
                 <div class="form-group">
-                    <label for="location">Location</label>
+                    <label class="fw-bold" for="location">Location</label>
                     <input id="location" type="text" name="location" class="form-control" value="{{ old("location",$vehicle->location) }}"
                         placeholder="Enter a location">
                     <x-input-error :messages="$errors->get('location')" class="mt-2" />
@@ -151,14 +144,16 @@
     
 @endphp
 
-<div id="imageInputs" class="container">
+<div id="imageInputs" class="container d-flex justify-content-center flex-wrap gap-3">
     @foreach ($vehicle->images as $index => $image)
-        <div class="mb-2">
-            <label class="btn btn-outline-danger upload-label">
-            <input type="file" name="images[{{ $index }}]" class="form-control image-input">
-            
-            <img id="preview" style="width:100px;height:100px" class="img-fluid mt-2 object-fit-covermx-auto" src="{{ Storage::url($image->image_url) }}" alt="">
-        </label>
+        <div class="mb-2 position-relative">
+            <button type="button" class="removeBtn btn p-0 text-white position-absolute top-0 " data-id="{{ $image->id }}">
+                <span class="text-danger fs-3">
+                    <i class="bi bi-x-circle-fill"></i>
+                </span>
+            </button>
+            <img id="preview" style="width:100px;height:100px" class="img-fluid mt-2 object-fit-cover rounded-3 mx-auto" src="{{ Storage::url($image->image_url) }}" alt="">
+        
         </div>
     @endforeach
 </div>
@@ -181,6 +176,11 @@
   
    
  <script>
+    document.querySelectorAll('.removeBtn').forEach((btn)=>{
+        btn.addEventListener('click',function() {
+            existingInputs--;
+        })
+    })
     let existingInputs = 0;
 let newInputs = 0;
 const maxInputs = 10;
@@ -198,11 +198,12 @@ const maxInputs = 10;
     newInputs++;
 
     const container = document.getElementById("imageInputs");
-    const inputWrapper = document.createElement("div");
-    inputWrapper.className = "mb-2";
+    const inputWrapper = document.createElement("label");
+    inputWrapper.className="mb-2 upload-label";
 
     const input = document.createElement("input");
     const img=document.createElement("img");
+   
     input.type = "file";
     input.name = `images[new_${newInputs}]`;
     input.className = "form-control image-input";

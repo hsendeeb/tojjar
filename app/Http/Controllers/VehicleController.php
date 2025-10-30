@@ -179,6 +179,7 @@ class VehicleController extends Controller
      */
     public function update(Request $request, Vehicle $vehicle)
     {
+        $image_id=$request->input('image_id');
         $data = $request->validate([
             'company_id' => 'required',
             'model_id' => 'required',
@@ -189,12 +190,11 @@ class VehicleController extends Controller
             'gearbox_id' => 'required',
             'fuel_id' => 'required',
             'mileage' => 'required|min:0',
-            
             'color_id' => 'required',
             'location' => ['required', 'string', 'max:100'],
             'price' => ['required', 'integer', 'min:0'],
             'description' => 'required',
-            'images' => 'required|min:1',
+            'images' => 'nullable',
             'engineType_id'=>'required',
             'engineSize_id'=>'nullable', 
             'user_id' => [Rule::in([Auth::id()])],
@@ -203,14 +203,23 @@ class VehicleController extends Controller
         $data['user_id'] = Auth::id();
 
         $vehicle->update($data);
+       if($request->file('images')){
+
+      
         foreach ($request->file('images') as $image) {
             $path = $image->store("vehicle_images", "public");
 
-            Vehicle_image::where("id", $vehicle->id)->update([
+            Vehicle_image::where("vehicle_id", $vehicle->id)
+            ->where('id',$image_id)
+            ->updateOrCreate([
+                "id"=>$image_id,
                 "image_url" => $path,
+                "vehicle_id"=>$vehicle->id
 
             ]);
         }
+    }
+    
         return redirect()->route('profile.index', Auth::id());
     }
 
@@ -341,4 +350,10 @@ class VehicleController extends Controller
             return view('vehicles.filter',compact('vehicles'));
            
         }   
+        public function deleteImage(string $id){
+            $image=Vehicle_image::findOrFail($id);
+            $status=$image->delete();
+            return response()->json($status);
+            
+        }
 }

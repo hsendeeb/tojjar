@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Ad;
+use App\Models\User;
+use App\Models\Vehicle;
 
 class AdController extends Controller
 {
@@ -30,10 +32,24 @@ class AdController extends Controller
             ]);
     }
     public function incrementViews(string $id){
+        Ad::where('id', $id)->increment('views');
         $ad=Ad::findOrFail($id);
-        $ad->views++;
-        $ad->save();
         return response()->json(["views"=>$ad->views]);
+
+    }
+    public function likedAds(string $id){
+        $user=User::findOrFail($id);
+        $vehicles = Vehicle::with(
+        'company','body','gearbox','color','fuel','model','category',
+        'condition','images','engineType','engineSize'
+    )->whereHas('ad', function ($q) use ($user) {
+        $q->whereHas('likes', function ($q2) use ($user) {
+            $q2->where('user_id', $user->id);
+        });
+    })->get();
+       
+        return view('vehicles.likedAds',compact("vehicles"));
+        
 
     }
     

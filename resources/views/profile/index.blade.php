@@ -141,7 +141,7 @@
                 </div>
             @empty
                 <div class="container-fluid d-flex justify-content-center">
-                    <img class="img-responsive w-25" src="/images/NoAds.png" alt="">
+                    <img class="img-responsive w-50 mix-blend-multiply" src="/images/NoAds.png" alt="no ads">
                 </div>
 
 

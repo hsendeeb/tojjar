@@ -24,6 +24,10 @@
       fill: #ff0000;
     }
 }
+body {
+  overflow-x: hidden;
+  
+}
 
 .login {
     background-image:url("/resources/images/loginImage.png");

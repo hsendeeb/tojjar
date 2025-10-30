@@ -14,7 +14,7 @@ class VehicleObserver
      */
     public function created(Vehicle $vehicle)
     {
-         Log::info('Vehicle created: ' . $vehicle->id);
+         
 
         self::flushVehicleCache();
     }

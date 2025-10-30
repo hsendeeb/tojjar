@@ -95,9 +95,42 @@
                                 <img class="position-absolute top-100 start-50 translate-middle" src="/images/sold.png"
                                     alt="sold">
                             @endif
-                            <img src="{{ Storage::url($vehicle->images[0]->image_url) }}" loading="lazy"
-                                class="img-fluid rounded object-fit-cover" style="height: 250px;width:1000px"
-                                alt="Vehicle Image">
+                            <div id="vehicleCarousel-{{ $vehicle->id }}" class="carousel slide" data-bs-ride="false">
+                                @if($vehicle->images->count() > 0)
+                                    <div class="carousel-indicators">
+                                        @foreach($vehicle->images as $i => $img)
+                                            <button type="button"
+                                                data-bs-target="#vehicleCarousel-{{ $vehicle->id }}"
+                                                data-bs-slide-to="{{ $i }}"
+                                                class="{{ $i === 0 ? 'active' : '' }}"
+                                                {{ $i === 0 ? 'aria-current="true"' : '' }}
+                                                aria-label="Slide {{ $i + 1 }}"></button>
+                                        @endforeach
+                                    </div>
+                                @endif
+                                <div class="carousel-inner  rounded-3">
+                                    @foreach($vehicle->images as $index => $image)
+                                        <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+                                            <img style="height: 300px; cursor: pointer;"
+                                                class="img-fluid rounded-3 object-fit-cover d-block w-100"
+                                                data-bs-toggle="modal" src="{{ asset('storage/' . $image->image_url) }}"
+                                                alt="Vehicle Image {{ $index + 1 }}">
+                                        </div>
+
+
+                                    @endforeach
+                                </div>
+                                <button class="carousel-control-prev " type="button"
+                                    data-bs-target="#vehicleCarousel-{{ $vehicle->id }}" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon " aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button"
+                                    data-bs-target="#vehicleCarousel-{{ $vehicle->id }}" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon text-black" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                            </div>
                             <div
                                 class="glass-price position-absolute top-0 end-0  text-white fw-bolder px-3 py-1 rounded-bottom-start shadow-sm">
                                 $ {{ number_format($vehicle->price) }}
@@ -143,7 +176,8 @@
                                         <img src="/images/avatar.jpg" style="width:25px; height:25px; object-fit:cover;"
                                             class="rounded-circle me-2" loading="lazy">
                                     @endif
-                                    <small class="fw-bolder">{{ $vehicle->user->name }}</small>
+                                    <small class="fw-bolder">{{ $vehicle->user->name }} <span class="text-primary"><i
+                                                class="bi bi-patch-check-fill"></i></span></small>
                                 </div>
                             </div>
                         </div>
@@ -152,21 +186,22 @@
 
                                 <div class="d-flex gap-2 ">
                                     <div class="w-75">
-                                        <a id="viewBtn" data-id="{{ $vehicle->ad->id }}" name="viewMore" href="{{ route('vehicle.show',$vehicle) }}"
+                                        <a id="viewBtn" data-id="{{ $vehicle->ad->id }}" name="viewMore"
+                                            href="{{ route('vehicle.show', $vehicle) }}"
                                             class="btn bg-black fw-bolder text-white w-100">view more <i
                                                 class="bi bi-arrow-right-circle-fill"></i></a>
                                     </div>
 
                                     <div id="likeContainer" class=" px-2 py-1">
-                                        <button  data-bs-toggle="tooltip"
-                                            title="{{(!Auth::check()) ? 'log in required' : '' }}" data-id="{{ $vehicle->ad?->id }}" class="fs-5 px-2 likeBtn"><i
+                                        <button data-bs-toggle="tooltip" title="{{(!Auth::check()) ? 'log in required' : '' }}"
+                                            data-id="{{ $vehicle->ad?->id }}" class="fs-5 px-2 likeBtn"><i
                                                 id="like-icon-{{ $vehicle->ad?->id }}"
                                                 class=" {{(Auth::check() && $vehicle->ad?->isLikedBy(Auth::user())) ? 'bi bi-heart-fill text-danger' : 'bi bi-heart' }}"></i>
 
                                             <small
                                                 id="like-count-{{ $vehicle->ad?->id }}">{{ ($vehicle->ad?->likes->count() >= 1000) ? number_format($vehicle->ad?->likes->count() / 1000, 1) . 'K' : $vehicle->ad?->likes->count() }}</small>
                                         </button>
-                                        
+
 
                                     </div>
 

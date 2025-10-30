@@ -17,7 +17,7 @@
                     <div class="container d-flex justify-content-center mt-2">
                      
                         @if($user->image !='public/images/avatar.png')
-                            <img src="{{ Storage::url($user->image)}}"
+                            <img src="{{ Storage::url($user->image)}}" alt="user-image"
                                 style="width:100px; height:100px; object-fit:cover;" class="rounded-circle me-2"
                                 loading="lazy">
                         @else
@@ -25,7 +25,7 @@
                                 class="rounded-circle me-2" loading="lazy">
                         @endif
                     </div>
-                    <h3 class="  h3 mt-3">{{$user->name}}</h3>
+                    <h3 class="  h3 mt-3">{{$user->name}} </h3>
                        <div class="d-flex justify-content-center gap-5 mt-2">
                         <div>
                             <h5>Ads</h5>
@@ -101,9 +101,9 @@
                                     @if($vehicle->user->image != 'public/images/avatar.png')
                                         <img src="{{ Storage::url($vehicle->user->image)}}"
                                             style="width:25px; height:25px; object-fit:cover;" class="rounded-circle me-2"
-                                            alt="user image" loading="lazy">
+                                            alt="user-image" loading="lazy">
                                     @else
-                                        <img src="/images/avatar.jpg" style="width:25px; height:25px; object-fit:cover;"
+                                        <img src="/images/avatar.jpg" style="width:25px; height:25px; object-fit:cover;" alt="user-image"
                                             class="rounded-circle me-2" loading="lazy">
                                     @endif
                                     <small class="fw-bolder">{{ $vehicle->user->name }}</small>
@@ -143,7 +143,7 @@
                 </div>
             @empty
                 <div class="container-fluid d-flex justify-content-center">
-                    <img class="img-responsive w-25" src="/images/NoAds.png" alt="">
+                    <img class="img-responsive w-50 mix-blend-multiply" src="/images/NoAds.png" alt="no ads">
                 </div>
 
             @endforelse

@@ -1,23 +1,20 @@
-
 import $ from "jquery";
 
 // resources/js/car-models.js
-const loader = document.getElementById('loader-wrapper');
+const loader = document.getElementById("loader-wrapper");
 if (loader) {
-  window.addEventListener("load", function () {
-    document.getElementById("loader-wrapper").style.display = "none";
-});
+    window.addEventListener("load", function () {
+        document.getElementById("loader-wrapper").style.display = "none";
+    });
 }
-const search=document.getElementById("search");
-if(search) {
+const search = document.getElementById("search");
+if (search) {
     document.getElementById("search").addEventListener("blur", () => {
-    setTimeout(() => {
-        $("#suggestions").hide();
-    }, 100);
-}); 
+        setTimeout(() => {
+            $("#suggestions").hide();
+        }, 100);
+    });
 }
-
-
 
 $("#company_id").on("change", function () {
     let carId = $(this).val();
@@ -121,15 +118,14 @@ document.querySelectorAll(".image-input").forEach((input) => {
 });
 const backToTopBtn = document.getElementById("glass-button");
 
-
 if (backToTopBtn) {
     window.addEventListener("scroll", () => {
-    if (window.scrollY > 200) {
-        backToTopBtn.style.display = "block";
-    } else {
-        backToTopBtn.style.display = "none";
-    }
-});
+        if (window.scrollY > 200) {
+            backToTopBtn.style.display = "block";
+        } else {
+            backToTopBtn.style.display = "none";
+        }
+    });
     backToTopBtn.addEventListener("click", () => {
         window.scrollTo({
             top: 0,
@@ -219,17 +215,16 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 });
 
-
 const token = document
     .querySelector('meta[name="csrf-token"]')
     .getAttribute("content");
 
 document.querySelectorAll(".likeBtn").forEach((btn) => {
-    
-    btn.addEventListener("click", function () {    
-
+    btn.addEventListener("click", function () {
         const adId = btn.getAttribute("data-id");
-        const icon= this.closest(".likeBtn").querySelector("#like-icon-"+adId)
+        const icon = this.closest(".likeBtn").querySelector(
+            "#like-icon-" + adId
+        );
         $.ajax({
             url: "/ad/like/" + adId,
             method: "put",
@@ -238,50 +233,74 @@ document.querySelectorAll(".likeBtn").forEach((btn) => {
                 "X-CSRF-TOKEN": token,
             },
             success: function (data) {
-            console.log(data.likes);
-            $('#like-count-'+adId).text(data.likes);
-            if(data.isLiked){
-                     icon.classList.remove("bi","bi-heart");
-                     icon.classList.add("bi","bi-heart-fill","text-danger");
-            } else {
-                icon.classList.remove('bi',"bi-heart-fill","text-danger");
-                icon.classList.add("bi","bi-heart");
-               
-            }
-       
-            
-                
+                console.log(data.likes);
+                $("#like-count-" + adId).text(data.likes);
+                if (data.isLiked) {
+                    icon.classList.remove("bi", "bi-heart");
+                    icon.classList.add("bi", "bi-heart-fill", "text-danger");
+                } else {
+                    icon.classList.remove("bi", "bi-heart-fill", "text-danger");
+                    icon.classList.add("bi", "bi-heart");
+                }
             },
         });
     });
 });
- document.querySelectorAll("#viewBtn").forEach((btn)=> {
-    btn.addEventListener('click',function() {
-          const adId = btn.getAttribute("data-id");
+document.querySelectorAll("#viewBtn").forEach((btn) => {
+    btn.addEventListener("click", function () {
+        const adId = btn.getAttribute("data-id");
+        const viewedAds = JSON.parse(localStorage.getItem("viewedAds") || "{}");
+        if (!viewedAds[adId]) {
+            $.ajax({
+                url: "/views/" + adId,
+                method: "put",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": token,
+                },
+                success: function (data) {
+                    console.log(data.views);
+                },
+                error: function (error) {
+                    console.log(error);
+                },
+            });
+            viewedAds[adId]=true;
+            localStorage.setItem('viewedAds',JSON.stringify(viewedAds));
+            console.log(viewedAds[adId]);
+        }
+    });
+});
+// Initialize tooltips (Bootstrap 5)
+const tooltipTriggerList = document.querySelectorAll(
+    '[data-bs-toggle="tooltip"]'
+);
+tooltipTriggerList.forEach((el) => new bootstrap.Tooltip(el));
+
+document.querySelectorAll('.removeBtn').forEach((btn) => {
+    btn.addEventListener('click', function (e) {
+        // prevent any accidental form submit or default button behavior
+        e.preventDefault();
+
+        const image_id = btn.getAttribute('data-id');
+        // find the nearest wrapper so we can remove it on success
+        const wrapper = btn.closest('.position-relative') || btn.parentElement;
         $.ajax({
-            url:'/views/'+adId,
-             method: "put",
+            url: `/image/${image_id}`,
+            type: 'DELETE',
             headers: {
-                "Content-Type": "application/json",
-                "X-CSRF-TOKEN": token,
+                'X-CSRF-TOKEN': token,
             },
-            success:function(data){
-                console.log(data.views);
+            success: function (data) {
+                console.log('delete success', data);
+                // remove the image element from the DOM if server reports success
+                if (wrapper) wrapper.remove();
             },
-            error:function(error) {
-                console.log(error);
-
-            }
-        })
-        
-    })
- })
- // Initialize tooltips (Bootstrap 5)
-const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-tooltipTriggerList.forEach(el => new bootstrap.Tooltip(el));
-
-
-
-
-
-
+            error: function (xhr) {
+                // helpful debug info when something goes wrong (404, 419, etc.)
+                console.error('delete image failed', xhr.status, xhr.responseText);
+                alert(`Unable to delete image (status ${xhr.status}). Check console for details.`);
+            },
+        });
+    });
+})

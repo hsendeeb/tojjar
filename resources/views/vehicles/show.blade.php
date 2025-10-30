@@ -43,7 +43,7 @@
                 <div class="thumbnail-scroll d-flex flex-nowrap overflow-auto gap-2 py-2">
 
                     @foreach($vehicle->images as $index => $image)
-                        <img src="{{ asset('storage/' . $image->image_url) }}" class="img-thumbnail object-fit-cover"
+                        <img src="{{ asset('storage/' . $image->image_url) }}" class="img-thumbnail object-fit-cover}}"
                             style="width: 100px; height: 60px; cursor: pointer;" data-bs-target="#vehicleCarousel"
                             data-bs-slide-to="{{ $index }}" aria-label="Slide {{ $index + 1 }}" aria-current="true">
                     @endforeach
