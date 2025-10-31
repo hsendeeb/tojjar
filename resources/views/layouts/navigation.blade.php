@@ -109,7 +109,7 @@
             @auth
                 <x-responsive-nav-link :href="route('likedAds', Auth::id())"
                         :active="request()->routeIs('likedAds')">   
-                       <span><i class="bi bi-bookmark-heart-fill"></i></span> {{ __('likedAds') }}                       
+                       <span><i class="bi bi-bookmark-heart-fill"></i></span> {{ __('liked ads') }}                       
                     </x-responsive-nav-link>
             @endauth
             @guest

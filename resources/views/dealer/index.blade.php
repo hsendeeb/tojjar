@@ -32,9 +32,12 @@
                             </div>
 
                             <div class="card-body  px-2"  >
-                                <h3 class="text-nowrap h3 text-center card-title archivo  fw-bolder bg-opacity-25  py-1">
+                                <h5 class="text-nowrap h5 text-center card-title archivo  fw-bolder bg-opacity-25  py-1">
                                     {{$dealer->name}} 
-                                </h3>
+                                    @if($dealer->user->email_verified_at) <span class="text-primary"><i
+                                                class="bi bi-patch-check-fill"></i></span>
+                                                 @endif
+                                </h5>
               
                             </div>
                             <div class="card-footer bg-white p-0 mt-1">

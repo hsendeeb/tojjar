@@ -10,6 +10,7 @@ use App\Models\Ad;
 use App\Traits\CachesDropdowns;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 use App\Models\Company;
 use App\Models\CarModel;
 use App\Models\Gearbox;
@@ -25,6 +26,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use App\Models\EngineType;
 use App\Models\Dealer;  
+use Spatie\ImageOptimizer\OptimizerChainFactory;
+use Illuminate\Support\Facades\Log;
 class VehicleController extends Controller
 
 {
@@ -94,11 +97,10 @@ class VehicleController extends Controller
         $fuelType = $this->cacheDropdown('fuel_types', 30, fn() => FuelType::all());
         $engineType = $this->cacheDropdown('engineType', 30, fn() => EngineType::all());
         $engineSize = $this->cacheDropdown('engineSize', 30, fn() => EngineSize::all());
+        $locations=Vehicle::where('user_id',Auth::id())->get('location');
 
-
-
-
-        return view("vehicles.addVehicle", compact('conditions', 'companies', 'bodyType', 'categories', 'carModel', 'fuelType', 'gearbox', 'colors','engineType','engineSize'));
+      
+        return view("vehicles.addVehicle", compact('locations','conditions', 'companies', 'bodyType', 'categories', 'carModel', 'fuelType', 'gearbox', 'colors','engineType','engineSize'));
     }
 
     /**
@@ -130,6 +132,16 @@ class VehicleController extends Controller
         $vehicle = Vehicle::create($data);
         foreach ($request->file('images') as $image) {
             $path = $image->store("vehicle_images", "public");
+
+            // optimize the stored image if optimizer is available
+            $fullPath = storage_path('app/public/' . $path);
+            try {
+                OptimizerChainFactory::create()->optimize($fullPath);
+            } catch (\Throwable $e) {
+                // don't break the upload process if optimizer/binaries aren't available
+                Log::warning('Image optimization failed: ' . $e->getMessage());
+            }
+
             Vehicle_image::create([
                 'vehicle_id' => $vehicle->id,
                 "image_url" => $path,
@@ -208,6 +220,14 @@ class VehicleController extends Controller
       
         foreach ($request->file('images') as $image) {
             $path = $image->store("vehicle_images", "public");
+
+            // try to optimize the image file if optimizer is available
+            $fullPath = storage_path('app/public/' . $path);
+            try {
+                OptimizerChainFactory::create()->optimize($fullPath);
+            } catch (\Throwable $e) {
+                Log::warning('Image optimization failed: ' . $e->getMessage());
+            }
 
             Vehicle_image::where("vehicle_id", $vehicle->id)
             ->where('id',$image_id)

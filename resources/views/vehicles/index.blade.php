@@ -68,7 +68,12 @@
                         <img class="rounded-circle object-fit-cover" style="width:55px;height:50px" src="/images/avatar.jpg"
                             alt=" logo">
                     @endif
-                    <small class="text-nowrap fw-bold text-center mt-2">{{ $dealer->name }}</small>
+                    <small class="text-nowrap fw-bold text-center mt-2">{{ $dealer->name }}
+                            @if($dealer->user->email_verified_at) <span class="text-primary"><i
+                                                class="bi bi-patch-check-fill"></i></span>
+                                                 @endif
+                        
+                    </small>
 
                 </div>
             </a>
@@ -87,12 +92,12 @@
         <div class="row">
             @forelse($paginatedVehicles as $vehicle)
                 <div class="col-lg-3 mt-5">
-
+                   <a href="{{ route('vehicle.show',$vehicle) }}">
                     <div class="card shadow ">
 
                         <div class="position-relative d-inline-block">
                             @if(!$vehicle->available)
-                                <img class="position-absolute top-100 start-50 translate-middle" src="/images/sold.png"
+                                <img class="position-absolute top-100 start-50 translate-middle z-1" src="/images/sold.png"
                                     alt="sold">
                             @endif
                             <div id="vehicleCarousel-{{ $vehicle->id }}" class="carousel slide" data-bs-ride="false">
@@ -176,8 +181,11 @@
                                         <img src="/images/avatar.jpg" style="width:25px; height:25px; object-fit:cover;"
                                             class="rounded-circle me-2" loading="lazy">
                                     @endif
-                                    <small class="fw-bolder">{{ $vehicle->user->name }} <span class="text-primary"><i
-                                                class="bi bi-patch-check-fill"></i></span></small>
+                                    <small class="fw-bolder">{{ $vehicle->user->name }}
+                                         @if($vehicle->user->email_verified_at) <span class="text-primary"><i
+                                                class="bi bi-patch-check-fill"></i></span>
+                                                 @endif
+                                            </small>
                                 </div>
                             </div>
                         </div>
@@ -209,11 +217,12 @@
                                 </div>
 
                             @else
-                                <h4 class=" mb-0 bg-danger bg-opacity-25 text-danger h4 archivo text-center py-1">Sold</h4>
+                                <h4 class=" mb-0 bg-danger bg-opacity-10 text-danger h4 archivo text-center py-1">Sold</h4>
 
                             @endif
                         </div>
                     </div>
+                    </a>
 
                 </div>
             @empty

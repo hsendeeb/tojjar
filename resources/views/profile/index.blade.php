@@ -24,7 +24,10 @@
                                 class="rounded-circle me-2" loading="lazy">
                         @endif
                     </div>
-                    <h3 class="h3 mt-1">{{$user->name}}</h3>
+                    <h3 class="h3 mt-1">{{$user->name}}
+                         @if($user->email_verified_at) <span class="text-primary"><i
+                                                class="bi bi-patch-check-fill"></i></span>
+                                                 @endif</h3>
                     <div class="d-flex justify-content-center gap-5 mt-2">
                         <div>
                             <h5>Ads</h5>

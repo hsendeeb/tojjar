@@ -119,8 +119,8 @@
             <hr class="border-2 mt-5">
 
             <div class="mt-3">
-                 <label for="description" class="form-label fw-bold">description :</label>
-                <textarea class="mt-2" name="description" id="description">
+                <label for="description" class="form-label fw-bold">description :</label><br>
+                <textarea class="mt-2" cols="30" rows="5" name="description" id="description">
 
                 </textarea>
                 <x-input-error :messages="$errors->get('description')" class="mt-2" />
@@ -128,8 +128,13 @@
             <div class="mt-3">
                 <div class="form-group">
                     <label for="location">Location</label>
-                    <input id="location" type="text" name="location" class="form-control"
-                        placeholder="Enter a location">
+                    <input list="locations" id="location" name="location" placeholder="Enter a location" class="form-control">
+                    <datalist id="locations">
+                        @foreach($locations as $l)
+                            <option value="{{ $l->location }}">
+                        @endforeach
+                    </datalist>
+                 
                     <x-input-error :messages="$errors->get('location')" class="mt-2" />
                 </div>
             </div>
@@ -236,17 +241,18 @@
 
 
     </div>
-    
+
     <div class="text-center mt-5 ">
-        <button type="submit" class="d-inline-flex gap-2 justify-content-center align-items-center btn btn-danger w-75 text-center px-2 py-2">
+        <button type="submit"
+            class="d-inline-flex gap-2 justify-content-center align-items-center btn btn-danger w-75 text-center px-2 py-2">
             submit
-        <div class="btn-spinner" style="display:none"></div>
+            <div class="btn-spinner" style="display:none"></div>
         </button>
-        
+
     </div>
 
     </form>
- 
+
 
     </div>
 

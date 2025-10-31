@@ -23,7 +23,7 @@
             <x-input-error class="mt-2" :messages="$errors->get('name')" />
         </div>
          <div>
-            <img class="w-25 rounded-circle" src="{{ Storage::url( $user->image) }}" alt="">
+            <img style="width:100px;height:100px" class="rounded-circle object-fit-cover" src="{{ Storage::url( $user->image) }}" alt="user-image">
         </div>
         
         <div>

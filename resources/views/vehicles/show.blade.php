@@ -158,7 +158,11 @@
                         @endif
 
                         <div>
-                            <p class="archivo">{{$vehicle->user->name." ". $vehicle->user->last_name}}</p>
+                            <p class="archivo">{{$vehicle->user->name." ". $vehicle->user->last_name}}
+                                @if($vehicle->user->email_verified_at) <span class="text-primary"><i
+                                                class="bi bi-patch-check-fill"></i></span>
+                                                 @endif
+                                                </p>
                             <small><i class="bi bi-clock-fill"></i> joined at: {{date_format( $vehicle->user->created_at,'M,Y') }}</small>
                            <p><a class=" rounded-pill fw-bolder" href="{{ route('profile.show',$vehicle->user->id) }}">view profile <i class="bi bi-arrow-right-short"></i></a></p>
                         </div>

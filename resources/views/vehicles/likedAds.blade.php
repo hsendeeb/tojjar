@@ -5,8 +5,8 @@
    
     <div style="display: none;height:100px;" class="bg-white  shadow z-1 overflow-y-auto px-3  " id="suggestions">
     </div>
-
-    <h1 class=" h1 text-center mt-5 archivo bg-warning bg-opacity-25">{{"liked : " . count($vehicles) . " " }}</h1>
+       <h1 class="h1 text-center archivo mt-3">Liked ads</h1>
+    <h3 class="d-inline-block h3 text-center bg-danger bg-opacity-25 fw-bolder text-sm text-danger fw-bolder px-4 py-2 mt-2 ms-2 rounded-pill">{{ number_format( count($vehicles) )." " ."liked ads"}}</h3>
     <div id="body" class="container-fluid mt-3">
         <div class="row">
 
