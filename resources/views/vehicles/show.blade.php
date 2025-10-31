@@ -3,12 +3,22 @@
         <div class="row ">
             <div class="col-lg-6">
                 <div id="vehicleCarousel" class="carousel slide" data-bs-ride="carousel">
+                     <div class="carousel-indicators">
+                                        @foreach($vehicle->images as $i => $img)
+                                            <button type="button"
+                                                data-bs-target="#vehicleCarousel-{{ $vehicle->id }}"
+                                                data-bs-slide-to="{{ $i }}"
+                                                class="{{ $i === 0 ? 'active' : '' }}"
+                                                {{ $i === 0 ? 'aria-current="true"' : '' }}
+                                                aria-label="Slide {{ $i + 1 }}"></button>
+                                        @endforeach
+                                    </div>
                     <div class="carousel-inner  rounded-3">
                         @foreach($vehicle->images as $index => $image)
                             <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
-                                <img style="height: 300px;cursor: pointer;" class="img-fluid rounded-3 object-fit-cover"
+                                <img style="height: 300px;cursor: pointer;" class="img-fluid rounded-3 d-block w-100 object-fit-cover"
                                     data-bs-toggle="modal" data-bs-target="#imageModal_{{ $index }}"
-                                    src="{{ asset('storage/' . $image->image_url) }}" class="d-block w-100"
+                                    src="{{ asset('storage/' . $image->image_url) }}"
                                     alt="Vehicle Image {{ $index + 1 }}">
                             </div>
                             <div class="modal fade" id="imageModal_{{ $index }}" tabindex="-1"

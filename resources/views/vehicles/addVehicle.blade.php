@@ -1,9 +1,11 @@
 <x-app-layout>
+    <a class="btn btn-outline-danger rounded-2 ms-2 mt-2 px-3 py-1" href="/">back</a>
     <div class="container-fluid mt-2 d-flex justify-content-center bg-white">
         <img id="forSale" style="width: 200px;height:200px;object-fit:cover" src="/images/forSale.png">
     </div>
-
+ 
     <div class="container bg-white p-3 mt-5 d-flex justify-content-center align-items-center">
+      
         <form id="addVehicle" class="form-control" method="POST" action="{{ route('placeAd') }}"
             enctype="multipart/form-data">
             @csrf
@@ -16,7 +18,7 @@
                 </select>
                 <x-input-error :messages="$errors->get('category_id')" class="mt-2" />
             </div>
-            <div class="d-flex flex-wrap align-items-center mt-3">
+            <div class="mt-3">
                 <label for="company" class="form-label me-2 fw-bold">car company: </label>
                 <select class="form-control" id="company_id" name="company_id" autocomplete="off">
                     <option value="">select company

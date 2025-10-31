@@ -25,9 +25,10 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use App\Models\EngineType;
-use App\Models\Dealer;  
+use App\Models\Dealer;
 use Spatie\ImageOptimizer\OptimizerChainFactory;
 use Illuminate\Support\Facades\Log;
+
 class VehicleController extends Controller
 
 {
@@ -40,9 +41,9 @@ class VehicleController extends Controller
         $categories = Category::all();
         $companies = Company::all();
         $model = CarModel::all();
-        $dealers=Dealer::with('user')
-        ->where('dealers.user_id','<>',Auth::id())
-        ->get();
+        $dealers = Dealer::with('user')
+            ->where('dealers.user_id', '<>', Auth::id())
+            ->get();
 
 
         $perPage = 10;
@@ -68,7 +69,7 @@ class VehicleController extends Controller
 
                 ->get();
         });
-        
+
         $paginatedVehicles = new LengthAwarePaginator(
             $vehicles->forPage($page, $perPage),
             $vehicles->count(),
@@ -78,7 +79,7 @@ class VehicleController extends Controller
         );
 
 
-        return view("vehicles.index", compact('paginatedVehicles', 'companies', 'categories', 'model','dealers'));
+        return view("vehicles.index", compact('paginatedVehicles', 'companies', 'categories', 'model', 'dealers'));
     }
 
 
@@ -97,10 +98,10 @@ class VehicleController extends Controller
         $fuelType = $this->cacheDropdown('fuel_types', 30, fn() => FuelType::all());
         $engineType = $this->cacheDropdown('engineType', 30, fn() => EngineType::all());
         $engineSize = $this->cacheDropdown('engineSize', 30, fn() => EngineSize::all());
-        $locations=Vehicle::where('user_id',Auth::id())->get('location');
+        $locations = Vehicle::where('user_id', Auth::id())->get('location');
 
-      
-        return view("vehicles.addVehicle", compact('locations','conditions', 'companies', 'bodyType', 'categories', 'carModel', 'fuelType', 'gearbox', 'colors','engineType','engineSize'));
+
+        return view("vehicles.addVehicle", compact('locations', 'conditions', 'companies', 'bodyType', 'categories', 'carModel', 'fuelType', 'gearbox', 'colors', 'engineType', 'engineSize'));
     }
 
     /**
@@ -123,8 +124,8 @@ class VehicleController extends Controller
             'price' => ['required', 'integer', 'min:0'],
             'description' => 'required',
             'images' => 'required|min:1',
-            'engineSize_id'=>'nullable',
-            'engineType_id'=>'required',            
+            'engineSize_id' => 'nullable',
+            'engineType_id' => 'required',
             'user_id' => [Rule::in([Auth::id()])],
 
         ]);
@@ -148,10 +149,10 @@ class VehicleController extends Controller
 
             ]);
             Ad::create([
-                'user_id'=>Auth::id(),
-                'vehicle_id'=>$vehicle->id,
-                'views'=>0,
-                'boosted'=>false,
+                'user_id' => Auth::id(),
+                'vehicle_id' => $vehicle->id,
+                'views' => 0,
+                'boosted' => false,
             ]);
         }
         return redirect()->route("dashboard");
@@ -162,7 +163,14 @@ class VehicleController extends Controller
      */
     public function show(Vehicle $vehicle)
     {
-        return view('vehicles.show', compact('vehicle'));
+        
+        return view(
+            'vehicles.show',
+            compact(
+                'vehicle',
+                
+            )
+        );
     }
 
     /**
@@ -180,10 +188,10 @@ class VehicleController extends Controller
         $fuelType = $this->cacheDropdown('fuel_types', 30, fn() => FuelType::all());
         $engineType = $this->cacheDropdown('engineType', 30, fn() => EngineType::all());
         $engineSize = $this->cacheDropdown('engineSize', 30, fn() => EngineSize::all());
+        $locations = Vehicle::where('user_id', Auth::id())->get('location');
 
 
-
-        return view('vehicles.edit', compact('vehicle', 'conditions', 'companies', 'bodyType', 'categories', 'carModel', 'fuelType', 'gearbox', 'colors','engineType','engineSize'));
+        return view('vehicles.edit', compact('locations', 'vehicle', 'conditions', 'companies', 'bodyType', 'categories', 'carModel', 'fuelType', 'gearbox', 'colors', 'engineType', 'engineSize'));
     }
 
     /**
@@ -191,7 +199,7 @@ class VehicleController extends Controller
      */
     public function update(Request $request, Vehicle $vehicle)
     {
-        $image_id=$request->input('image_id');
+        $image_id = $request->input('image_id');
         $data = $request->validate([
             'company_id' => 'required',
             'model_id' => 'required',
@@ -207,39 +215,39 @@ class VehicleController extends Controller
             'price' => ['required', 'integer', 'min:0'],
             'description' => 'required',
             'images' => 'nullable',
-            'engineType_id'=>'required',
-            'engineSize_id'=>'nullable', 
+            'engineType_id' => 'required',
+            'engineSize_id' => 'nullable',
             'user_id' => [Rule::in([Auth::id()])],
 
         ]);
         $data['user_id'] = Auth::id();
 
         $vehicle->update($data);
-       if($request->file('images')){
+        if ($request->file('images')) {
 
-      
-        foreach ($request->file('images') as $image) {
-            $path = $image->store("vehicle_images", "public");
 
-            // try to optimize the image file if optimizer is available
-            $fullPath = storage_path('app/public/' . $path);
-            try {
-                OptimizerChainFactory::create()->optimize($fullPath);
-            } catch (\Throwable $e) {
-                Log::warning('Image optimization failed: ' . $e->getMessage());
+            foreach ($request->file('images') as $image) {
+                $path = $image->store("vehicle_images", "public");
+
+                // try to optimize the image file if optimizer is available
+                $fullPath = storage_path('app/public/' . $path);
+                try {
+                    OptimizerChainFactory::create()->optimize($fullPath);
+                } catch (\Throwable $e) {
+                    Log::warning('Image optimization failed: ' . $e->getMessage());
+                }
+
+                Vehicle_image::where("vehicle_id", $vehicle->id)
+                    ->where('id', $image_id)
+                    ->updateOrCreate([
+                        "id" => $image_id,
+                        "image_url" => $path,
+                        "vehicle_id" => $vehicle->id
+
+                    ]);
             }
-
-            Vehicle_image::where("vehicle_id", $vehicle->id)
-            ->where('id',$image_id)
-            ->updateOrCreate([
-                "id"=>$image_id,
-                "image_url" => $path,
-                "vehicle_id"=>$vehicle->id
-
-            ]);
         }
-    }
-    
+
         return redirect()->route('profile.index', Auth::id());
     }
 
@@ -302,78 +310,69 @@ class VehicleController extends Controller
 
         return back()->with('result', $result);
     }
-    public function filteredSearch(Request $request,?string $category_name=null)
+    public function filteredSearch(Request $request, ?string $category_name = null)
     {
-   
-
-      if($category_name){
-         $c_id=Category::where('category','LIKE',$category_name)->first()?->id;
-
-      } else {
-        $c_id=null;
-      }
-       
-       
+        if ($category_name) {
+            $c_id = Category::where('category', 'LIKE', $category_name)->first()?->id;
+        } else {
+            $c_id = null;
+        }
+        $categories = Category::all();
+        $companies = Company::all();
+        $model = CarModel::all();
+        
         $category_id = $request->input("category_id");
         $company_id = $request->input("company_id") ?? null;
         $model_id = $request->input("model_id") ?? null;
-        
-       
         $vehicles = Vehicle::with(['company', 'body', 'gearbox', 'color', 'fuel', 'model', 'category', 'condition', 'images'])
-                ->where("vehicles.user_id", "<>", Auth::id())
-               ->when($request->input('category_id'),function($query) use($category_id){
-                $query->where("category_id",$category_id);
-               })
-               
-               ->when($request->input('company_id'),function($query) use($company_id){
-                $query->where("company_id",$company_id);
-               })
-               ->when($request->input('model_id'),function($query) use($model_id){
-                $query->where("model_id",$model_id);
-               })
-               ->when(!empty($c_id),function($query) use($c_id) {
-                $query->where("category_id",$c_id);
-               })
-               
-                ->get();
-                
-              
+            ->where("vehicles.user_id", "<>", Auth::id())
+            ->when($request->input('category_id'), function ($query) use ($category_id) {
+                $query->where("category_id", $category_id);
+            })
 
-       
-       
-            return view('vehicles.company.show', ['vehicles' => $vehicles]);
-       
-        
+            ->when($request->input('company_id'), function ($query) use ($company_id) {
+                $query->where("company_id", $company_id);
+            })
+            ->when($request->input('model_id'), function ($query) use ($model_id) {
+                $query->where("model_id", $model_id);
+            })
+            ->when(!empty($c_id), function ($query) use ($c_id) {
+                $query->where("category_id", $c_id);
+            })
+            ->get();
+        return view('vehicles.company.show', compact('vehicles','model','companies','categories'));
     }
-    public function markAsSold(string $id) {
-        $vehicle=Vehicle::findOrFail($id);
-        $vehicle->available=false;
+    public function markAsSold(string $id)
+    {
+        $vehicle = Vehicle::findOrFail($id);
+        $vehicle->available = false;
         $vehicle->save();
-        
-    // Dispatch deletion job after 10 seconds
-    \App\Jobs\DeleteVehicleJob::dispatch($vehicle->id)
-        ->delay(now()->addDays(1));
+
+        // Dispatch deletion job after 1 day
+        \App\Jobs\DeleteVehicleJob::dispatch($vehicle->id)
+            ->delay(now()->addDays(1));
 
         return back();
     }
-        public function markAsAvailable(string $id) {
-        $vehicle=Vehicle::findOrFail($id);
-        $vehicle->available=true;
+    public function markAsAvailable(string $id)
+    {
+        $vehicle = Vehicle::findOrFail($id);
+        $vehicle->available = true;
         $vehicle->save();
         return back();
-        }
-        public function filteredPrice(?int $price=null) {
-        
-         $vehicles=Vehicle::where('price','<=',2000)->get();
-       
-        
-            return view('vehicles.filter',compact('vehicles'));
-           
-        }   
-        public function deleteImage(string $id){
-            $image=Vehicle_image::findOrFail($id);
-            $status=$image->delete();
-            return response()->json($status);
-            
-        }
+    }
+    public function filteredPrice(?int $price = null)
+    {
+
+        $vehicles = Vehicle::where('price', '<=', 2000)->get();
+
+
+        return view('vehicles.filter', compact('vehicles'));
+    }
+    public function deleteImage(string $id)
+    {
+        $image = Vehicle_image::findOrFail($id);
+        $status = $image->delete();
+        return response()->json($status);
+    }
 }

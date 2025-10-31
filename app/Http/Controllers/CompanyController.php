@@ -7,6 +7,9 @@ use App\Models\Company;
 use App\Models\Vehicle;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use App\Models\Category;
+use App\Models\CarModel;
+
 
 class CompanyController extends Controller
 {
@@ -43,19 +46,26 @@ class CompanyController extends Controller
      */
     public function show(Request $request, ?string $Cname = null)
     {
+        $categories = Category::all();
+        $companies = Company::all();
+        $model = CarModel::all();
         $page = request()->get('page', 1);
         $name = $request->input("company_name") ?: $Cname;
-
-
-
-
         $vehicles = Vehicle::with(['company', 'body', 'gearbox', 'color', 'fuel', 'model', 'category', 'condition', 'images'])
             ->where("user_id", "<>", Auth::id())
             ->whereHas('company', function ($query) use ($name) {
                 $query->where('company_name', 'LIKE', '%' . $name . '%');
             })->paginate(20,);;
 
-        return view('vehicles.company.show', ['vehicles' => $vehicles]);
+        return view(
+            'vehicles.company.show',
+            compact(
+                "vehicles",
+                "categories",
+                "model",
+                'companies'
+            )
+        );
     }
 
     /**

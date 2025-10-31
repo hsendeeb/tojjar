@@ -13,6 +13,28 @@
     </div>
     <div style="display: none;height:100px;" class="bg-white  shadow z-1 overflow-y-auto px-3  " id="suggestions">
     </div>
+     <div class="container mt-3 px-2">
+        <form class="d-flex gap-2 flex-wrap justify-content-center" action="{{ route("filteredSearch") }}"
+            method="POST">
+            @csrf
+            <select class="rounded-pill border-0" name="category_id" id="category">
+                <option value="" disabled selected>select category</option>
+                @foreach ($categories as $category)
+                    <option value="{{ $category->id }}">{{ $category->category }}</option>
+                @endforeach
+
+            </select>
+            <select class="opacity-50 text-primary fw-bolder rounded-pill border-0 " name="company_id" id="company"
+                disabled autocomplete="off">
+                <option value="" disabled selected>select company</option>
+            </select>
+            <select class="opacity-50 text-primary rounded-pill fw-bolder border-0" name="model_id" id="model">
+                <option value="" disabled selected>select model</option>
+            </select>
+            <button type="submit" class="btn btn-primary    px-3 py-0  text-white rounded-pill fw-bold">search</button>
+        </form>
+
+    </div>
 
      <h3 class="d-inline-block h3 text-center bg-info bg-opacity-25 fw-bolder text-sm text-muted px-4 py-2 mt-5 ms-2 rounded-pill">{{ number_format( count($vehicles) )." " ."results"}}</h3>
     <div id="body" class="container-fluid mt-3">

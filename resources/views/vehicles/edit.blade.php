@@ -130,8 +130,13 @@
             <div class="mt-3">
                 <div class="form-group">
                     <label class="fw-bold" for="location">Location</label>
-                    <input id="location" type="text" name="location" class="form-control" value="{{ old("location",$vehicle->location) }}"
+                    <input list="locations" id="location" type="text" name="location" class="form-control" value="{{ old("location",$vehicle->location) }}"
                         placeholder="Enter a location">
+                         <datalist id="locations">
+                        @foreach($locations as $l)
+                            <option value="{{ $l->location }}">
+                        @endforeach
+                    </datalist>
                     <x-input-error :messages="$errors->get('location')" class="mt-2" />
                 </div>
             </div>

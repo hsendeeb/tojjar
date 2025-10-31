@@ -52,10 +52,8 @@
     </div>
     <h3 class="px-2 mt-3 fw-bold">Dealers</h3>
     <div class="d-flex justify-content-end px-2">
-        <a class="text-danger" href="{{ route('dealers.index') }}">see all</a>
+        <a class="btn btn-outline-danger rounded-pill px-3 py-0" href="{{ route('dealers.index') }}">see all</a>
     </div>
-
-
     <div class="d-flex flex-nowrap  gap-3 overflow-x-auto over mt-3 py-3">
 
         @forelse ($dealers as $dealer)
@@ -116,8 +114,8 @@
                                 <div class="carousel-inner  rounded-3">
                                     @foreach($vehicle->images as $index => $image)
                                         <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
-                                            <img style="height: 300px; cursor: pointer;"
-                                                class="img-fluid rounded-3 object-fit-cover d-block w-100"
+                                            <img style="height:300px;width:1000px; cursor: pointer;"
+                                                class=" rounded-3 object-fit-cover"
                                                 data-bs-toggle="modal" src="{{ asset('storage/' . $image->image_url) }}"
                                                 alt="Vehicle Image {{ $index + 1 }}">
                                         </div>
@@ -217,7 +215,7 @@
                                 </div>
 
                             @else
-                                <h4 class=" mb-0 bg-danger bg-opacity-10 text-danger h4 archivo text-center py-1">Sold</h4>
+                                <h4 class=" mb-0 bg-danger bg-opacity-10 text-danger h4 archivo text-center">Sold</h4>
 
                             @endif
                         </div>
