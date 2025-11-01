@@ -12,7 +12,9 @@
             @method('PUT')
             <h3 class="h3 text-center0 px-2">Basic info</h3>
             <div>
+                 <label for="category_id" class="form-label fw-bold">category :</label>
                 <select class="form-control" name="category_id" id="category">
+                   <option value="" disabled selected>select a category</option>
                     @foreach($categories as $category)
                         <option value="{{ $category->id }}" @selected(old('category_id',$vehicle->category_id)==$category->id)>{{ $category->category }}</option>
                     @endforeach

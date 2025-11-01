@@ -98,7 +98,9 @@ class VehicleController extends Controller
         $fuelType = $this->cacheDropdown('fuel_types', 30, fn() => FuelType::all());
         $engineType = $this->cacheDropdown('engineType', 30, fn() => EngineType::all());
         $engineSize = $this->cacheDropdown('engineSize', 30, fn() => EngineSize::all());
-        $locations = Vehicle::where('user_id', Auth::id())->get('location');
+        $locations = 
+$locations = DB::select('SELECT CONCAT(city,",",country) as location  FROM locations');
+
 
 
         return view("vehicles.addVehicle", compact('locations', 'conditions', 'companies', 'bodyType', 'categories', 'carModel', 'fuelType', 'gearbox', 'colors', 'engineType', 'engineSize'));
@@ -363,11 +365,14 @@ class VehicleController extends Controller
     }
     public function filteredPrice(?int $price = null)
     {
+         $categories = Category::all();
+        $companies = Company::all();
+        $model = CarModel::all();
 
         $vehicles = Vehicle::where('price', '<=', 2000)->get();
 
 
-        return view('vehicles.filter', compact('vehicles'));
+        return view('vehicles.filter', compact('vehicles','categories','companies','model' ));
     }
     public function deleteImage(string $id)
     {

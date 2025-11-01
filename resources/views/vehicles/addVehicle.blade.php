@@ -1,5 +1,5 @@
 <x-app-layout>
-    <a class="btn btn-outline-danger rounded-2 ms-2 mt-2 px-3 py-1" href="/">back</a>
+    <a class="btn btn-outline-danger rounded-2 ms-2 mt-2 px-3 py-1" href="/">back</a>   
     <div class="container-fluid mt-2 d-flex justify-content-center bg-white">
         <img id="forSale" style="width: 200px;height:200px;object-fit:cover" src="/images/forSale.png">
     </div>
@@ -11,9 +11,11 @@
             @csrf
             <h2 class="h2 fw-bold  px-2 py-1 mt-2">Basic info</h2>
             <div>
+                  <label for="category_id" class="form-label fw-bold">category :</label>
                 <select class="form-control" name="category_id" id="category">
+                    <option value="" disabled selected>select category</option>
                     @foreach($categories as $category)
-                        <option value="{{ $category->id }}">{{ $category->category }}</option>
+                        <option value="{{ $category->id }}" @selected(old('category_id','select category')==$category->id)>{{ $category->category }}</option>
                     @endforeach
                 </select>
                 <x-input-error :messages="$errors->get('category_id')" class="mt-2" />
@@ -21,10 +23,10 @@
             <div class="mt-3">
                 <label for="company" class="form-label me-2 fw-bold">car company: </label>
                 <select class="form-control" id="company_id" name="company_id" autocomplete="off">
-                    <option value="">select company
-                    <option>
+                    <option value="" disabled selected>select company</option>
+                   
                         @foreach($companies as $company)
-                            <option value="{{ $company->id }}">{{ $company->company_name }}</option>
+                            <option value="{{ $company->id }}" @selected(old('company_id',"select company")==$company->id)>{{ $company->company_name }}</option>
                         @endforeach
                 </select>
                 <x-input-error :messages="$errors->get('company_id')" class="mt-2" />
@@ -33,7 +35,7 @@
                 <select class="form-control mt-2" name="model_id" id="carModel">
                     <option value="">select model</option>
                 </select>
-                <x-input-error :messages="$errors->get('carModel_id')" class="mt-2" />
+                <x-input-error :messages="$errors->get('model_id')" class="mt-2" />
             </div>
             <div class="mt-3">
                 <label for="price" class="form-label fw-bold">price: </label>
@@ -60,6 +62,7 @@
             <div class="mt-3">
                 <label for="engineType_id" class="form-label fw-bold">Engine cylinders :</label>
                 <select class="form-control" name="engineType_id" id="engineType_id">
+                    <option value="" disabled selected>select</option>
                     @foreach($engineType as $type)
                         <option value="{{$type->id }}">{{ $type->type }}</option>
                     @endforeach
@@ -69,6 +72,7 @@
             <div class="mt-3">
                 <label for="engineSize_id" class="form-label fw-bold">Engine size :</label>
                 <select class="form-control" name="engineSize_id" id="engineSize_id">
+                    <option value="" disabled selected>select select</option>
                     @foreach($engineSize as $size)
                         <option value="{{ $size->id }}">{{ $size->size }}</option>
                     @endforeach
@@ -83,6 +87,7 @@
             <div class="mt-3">
                 <label for="company" class="form-label fw-bold">Fuel type :</label>
                 <select class="form-control" name="fuel_id" id="fuel_id">
+                    <option value="" disabled selected>select</option>
                     @foreach($fuelType as $fuel)
                         <option value="{{ $fuel->id }}">{{ $fuel->fuel_type }}</option>
                     @endforeach
@@ -92,6 +97,7 @@
             <div class="mt-3">
                 <label for="gearbox_id" class="form-label fw-bold">gear box :</label>
                 <select class="form-control" name="gearbox_id" id="gearbox_id">
+                     <option value="" disabled selected>select</option>
                     @foreach($gearbox as $gear)
                         <option value="{{ $gear->id }}">{{ $gear->gearbox_type }}</option>
                     @endforeach
@@ -101,6 +107,7 @@
             <div class="mt-3">
                 <label for="condition_id" class="form-label fw-bold">condition :</label>
                 <select class="form-control" name="condition_id" id="condition_id">
+                    <option value="" disabled selected>select</option>
                     @foreach($conditions as $con)
                         <option value="{{ $con->id }}">{{ $con->condition }}</option>
                     @endforeach
@@ -109,20 +116,22 @@
             </div>
             <div class="mt-3">
                 <label for="color_id" class="form-label fw-bold">color :</label>
-                <select class="form-control" name="color_id" id="color_id">
+                <select class="form-control" name="color_id" id="colorName">
+                      <option value="" disabled selected>select</option> 
                     @foreach($colors as $color)
                         <option style="background-color: {{ $color->color }}" value="{{ $color->id }}">{{ $color->color }}
                         </option>
 
                     @endforeach
                 </select>
+               
                 <x-input-error :messages="$errors->get('color_id')" class="mt-2" />
             </div>
             <hr class="border-2 mt-5">
 
-            <div class="mt-3">
+            <div class="mt-3 w-100">
                 <label for="description" class="form-label fw-bold">description :</label><br>
-                <textarea class="mt-2" cols="30" rows="5" name="description" id="description">
+                <textarea class="mt-2 w-100" rows="5"  name="description" id="description">
 
                 </textarea>
                 <x-input-error :messages="$errors->get('description')" class="mt-2" />
@@ -132,8 +141,8 @@
                     <label for="location">Location</label>
                     <input list="locations" id="location" name="location" placeholder="Enter a location" class="form-control">
                     <datalist id="locations">
-                        @foreach($locations as $l)
-                            <option value="{{ $l->location }}">
+                        @foreach($locations as $location)
+                            <option value="{{ $location->location }}">
                         @endforeach
                     </datalist>
                  
@@ -257,6 +266,7 @@
 
 
     </div>
+  
 
 
 

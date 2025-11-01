@@ -303,4 +303,4 @@ document.querySelectorAll('.removeBtn').forEach((btn) => {
             },
         });
     });
-})
+});
