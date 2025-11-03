@@ -48,7 +48,7 @@ class VehicleController extends Controller
 
         $perPage = 10;
         $page = request()->get('page', 1); // Defaults to page 1 if not provided
-        $vehicles = Cache::remember('vehicles', now()->addMinutes(10), function () {
+        $vehicles = Cache::remember('vehicles', now()->addMinutes(30), function () {
             return Vehicle::with([
                 'company',
                 'body',
@@ -98,8 +98,8 @@ class VehicleController extends Controller
         $fuelType = $this->cacheDropdown('fuel_types', 30, fn() => FuelType::all());
         $engineType = $this->cacheDropdown('engineType', 30, fn() => EngineType::all());
         $engineSize = $this->cacheDropdown('engineSize', 30, fn() => EngineSize::all());
-        $locations = 
-$locations = DB::select('SELECT CONCAT(city,",",country) as location  FROM locations');
+        $locations =
+            $locations = DB::select('SELECT CONCAT(city,",",country) as location  FROM locations');
 
 
 
@@ -112,8 +112,8 @@ $locations = DB::select('SELECT CONCAT(city,",",country) as location  FROM locat
     public function store(Request $request)
     {
         $data = $request->validate([
-            'company_id' => 'required',
-            'model_id' => 'required',
+            'company_id' => 'nullable',
+            'model_id' => 'nullable',
             'category_id' => 'required',
             'condition_id' => 'nullable',
             'year' => 'required',
@@ -131,6 +131,19 @@ $locations = DB::select('SELECT CONCAT(city,",",country) as location  FROM locat
             'user_id' => [Rule::in([Auth::id()])],
 
         ]);
+        if ($data['company_id'] == "other") {
+            $newCompany = $request->input('new-company');
+            $newModel = $request->input('new-model');
+            $company=Company::create([
+                'company_name'=>$newCompany
+            ]);
+            $model=CarModel::Create([
+                'model_name'=>$newModel,
+                'company_id'=>$company->id
+            ]);
+            $data['company_id']=$company->id;
+            $data['model_id']=$model->id;
+        }
         $data['user_id'] = Auth::id();
         $vehicle = Vehicle::create($data);
         foreach ($request->file('images') as $image) {
@@ -165,12 +178,12 @@ $locations = DB::select('SELECT CONCAT(city,",",country) as location  FROM locat
      */
     public function show(Vehicle $vehicle)
     {
-        
+
         return view(
             'vehicles.show',
             compact(
                 'vehicle',
-                
+
             )
         );
     }
@@ -322,7 +335,7 @@ $locations = DB::select('SELECT CONCAT(city,",",country) as location  FROM locat
         $categories = Category::all();
         $companies = Company::all();
         $model = CarModel::all();
-        
+
         $category_id = $request->input("category_id");
         $company_id = $request->input("company_id") ?? null;
         $model_id = $request->input("model_id") ?? null;
@@ -342,7 +355,7 @@ $locations = DB::select('SELECT CONCAT(city,",",country) as location  FROM locat
                 $query->where("category_id", $c_id);
             })
             ->get();
-        return view('vehicles.company.show', compact('vehicles','model','companies','categories'));
+        return view('vehicles.company.show', compact('vehicles', 'model', 'companies', 'categories'));
     }
     public function markAsSold(string $id)
     {
@@ -365,14 +378,14 @@ $locations = DB::select('SELECT CONCAT(city,",",country) as location  FROM locat
     }
     public function filteredPrice(?int $price = null)
     {
-         $categories = Category::all();
+        $categories = Category::all();
         $companies = Company::all();
         $model = CarModel::all();
 
         $vehicles = Vehicle::where('price', '<=', 2000)->get();
 
 
-        return view('vehicles.filter', compact('vehicles','categories','companies','model' ));
+        return view('vehicles.filter', compact('vehicles', 'categories', 'companies', 'model'));
     }
     public function deleteImage(string $id)
     {

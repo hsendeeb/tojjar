@@ -1,4 +1,5 @@
 import $ from "jquery";
+import { Container } from "postcss";
 
 // resources/js/car-models.js
 const loader = document.getElementById("loader-wrapper");
@@ -17,30 +18,70 @@ if (search) {
 }
 
 $("#company_id").on("change", function () {
-    let carId = $(this).val();
-    $("#carModel").empty().append('<option value="">Loading...</option>');
+    const container = document.getElementById("companyContainer");
+    if (!container) return; // defensive
 
-    if (carId) {
-        $.ajax({
-            url: "/get-models/" + carId,
-            type: "GET",
-            success: function (data) {
-                $("#carModel")
-                    .empty()
-                    .append('<option value="">Select Model</option>');
-                $.each(data, function (index, model) {
-                    $("#carModel").append(
-                        "<option value=" +
-                            model.id +
-                            " >" +
-                            model.model_name +
-                            "</option>"
-                    );
-                });
-            },
-        });
+    // Remove any previously created "other" inputs (prevents duplicates)
+    container.querySelectorAll(".other-company").forEach((el) => el.remove());
+
+    if (this.value === "other") {
+        $("#carModel").hide();
+        $("#carModelLabel").hide();
+
+        // Create labeled inputs and mark them with .other-company
+        const label = document.createElement("label");
+        label.className = "form-label mt-2 text-success other-company";
+        label.textContent = "company name :";
+
+        const newInput = document.createElement("input");
+        newInput.name = "new-company";
+        newInput.className = "form-control mt-1 border-success other-company";
+
+        const modelLabel = document.createElement("label");
+        modelLabel.className = "form-label mt-2 text-success other-company";
+        modelLabel.textContent = "model name:";
+
+        const newModelInput = document.createElement("input");
+        newModelInput.name = "new-model";
+        newModelInput.className =
+            "form-control mt-1 border-success other-company";
+
+        container.appendChild(label);
+        container.appendChild(newInput);
+        container.appendChild(modelLabel);
+        container.appendChild(newModelInput);
     } else {
-        $("#carModel").empty().append('<option value="">Select Model</option>');
+        // Show the regular model selector
+        $("#carModel").show();
+        $("#carModelLabel").show();
+
+        let carId = $(this).val();
+        $("#carModel").empty().append('<option value="">Loading...</option>');
+
+        if (carId) {
+            $.ajax({
+                url: "/get-models/" + carId,
+                type: "GET",
+                success: function (data) {
+                    $("#carModel")
+                        .empty()
+                        .append('<option value="">Select Model</option>');
+                    $.each(data, function (index, model) {
+                        $("#carModel").append(
+                            "<option value=" +
+                                model.id +
+                                " >" +
+                                model.model_name +
+                                "</option>"
+                        );
+                    });
+                },
+            });
+        } else {
+            $("#carModel")
+                .empty()
+                .append('<option value="">Select Model</option>');
+        }
     }
 });
 
@@ -265,8 +306,8 @@ document.querySelectorAll("#viewBtn").forEach((btn) => {
                     console.log(error);
                 },
             });
-            viewedAds[adId]=true;
-            localStorage.setItem('viewedAds',JSON.stringify(viewedAds));
+            viewedAds[adId] = true;
+            localStorage.setItem("viewedAds", JSON.stringify(viewedAds));
             console.log(viewedAds[adId]);
         }
     });
@@ -277,29 +318,35 @@ const tooltipTriggerList = document.querySelectorAll(
 );
 tooltipTriggerList.forEach((el) => new bootstrap.Tooltip(el));
 
-document.querySelectorAll('.removeBtn').forEach((btn) => {
-    btn.addEventListener('click', function (e) {
+document.querySelectorAll(".removeBtn").forEach((btn) => {
+    btn.addEventListener("click", function (e) {
         // prevent any accidental form submit or default button behavior
         e.preventDefault();
 
-        const image_id = btn.getAttribute('data-id');
+        const image_id = btn.getAttribute("data-id");
         // find the nearest wrapper so we can remove it on success
-        const wrapper = btn.closest('.position-relative') || btn.parentElement;
+        const wrapper = btn.closest(".position-relative") || btn.parentElement;
         $.ajax({
             url: `/image/${image_id}`,
-            type: 'DELETE',
+            type: "DELETE",
             headers: {
-                'X-CSRF-TOKEN': token,
+                "X-CSRF-TOKEN": token,
             },
             success: function (data) {
-                console.log('delete success', data);
+                console.log("delete success", data);
                 // remove the image element from the DOM if server reports success
                 if (wrapper) wrapper.remove();
             },
             error: function (xhr) {
                 // helpful debug info when something goes wrong (404, 419, etc.)
-                console.error('delete image failed', xhr.status, xhr.responseText);
-                alert(`Unable to delete image (status ${xhr.status}). Check console for details.`);
+                console.error(
+                    "delete image failed",
+                    xhr.status,
+                    xhr.responseText
+                );
+                alert(
+                    `Unable to delete image (status ${xhr.status}). Check console for details.`
+                );
             },
         });
     });

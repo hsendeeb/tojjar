@@ -11,6 +11,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Cache;
 
 class DeleteVehicleJob implements ShouldQueue
 {
@@ -36,6 +37,7 @@ class DeleteVehicleJob implements ShouldQueue
         if ($vehicle && !$vehicle->available) {
 
             $vehicle->delete();
+            Cache::forget('vehicles');
           
         }
     }

@@ -15,7 +15,7 @@ class CompanySeeder extends Seeder
      */
     public function run(): void
     {
-     $response = Http::get('https://carapi.app/api/makes    ');
+     $response = Http::get('https://carapi.app/api/makes');
      
         $json = json_decode(str_replace('var carModels = ', '', $response->body()), true);
         $makes = $json['data'] ?? [];

@@ -20,10 +20,11 @@
                 </select>
                 <x-input-error :messages="$errors->get('category_id')" class="mt-2" />
             </div>
-            <div class="mt-3">
+            <div id="companyContainer" class="mt-3">
                 <label for="company" class="form-label me-2 fw-bold">car company: </label>
-                <select class="form-control" id="company_id" name="company_id" autocomplete="off">
+                <select  class="form-control" id="company_id" name="company_id" autocomplete="off">
                     <option value="" disabled selected>select company</option>
+                     <option value="other">other</option>
                    
                         @foreach($companies as $company)
                             <option value="{{ $company->id }}" @selected(old('company_id',"select company")==$company->id)>{{ $company->company_name }}</option>
@@ -31,7 +32,7 @@
                 </select>
                 <x-input-error :messages="$errors->get('company_id')" class="mt-2" />
 
-                <label for="carModel" class="form-label me-2 mt-2 fw-bold">car model: </label>
+                <label id="carModelLabel" for="carModel" class="form-label me-2 mt-2 fw-bold">car model: </label>
                 <select class="form-control mt-2" name="model_id" id="carModel">
                     <option value="">select model</option>
                 </select>
