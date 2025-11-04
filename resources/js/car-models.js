@@ -30,7 +30,7 @@ $("#company_id").on("change", function () {
 
         // Create labeled inputs and mark them with .other-company
         const label = document.createElement("label");
-        label.className = "form-label mt-2 text-success other-company";
+        label.className = "form-label mt-2  other-company";
         label.textContent = "company name :";
 
         const newInput = document.createElement("input");
@@ -38,7 +38,7 @@ $("#company_id").on("change", function () {
         newInput.className = "form-control mt-1 border-success other-company";
 
         const modelLabel = document.createElement("label");
-        modelLabel.className = "form-label mt-2 text-success other-company";
+        modelLabel.className = "form-label mt-2 other-company";
         modelLabel.textContent = "model name:";
 
         const newModelInput = document.createElement("input");

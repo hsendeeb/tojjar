@@ -32,7 +32,7 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'last_name'=>['required','string','max:255'],
+            'username'=>['unique:'.User::class,'required','string','max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'phone' => [
         'required',
@@ -47,7 +47,7 @@ class RegisteredUserController extends Controller
         ]);
         $user = User::create([
             'name' => $request->name,
-            'last_name'=>$request->last_name,
+            'username'=>$request->username,
             'phone'=>$request->phone,
             'email' => $request->email,
             'account_type'=>$request->account_type,
@@ -55,7 +55,7 @@ class RegisteredUserController extends Controller
         ]);
         if($request->account_type==='dealer') {
             Dealer::create([
-                'name'=>$user->name,
+                'name'=>$user->username,
                 'user_id'=>$user->id,
             ]);
         }

@@ -60,15 +60,20 @@ class VehicleController extends Controller
                 'condition',
                 'images',
                 'engineType',
-                'engineSize'
+                'engineSize',
+                'ad'
             ])
                 ->when(Auth::check(), function ($query) {
                     $query->where("user_id", "<>", Auth::id());
                 })
+                ->where("boosted","=",true)
                 ->orderBy('created_at', 'desc') // 👈 Ensures consistent ordering
 
                 ->get();
+                
+                
         });
+      
 
         $paginatedVehicles = new LengthAwarePaginator(
             $vehicles->forPage($page, $perPage),
@@ -77,6 +82,7 @@ class VehicleController extends Controller
             $page,
             ['path' => request()->url(), 'query' => request()->query()]
         );
+       
 
 
         return view("vehicles.index", compact('paginatedVehicles', 'companies', 'categories', 'model', 'dealers'));
@@ -355,7 +361,7 @@ class VehicleController extends Controller
                 $query->where("category_id", $c_id);
             })
             ->get();
-        return view('vehicles.company.show', compact('vehicles', 'model', 'companies', 'categories'));
+        return view('vehicles.filter', compact('vehicles', 'model', 'companies', 'categories'));
     }
     public function markAsSold(string $id)
     {

@@ -62,7 +62,7 @@
                             </x-dropdown-link>
                                  <a class="d-block w-100 px-4 py-2 text-start text-sm " href="{{route('likedAds',Auth::id()) }}">
                                                
-                <span><i class="bi bi-heart-fill text-danger"></i></span> {{ __('Liked ads') }}
+               <span><i class="bi bi-bookmark-heart-fill"></i></span> {{ __('Liked ads') }}
                 </a>
 
                             <!-- Authentication -->

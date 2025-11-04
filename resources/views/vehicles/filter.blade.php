@@ -13,7 +13,7 @@
     </div>
     <div style="display: none;height:100px;" class="bg-white  shadow z-1 overflow-y-auto px-3  " id="suggestions">
     </div>
-     <div class="container mt-3 px-2">
+     <div class="container mt-1 px-2 py-2">
         <form class="d-flex gap-2 flex-wrap justify-content-center" action="{{ route("filteredSearch") }}"
             method="POST">
             @csrf
@@ -35,8 +35,15 @@
         </form>
 
     </div>
+    <hr>
+    <h3
+        class=" h3 text-center bg-info bg-opacity-25 fw-bolder text-sm fw-bolder px-4 py-2 mt-2 mx-2 rounded-3">
+        <span class="archivo">
+           @if(!empty($vehicles[0]->company->company_name)) {{$vehicles[0]->company->company_name  }} @endif
+        </span> {{"(". number_format(count($vehicles)) . " " . "results)"}}
+    </h3>
 
-     <h3 class="d-inline-block h3 text-center bg-info bg-opacity-25 fw-bolder text-sm text-muted px-4 py-2 mt-5 ms-2 rounded-pill">{{ number_format( count($vehicles) )." " ."results"}}</h3>
+  
     <div id="body" class="container-fluid mt-3">
         <div class="row">
 

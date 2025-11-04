@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Model;
 
-class Dealer extends Model
+class Dealer extends Model 
 {
     protected $fillable=['name','user_id','paid'];  
 
