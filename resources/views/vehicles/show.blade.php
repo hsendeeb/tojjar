@@ -69,12 +69,16 @@
                     </h1>
                     <h1 class=" h1  text-end archivo text-danger"> ${{number_format($vehicle->price)}}</h1>
                 </div>
-                <div>
+                <div class="mt-2">
                     @if($vehicle->available)
                         <span
                             class="fs-6 badge rounded-pill text-bg-success text-success fw-bolder bg-opacity-10">Available</span>
                     @else
                         <span class="fs-6 badge rounded-pill text-bg-danger text-danger fw-bolder bg-opacity-10">Sold</span>
+                    @endif
+                     @if($vehicle->ad->boosted)
+                        <span
+                            class="fs-6 badge bg-warning rounded-pill text-dark fw-bolder bg-opacity-75 ">featured <i class="bi bi-award-fill"></i></span>
                     @endif
                 </div>
                 <div class="container-fluid mt-2">

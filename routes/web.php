@@ -5,12 +5,15 @@ use App\Http\Controllers\CarModelController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VehicleController;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\AdController;
 use App\Http\Controllers\DealerController;
 use App\Models\CarModel;
+use App\Models\User;
 use App\Http\Middleware\admin;
 use App\Http\Middleware\useStatus;
+use App\Models\PaymentRequest;
 use App\Models\Vehicle;
 use Illuminate\Support\Facades\Route;
 
@@ -35,6 +38,18 @@ Route::middleware('auth')->group(function () {
      Route::put("/ad/like/{id}", [AdController::class, 'like'])->name('like');
      Route::get('/likedAds/{id}',[AdController::class,'likedAds'])->name('likedAds');
      Route::delete('/image/{id}',[VehicleController::class,'deleteImage'])->name('deleteImage');
+     Route::post('/ad/boost/{id}',[AdController::class,'boost'])
+     ->middleware('premium')
+     ->name('boost');
+     Route::get('/subscription',function() {
+          $user=PaymentRequest::with('user')
+          ->where('user_id',Auth::id())
+          ->get();
+          
+          return view('subscribePage',compact('user'));
+
+     })->name('subscribePage');
+     Route::post('/payment',[AdminController::class,'payment'])->name('payment');
 });
      Route::put('/views/{id}',[AdController::class,'incrementViews'])->name('views');
 Route::get("/profile/show/{id}", [ProfileController::class, 'show'])->name('profile.show');
@@ -67,6 +82,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
      Route::get('/admin/show', [AdminController::class, 'showAdmins'])->name('admin.showAdmins');
      Route::delete('/admin/{id}', [AdminController::class, 'destroy'])->name('admin.delete');
      Route::get('/admin/show/dealers', [AdminController::class, 'showDealers'])->name('showDealers');
+     Route::get('/admi/show/paymentRequests',[AdminController::class,'showPaymentRequests'])->name('showPaymentRequests');
+     Route::post('/admin/accept/{id}/{user_id}',[AdminController::class,'accept'])->name('admin.accept');
+     Route::post('/admin/reject/{id}',[AdminController::class,'reject'])->name('admin.reject');
+
+
 });
 
 

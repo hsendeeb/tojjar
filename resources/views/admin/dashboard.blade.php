@@ -76,6 +76,17 @@
           </div>
         </a>
       </div>
+        <div class="col-md-4">
+        <a href="{{ route('showPaymentRequests') }}">
+          <div class="card text-bg-primary mb-3"
+            style="width: 18rem;background: linear-gradient(to right, #6b08a0, #8c37c2, #6d399a)">
+            <div class="card-header fw-bolder">Payment requests</div>
+            <div class="card-body">
+              <h2 class="card-title h2 text-end archivo">{{$paymentRequests->count() }}</h2>
+            </div>
+          </div>
+        </a>
+      </div>
 
       <div class="col-md-4">
         <a href="{{ route('admin.showVehicles') }}">

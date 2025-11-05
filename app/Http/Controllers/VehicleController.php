@@ -63,12 +63,15 @@ class VehicleController extends Controller
                 'engineSize',
                 'ad'
             ])
+            ->whereHas('ad',function($query){
+                    $query->where('boosted',true)
+                    ->orderBy('boosted','desc');
+                 })
                 ->when(Auth::check(), function ($query) {
                     $query->where("user_id", "<>", Auth::id());
-                })
-                ->where("boosted","=",true)
-                ->orderBy('created_at', 'desc') // 👈 Ensures consistent ordering
-
+               
+                })              
+                // 👈 Ensures consistent ordering
                 ->get();
                 
                 
@@ -345,7 +348,7 @@ class VehicleController extends Controller
         $category_id = $request->input("category_id");
         $company_id = $request->input("company_id") ?? null;
         $model_id = $request->input("model_id") ?? null;
-        $vehicles = Vehicle::with(['company', 'body', 'gearbox', 'color', 'fuel', 'model', 'category', 'condition', 'images'])
+        $vehicles = Vehicle::with(['company', 'body', 'gearbox', 'color', 'fuel', 'model', 'category', 'condition', 'images','ad'])
             ->where("vehicles.user_id", "<>", Auth::id())
             ->when($request->input('category_id'), function ($query) use ($category_id) {
                 $query->where("category_id", $category_id);
@@ -360,6 +363,7 @@ class VehicleController extends Controller
             ->when(!empty($c_id), function ($query) use ($c_id) {
                 $query->where("category_id", $c_id);
             })
+            
             ->get();
         return view('vehicles.filter', compact('vehicles', 'model', 'companies', 'categories'));
     }

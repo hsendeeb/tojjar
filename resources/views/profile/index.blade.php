@@ -1,4 +1,5 @@
 <x-app-layout>
+    
     <div id="loader-wrapper">
         <div class="spinner"></div>
     </div>
@@ -9,6 +10,34 @@
             {{ session('message') }}
         </div>
     @endif
+   
+        <div class="modal fade" id="premiumModal" tabindex="-1" aria-labelledby="premiumModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header  bg-gradient-primary">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+         <img class="w-50 mx-auto" src="/images/boost.jpg" alt="boost">
+        <h3 class=" mx-auto h3 archivo text-center" id="premiumModalLabel">Go Premium</h3>
+        <div class="modal-body text-center bg-success bg-opacity-10 rounded-2">
+       
+        <p class="fs-5"></p>
+        <ul class="list-unstyled">
+          <li class="d-flex align-items-start mb-2"><span><i class="bi bi-check-lg me-2"></i></span>  Unlimited ad boosts <span><i class="ms-2 bi bi-rocket-takeoff-fill"></i></span></li>
+          <li class="d-flex align-items-start mb-2"><span><i class="bi bi-check-lg me-2"></i></span>  Verification badge <span class="ms-2 text-primary"><i class="bi bi-patch-check-fill"></i></span></li>
+          <li class="d-flex align-items-start mb-2"><span><i class="bi bi-check-lg me-2"></i></span>  Your ads will be at top of search results <span class="ms-2"><i class="bi bi-graph-up-arrow"></i></span>
+</li>
+        </ul>
+      </div>
+      <div class="modal-footer justify-content-center">
+        
+        <a href="{{ route('subscribePage') }}" class="btn btn-success">Subscribe Now</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
     <div class="container-fluid">
         <div class="row">
@@ -90,19 +119,25 @@
                                         {{date_format($vehicle->updated_at, "d,M,Y")}}</small></p>
                             </div>
                             <div class="card-footer d-flex justify-content-center align-items-center mb-0 d-flex gap-2">
-                                <form class="w-75" action="{{ route('vehicle.edit', $vehicle) }}">
-                                    @csrf
+                              @if(!$vehicle->ad->boosted)
+                                <button data-id="{{ $vehicle->ad->id }}"  class="boostBtn btn btn-danger rounded-2 w-100 ">Boost <span><i class="bi bi-lightning-fill"></i></span></button>
+                               @else
+                                <button data-id="{{ $vehicle->ad->id }}"  class="boostBtn btn  fw-bolder text-danger rounded-2 w-100 ">Boosted <span> <i class="bi bi-lightning-fill"></i></span></button>
 
-                                    <button class="btn btn-outline-primary w-100 mx-auto" type="submit">Edit</button>
-                                </form>
-                                <!-- Example split danger button -->
+                                @endif
                                 <div class="btn-group">
+                                    
 
                                     <button type="button" class="btn   text-center py-0  " data-bs-toggle="dropdown"
                                         aria-expanded="false">
                                         <span class="fs-3"><i class="bi bi-three-dots"></i></i></span>
                                     </button>
                                     <ul class="dropdown-menu">
+                                                      <form class="text-center"  action="{{ route('vehicle.edit', $vehicle) }}">
+                                    @csrf
+
+                                    <button class="btn text-primary mx-auto" type="submit">Edit <span><i class="bi bi-pencil"></i></span></button>
+                                </form>
                                         @if($vehicle->available)
                                             <form class="text-center" action="{{ route('markSold', $vehicle->id) }}"
                                                 method="POST">
@@ -143,7 +178,7 @@
                     </div>
                 </div>
             @empty
-                <div class="container-fluid d-flex justify-content-center mt-5">
+                <div class="container-fluid d-flex justify-content-center mt-5  ">
                     <img class="img-responsive w-50 mix-blend-multiply" src="/images/noAds.png" alt="no ads">
                 </div>
 
@@ -151,5 +186,11 @@
             @endforelse
         </div>
     </div>
+   
+ 
+ 
+        
+ 
+
 
 </x-app-layout>

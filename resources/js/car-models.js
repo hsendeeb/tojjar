@@ -259,6 +259,7 @@ document.addEventListener("DOMContentLoaded", function () {
 const token = document
     .querySelector('meta[name="csrf-token"]')
     .getAttribute("content");
+const sound = document.getElementById("like-sound");
 
 document.querySelectorAll(".likeBtn").forEach((btn) => {
     btn.addEventListener("click", function () {
@@ -274,11 +275,12 @@ document.querySelectorAll(".likeBtn").forEach((btn) => {
                 "X-CSRF-TOKEN": token,
             },
             success: function (data) {
-                console.log(data.likes);
                 $("#like-count-" + adId).text(data.likes);
                 if (data.isLiked) {
                     icon.classList.remove("bi", "bi-heart");
                     icon.classList.add("bi", "bi-heart-fill", "text-danger");
+                    sound.currentTime = 0;
+                    sound.play();
                 } else {
                     icon.classList.remove("bi", "bi-heart-fill", "text-danger");
                     icon.classList.add("bi", "bi-heart");
@@ -348,6 +350,48 @@ document.querySelectorAll(".removeBtn").forEach((btn) => {
                     `Unable to delete image (status ${xhr.status}). Check console for details.`
                 );
             },
+        });
+    });
+});
+document.querySelectorAll(".boostBtn").forEach((btn) => {
+    btn.addEventListener("click", function (e) {
+        e.preventDefault();
+        let adId = btn.getAttribute("data-id");
+        $.ajax({
+            url: "/ad/boost/" + adId,
+            method: "POST",
+            headers: {
+                "X-CSRF-TOKEN": token,
+            },
+            success: function (data) {
+                if (!data.premium) {
+                    console.log(data.premium);
+                    // show Bootstrap modal if user is not premium
+                    const modalEl = document.getElementById('premiumModal');
+                    if (modalEl) {
+                        // create modal instance with default options (allow closing by ESC and backdrop click)
+                        const modal = new bootstrap.Modal(modalEl, { keyboard: true, backdrop: true });
+                        modal.show();
+
+                        // ensure the close button explicitly hides the modal (defensive)
+                        const closeBtn = modalEl.querySelector('[data-bs-dismiss="modal"]');
+                        if (closeBtn) {
+                            closeBtn.addEventListener('click', () => modal.hide());
+                        }
+                    } else {
+                        console.warn('premiumModal element not found');
+                    }
+                } else {
+                    btn.innerHTML =
+                        "Boosted" +
+                        "<span> <i class='bi bi-lightning-fill'></i></span>";
+                    btn.classList.remove('btn-danger');
+                    btn.classList.add('fw-bolder', 'text-danger');
+                }
+            },
+            error: function (xhr) {
+                console.error('Boost request failed', xhr);
+            }
         });
     });
 });

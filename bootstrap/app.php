@@ -15,6 +15,7 @@ return Application::configure(basePath: dirname(__DIR__))
              $middleware->alias([
         'admin' =>App\Http\Middleware\admin::class,
         'userStatus' =>App\Http\Middleware\userStatus::class,
+        'premium'=>App\Http\Middleware\premium::class
 
     ]);
     })

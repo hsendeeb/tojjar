@@ -1,4 +1,5 @@
 <x-app-layout>
+    <audio id="like-sound" src="{{ asset('sounds/likeSound.mp3') }}" preload="auto"></audio>
     <div id="loader-wrapper">
         <div class="spinner"></div>
     </div>
@@ -86,10 +87,11 @@
     </div>
 
     <h1 id="featured" class="h1 text-center mt-5 archivo brush">Featured cars</h1>
-    <div id="body" class="container-fluid mt-3">
+    <div id="body" class="container mt-3">
         <div class="row">
+            
             @forelse($paginatedVehicles as $vehicle)
-                <div class="col-lg-3 mt-5">
+                <div class="col-lg-4 mt-5">
                    <a href="{{ route('vehicle.show',$vehicle) }}">
                     <div class="card shadow ">
 
@@ -138,6 +140,12 @@
                                 class="glass-price position-absolute top-0 end-0  text-white fw-bolder px-3 py-1 rounded-bottom-start shadow-sm">
                                 $ {{ number_format($vehicle->price) }}
                             </div>
+                            @if($vehicle->ad->boosted)
+                            <div
+                                class=" position-absolute top-0 start-0  text-white fw-bolder px-3 py-1 rounded-bottom-start ">
+                               <img src="/images/crown.png" alt="">
+                            </div>
+                            @endif
                         </div>
 
                         <div class="card-body  px-2">

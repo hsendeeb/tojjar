@@ -25,7 +25,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'email',
         'password',
         'image',
-        'account_type'
+        'account_type',
+        'premium'
     ];
 
     /**
@@ -61,5 +62,11 @@ class User extends Authenticatable implements MustVerifyEmail
     }
     public function likes(){
         return $this->belongsTo(Like::class);
+    }
+    public function paymentRequest() {
+        return $this->hasMany(PaymentRequest::class);
+    }
+     public function subscription() {
+        return $this->hasMany(Subscription::class);
     }
 }

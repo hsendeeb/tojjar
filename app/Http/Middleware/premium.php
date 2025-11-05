@@ -3,11 +3,11 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 
-class userStatus
+class premium
 {
     /**
      * Handle an incoming request.
@@ -16,8 +16,11 @@ class userStatus
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $email=$request->input('email');
-        $user=User::findOrFail($email);
-        return $next->$request;
-}
+        $user=Auth::user();
+        if(!$user->premium) {
+            return response()->json(['premium'=>false]);
+        }
+
+        return $next($request);
+    }
 }

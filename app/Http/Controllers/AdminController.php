@@ -8,9 +8,12 @@ use App\Models\Dealer;
 use App\Models\Vehicle;
 use App\Models\Company;
 use App\Models\Admin;
+use App\Models\PaymentRequest;
+use App\Models\Subscription;
 use function Pest\Laravel\instance;
 use Illuminate\Validation\Rules;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 
 
@@ -25,7 +28,8 @@ class AdminController extends Controller
         $vehicles=Vehicle::all();
         $companies=Company::all();
         $dealers=Dealer::all();
-        return view('admin.dashboard',compact('users','vehicles','companies','dealers'));
+        $paymentRequests=PaymentRequest::all();
+        return view('admin.dashboard',compact('users','vehicles','companies','dealers','paymentRequests'));
     }
 
     /**
@@ -152,5 +156,48 @@ class AdminController extends Controller
         $dealers=Dealer::with('user')->get();
         $companies=Company::all();
         return view('admin.showDealers',compact('dealers','companies'));
+}
+  public function showPaymentRequests() {
+        $records=PaymentRequest::with('user')
+        ->whereHas('user',function($query) {
+            $query->where('premium',false);
+        })
+        ->get();
+        
+        $companies=Company::all();
+        return view('admin.showPaymentRequests',compact('records','companies'));
+}
+public function payment(Request $request) {
+    $user=Auth::user();
+    $request->validate([
+        'proof'=>'required|image'
+    ]);
+    $path=$request->file('proof')->store('invoices','public');
+    PaymentRequest::create([
+        'user_id'=>$user->id,
+        'plan'=>'premium',
+        'amount'=>20.00,
+        'invoice_image'=>$path,
+        'status'=>'pending'
+    ]);
+    return redirect()->back()->with('success','payment request submitted.');
+
+}
+public function accept(string $id,string $user_id){
+    $user=User::findOrFail($user_id);
+  $subscribed=Subscription::updateOrCreate([
+            'user_id'=>$user->id,
+            'plan'=>'premium',
+            'starts_at'=>now(),
+            'ends_at'=>now()->addMonth(),
+            'is_active'=>true,
+        ]);
+        if($subscribed) {
+          $paymentRequest=  PaymentRequest::findOrFail($id);
+          $paymentRequest->update(['status'=>'approved']);
+          $user->update(['premium'=>true]);
+        }
+        return redirect()->back();
+ 
 }
 }
