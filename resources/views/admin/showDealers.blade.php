@@ -48,7 +48,7 @@
     
     @endif
 
-  <div class="container-fluid mt-5 d-flex p-5">
+  <div class="table-responsive-sm mt-5 p-5">
 
 
       

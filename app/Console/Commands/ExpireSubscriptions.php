@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Models\Subscription;
+use App\Models\User;
 
 class ExpireSubscriptions extends Command
 {
@@ -26,9 +27,19 @@ class ExpireSubscriptions extends Command
      */
     public function handle()
     {
-        // In handle() method
-Subscription::where('is_active', true)
-    ->where('ends_at', '<', now())
-    ->update(['is_active' => false]);
+        // Get expired subscriptions and their associated users
+        $expiredSubscriptions = Subscription::where('is_active', true)
+            ->where('ends_at', '<', now())
+            ->get();
+
+        foreach ($expiredSubscriptions as $subscription) {
+            // Update subscription status
+            $subscription->update(['is_active' => false]);
+            
+            // Update the associated user's premium status
+            if ($subscription->user) {
+                $subscription->user->update(['premium' => false]);
+            }
+        }
     }
 }

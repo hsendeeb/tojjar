@@ -7,9 +7,11 @@ use App\Models\User;
 use App\Models\Dealer;
 use App\Models\Vehicle;
 use App\Models\Company;
+use App\Models\Ad;
 use App\Models\Admin;
 use App\Models\PaymentRequest;
 use App\Models\Subscription;
+use phpDocumentor\Reflection\PseudoTypes\True_;
 use function Pest\Laravel\instance;
 use Illuminate\Validation\Rules;
 use Carbon\Carbon;
@@ -28,8 +30,16 @@ class AdminController extends Controller
         $vehicles=Vehicle::all();
         $companies=Company::all();
         $dealers=Dealer::all();
-        $paymentRequests=PaymentRequest::all();
-        return view('admin.dashboard',compact('users','vehicles','companies','dealers','paymentRequests'));
+        $paymentRequests=PaymentRequest::with('user')
+        ->where('status','LIKE','pending')
+        ->get();
+        $premiumUsers=Subscription::with('user')
+        ->where('is_active',true)
+        ->get();
+        $boostedAds=Ad::with('vehicle','user','likes')
+        ->where('boosted',true)
+        ->get();
+        return view('admin.dashboard',compact('users','vehicles','companies','dealers','paymentRequests','premiumUsers','boostedAds'));
     }
 
     /**
@@ -159,13 +169,18 @@ class AdminController extends Controller
 }
   public function showPaymentRequests() {
         $records=PaymentRequest::with('user')
-        ->whereHas('user',function($query) {
-            $query->where('premium',false);
-        })
+        
         ->get();
         
         $companies=Company::all();
         return view('admin.showPaymentRequests',compact('records','companies'));
+}
+public function showPremiumUsers() {
+     $companies=Company::all();
+     $records=Subscription::with('user')
+        ->where('is_active',true)
+        ->get();
+        return view('admin.showPremiumUsers',compact('records','companies'));
 }
 public function payment(Request $request) {
     $user=Auth::user();
@@ -185,19 +200,51 @@ public function payment(Request $request) {
 }
 public function accept(string $id,string $user_id){
     $user=User::findOrFail($user_id);
-  $subscribed=Subscription::updateOrCreate([
-            'user_id'=>$user->id,
-            'plan'=>'premium',
-            'starts_at'=>now(),
-            'ends_at'=>now()->addMonth(),
-            'is_active'=>true,
-        ]);
-        if($subscribed) {
-          $paymentRequest=  PaymentRequest::findOrFail($id);
-          $paymentRequest->update(['status'=>'approved']);
-          $user->update(['premium'=>true]);
+    
+    // Find existing subscription (active or inactive)
+    $existingSubscription = Subscription::where('user_id', $user->id)
+        ->latest('ends_at')
+        ->first();
+
+    if ($existingSubscription) {
+        if ($existingSubscription->is_active) {
+            // If subscription is still active, extend it
+            $subscribed = $existingSubscription->update([
+                'ends_at' => Carbon::parse($existingSubscription->ends_at)->addMonth(),
+                'is_active' => true
+            ]);
+        } else {
+            // If subscription exists but is inactive, start new period from now
+            $subscribed = $existingSubscription->update([
+                'starts_at' => now(),
+                'ends_at' => now()->addMonth(),
+                'is_active' => true
+            ]);
         }
-        return redirect()->back();
+    } else {
+        // If user never had a subscription, create new one
+        $subscribed = Subscription::create([
+            'user_id' => $user->id,
+            'plan' => 'premium',
+            'starts_at' => now(),
+            'ends_at' => now()->addMonth(),
+            'is_active' => true
+        ]);
+    }
+
+    if($subscribed) {
+        $paymentRequest = PaymentRequest::findOrFail($id);
+        $paymentRequest->update(['status' => 'approved']);
+        $user->update(['premium' => true]);
+    }
+    return redirect()->back();
  
+}
+public function showBoostedAds(){
+    $companies=Company::all();
+     $records=Ad::with('vehicle','user','likes')
+        ->where('boosted',true)
+        ->get();
+        return view('admin.showBoostedAds',compact('records','companies'));
 }
 }

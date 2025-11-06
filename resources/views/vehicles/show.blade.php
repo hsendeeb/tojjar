@@ -173,7 +173,7 @@
 
                         <div>
                             <p class="archivo">{{$vehicle->user->name." ". $vehicle->user->last_name}}
-                                @if($vehicle->user->email_verified_at) <span class="text-primary"><i
+                                @if($vehicle->user->premium) <span class="text-primary"><i
                                                 class="bi bi-patch-check-fill"></i></span>
                                                  @endif
                                                 </p>

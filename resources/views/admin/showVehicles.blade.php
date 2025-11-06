@@ -47,7 +47,7 @@
     </div>
   @endif
 
-  <div class="container-fluid gap-3 d-flex mt-5 p-5">
+  <div class="table-responsive-sm mt-5 p-5">
 
     <x-side-nav />
 

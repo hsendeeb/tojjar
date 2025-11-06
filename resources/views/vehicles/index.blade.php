@@ -68,7 +68,7 @@
                             alt=" logo">
                     @endif
                     <small class="text-nowrap fw-bold text-center mt-2">{{ $dealer->name }}
-                            @if($dealer->user->email_verified_at) <span class="text-primary"><i
+                            @if($dealer->user->premium) <span class="text-primary"><i
                                                 class="bi bi-patch-check-fill"></i></span>
                                                  @endif
                         
@@ -188,7 +188,7 @@
                                             class="rounded-circle me-2" loading="lazy">
                                     @endif
                                     <small class="fw-bolder">{{ $vehicle->user->name }}
-                                         @if($vehicle->user->email_verified_at) <span class="text-primary"><i
+                                         @if($vehicle->user->premium) <span class="text-primary"><i
                                                 class="bi bi-patch-check-fill"></i></span>
                                                  @endif
                                             </small>

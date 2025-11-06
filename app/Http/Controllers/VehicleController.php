@@ -61,11 +61,16 @@ class VehicleController extends Controller
                 'images',
                 'engineType',
                 'engineSize',
-                'ad'
+                'ad',
+                'user'
+                
             ])
             ->whereHas('ad',function($query){
                     $query->where('boosted',true)
                     ->orderBy('boosted','desc');
+                 })
+                 ->whereHas('user',function($query) {
+                    $query->where('premium',true);
                  })
                 ->when(Auth::check(), function ($query) {
                     $query->where("user_id", "<>", Auth::id());

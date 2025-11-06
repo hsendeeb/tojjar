@@ -41,8 +41,8 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-12">
-                <div class="p-5 text-center">
+            <div class="col-lg-12">
+                <div class="p-4 text-center">
                     <div class="container d-flex justify-content-center">
 
                         @if($user->image != 'public/images/avatar.png')
@@ -54,7 +54,7 @@
                         @endif
                     </div>
                     <h3 class="h3 mt-1">{{$user->name}}
-                         @if($user->email_verified_at) <span class="text-primary"><i
+                         @if($user->premium) <span class="text-primary"><i
                                                 class="bi bi-patch-check-fill"></i></span>
                                                  @endif</h3>
                     <div class="d-flex justify-content-center gap-5 mt-2">
@@ -70,7 +70,16 @@
                             <h5>Likes</h5>
                             <h4 class="h4 archivo mt-1">{{ ($totalLikes >= 1000) ? number_format($totalLikes/ 1000, 1) . 'K' : $totalLikes }}</h4>
                         </div>
+                        
                     </div>
+                    @if($user->premium && $user?->subscription[0]->is_active)
+                    <div class="mt-2 bg-info bg-opacity-10 rounded-2 p-2">
+                    <p>
+                   <i class="bi bi-clock-fill"></i>  Your premium plan ends at <span class="fw-bolder me-2">{{date_format($user->subscription[0]?->ends_at ,'d/m/Y') }}</span>
+                    </p> 
+                    <a class="btn btn-sm btn-outline-primary mt-2" href="{{ route('subscribePage') }}">Renew now</a>
+                    </div>
+                    @endif
                     @if(Auth::check() && $user->id == Auth::id())
                         <a class="btn btn-danger px-2 py-1  mt-3" href="{{ route('profile.edit') }}">Edit profile</a>
                     @endif

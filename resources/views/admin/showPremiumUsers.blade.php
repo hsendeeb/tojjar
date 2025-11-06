@@ -47,20 +47,24 @@
   </div>
   @endif
 
-
-    <div class="table-responsive-sm mt-5 p-5">
-        <x-side-nav/>
+ <x-side-nav/>
+    <div class="table-responsive-sm p-5 mt-5">
+       
       
-        <table class="table table-striped p-2">
+        <table class="table  table-striped p-2">
              <tr ><th class=" text-center bg-warning archivo rounded-pill px-2 py-1">Records:{{count($records)}}</th></tr>
             <tr>
                 <th>Id</th>
-                <th>name</th>
                 <th>username</th>
                 <th>email</th>
-                <th>phone</th>
-                <th>status</th>
-                <th>image</th>
+                <th>plan</th>
+                <th>started at</th>
+                 <th>ends at</th>
+                 <th>is active</th>
+                 <th>created at</th>
+                  <th>updated at</th>
+                  <th>user image</th>
+                
             </tr>
           
             @foreach ($records as $record )
@@ -69,36 +73,19 @@
                  
                 <td>{{ $record->id }}</td>
             
-                <td><a href="{{ route('profile.show',$record->id) }}">{{ $record->name }}</a></td>
-                <td>{{ $record->username }}</td>
-                <td>{{ $record->email }}</td>
-                <td>{{ $record->phone }}</td>
-                 <td>{{ $record->status }}</td>
+                <td><a href="{{ route('profile.show',$record->id) }}">{{ $record->user->username }}</a></td>
+                <td>{{ $record->user->email }}</td>
+                <td>{{ $record->plan }}</td>
+                 <td>{{ $record->starts_at}}</td>
+                 <td>{{ $record->ends_at }}</td>
+                   <td>{{ ($record->is_active) ? 'Yes' : 'No'}}</td>
+                
+                 <td>{{ $record->created_at }}</td>
+                 <td>{{ $record->updated_at }}</td>
                 <td>
-                     @if($record->image != 'public/images/avatar.png')
-                            <img src="{{ Storage::url($record->image)}}" style="width:40px; height:40x; object-fit:cover;"
-                                class="rounded-circle me-2" loading="lazy">
-                        @else
-                            <img src="/images/avatar.jpg" style="width:40px; height:40px; object-fit:cover;"
-                                class="rounded-circle me-2" loading="lazy">
-                        @endif
-                      </td>
-                <td>
-                    @if($record->status=="active")
-                    <form action="{{ route('admin.block',$record->id) }}" method="POST">
-                    @csrf
-                    @method('PUT')
-                    <button type="submit"  class="btn btn-sm btn-outline-danger ">Block</button>
-                    </form>
-                    @else
-                    <form action="{{ route('admin.unBlock',$record->id) }}" method="POST">
-                    @csrf
-                    @method('PUT')
-                    <button type="submit"  class="btn btn-sm btn-danger ">Unblock</button>
-                    </form> 
-                    @endif
-
+                    <img class="rounded-circle" style="width:30px;height:30px" src='{{ Storage::url($record->user->image) }}'>
                 </td>
+            
             </tr>
             
                 

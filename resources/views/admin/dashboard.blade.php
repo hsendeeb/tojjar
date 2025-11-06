@@ -77,6 +77,17 @@
         </a>
       </div>
         <div class="col-md-4">
+        <a href="{{ route('showPremiumUsers') }}">
+          <div class="card text-bg-primary mb-3"
+            style="width: 18rem;background: linear-gradient(to right, #ffaa00, #f0a400, #fe9400)">
+            <div class="card-header fw-bolder">Premium Users</div>
+            <div class="card-body">
+              <h2 class="card-title h2 text-end archivo">{{$premiumUsers->count() }}</h2>
+            </div>
+          </div>
+        </a>
+      </div>
+           <div class="col-md-4">
         <a href="{{ route('showPaymentRequests') }}">
           <div class="card text-bg-primary mb-3"
             style="width: 18rem;background: linear-gradient(to right, #6b08a0, #8c37c2, #6d399a)">
@@ -95,6 +106,17 @@
             <div class="card-header fw-bolder">Vehicles</div>
             <div class="card-body">
               <h2 class="card-title h2 text-end archivo">{{$vehicles->count()}}</h2>
+            </div>
+          </div>
+        </a>
+      </div>
+       <div class="col-md-4">
+        <a href="{{ route('showBoostedAds') }}">
+          <div class="card text-bg-primary mb-3"
+            style="width: 18rem;background: linear-gradient(to right, #00b3ff, #00d5ff, #00cbfe)">
+            <div class="card-header fw-bolder">Boosted ads</div>
+            <div class="card-body">
+              <h2 class="card-title h2 text-end archivo">{{$boostedAds->count() }}</h2>
             </div>
           </div>
         </a>
