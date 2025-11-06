@@ -103,7 +103,7 @@
                                     <small class="ms-1">{{ $vehicle->location }}</small><br>
 
                                     <div class="d-inline-flex align-items-center justify-content-end mt-2">
-                                        @if($vehicle->user->image != 'public/images/avatar.jpg')
+                                        @if($vehicle->user->image != 'public/images/avatar.png')
                                             <img src="{{ Storage::url($vehicle->user->image)}}"
                                                 style="width:25px; height:25px; object-fit:cover;" class="rounded-circle me-2"
                                                 alt="user image" loading="lazy">
@@ -111,7 +111,11 @@
                                             <img src="/images/avatar.jpg" style="width:25px; height:25px; object-fit:cover;"
                                                 class="rounded-circle me-2" loading="lazy">
                                         @endif
-                                        <small class="fw-bolder">{{ $vehicle->user->name }}</small>
+                                        <small class="fw-bolder">{{ $vehicle->user->name }}
+                                            @if($vehicle->user->premium) <span class="text-primary"><i
+                                                class="bi bi-patch-check-fill"></i></span>
+                                                 @endif
+                                        </small>
                                     </div>
                                 </div>
                             </div>

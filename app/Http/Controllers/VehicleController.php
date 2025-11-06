@@ -368,6 +368,9 @@ class VehicleController extends Controller
             ->when(!empty($c_id), function ($query) use ($c_id) {
                 $query->where("category_id", $c_id);
             })
+            ->whereHas('ad',function($query) {
+                $query->orderBy('boosted','desc')->latest();
+            })
             
             ->get();
         return view('vehicles.filter', compact('vehicles', 'model', 'companies', 'categories'));

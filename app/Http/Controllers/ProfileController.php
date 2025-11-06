@@ -27,7 +27,9 @@ $totalLikes = DB::table('likes')
     ->join('ads', 'likes.ad_id', '=', 'ads.id')
     ->where('ads.user_id', $id)
     ->count();
-        $user = User::findOrFail($id);
+        $user = User::with('subscription')
+        ->where('id',$id)
+        ->first();
        
         $id = Auth::id();
 
@@ -40,7 +42,9 @@ $totalLikes = DB::table('likes')
             'model',
             'category',
             'condition',
-            'images'
+            'images',
+            'ad',
+            'user'
         ])
             ->when(Auth::check(), function ($query) use ($id) {
                 $query->where("user_id", $id);

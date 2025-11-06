@@ -26,7 +26,7 @@
                         @endif
                     </div>
                     <h3 class="  h3 mt-3">{{$user->name}}
-                        @if($user->email_verified_at) <span class="text-primary"><i
+                        @if($user->premium) <span class="text-primary"><i
                                                 class="bi bi-patch-check-fill"></i></span>
                                                  @endif
                     </h3>
@@ -110,7 +110,11 @@
                                         <img src="/images/avatar.jpg" style="width:25px; height:25px; object-fit:cover;" alt="user-image"
                                             class="rounded-circle me-2" loading="lazy">
                                     @endif
-                                    <small class="fw-bolder">{{ $vehicle->user->name }}</small>
+                                    <small class="fw-bolder">{{ $vehicle->user->name }}
+                                          @if($user->premium) <span class="text-primary"><i
+                                                class="bi bi-patch-check-fill"></i></span>
+                                                 @endif
+                                    </small>
                                 </div>
                             </div>
                         </div>

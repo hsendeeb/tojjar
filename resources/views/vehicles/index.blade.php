@@ -1,5 +1,5 @@
 <x-app-layout>
-    <audio id="like-sound" src="{{ asset('sounds/likeSound.mp3') }}" preload="auto"></audio>
+ 
     <div id="loader-wrapper">
         <div class="spinner"></div>
     </div>

@@ -72,6 +72,12 @@
                         </div>
                         
                     </div>
+        
+                    @if(!$user->premium && $user->subscription->isEmpty())
+                    <div class="mt-2">
+                    <a href="{{ route('subscribePage') }}" style="background-color:rgb(255, 0, 0);color:white" class="btn fw-bolder">Upgrade to premium <i class="bi bi-rocket-takeoff-fill"></i></a>
+                    </div>
+                    @endif
                     @if($user->premium && $user?->subscription[0]->is_active)
                     <div class="mt-2 bg-info bg-opacity-10 rounded-2 p-2">
                     <p>
@@ -81,7 +87,7 @@
                     </div>
                     @endif
                     @if(Auth::check() && $user->id == Auth::id())
-                        <a class="btn btn-danger px-2 py-1  mt-3" href="{{ route('profile.edit') }}">Edit profile</a>
+                        <a class="btn text-decoration-underline text-danger px-2 py-1  mt-3" href="{{ route('profile.edit') }}">Edit profile</a>
                     @endif
                 </div>
 
