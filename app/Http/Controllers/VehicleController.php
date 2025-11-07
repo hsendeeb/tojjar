@@ -63,22 +63,19 @@ class VehicleController extends Controller
                 'engineSize',
                 'ad',
                 'user'
-                
+
             ])
-            ->join('ads','ads.vehicle_id','vehicles.id')
-            ->where('ads.boosted',true)
+                ->join('ads', 'ads.vehicle_id', 'vehicles.id')
+                ->where('ads.boosted', true)
                 ->when(Auth::check(), function ($query) {
                     $query->where("vehicles.user_id", "<>", Auth::id());
-               
                 })
-             ->orderByDesc('ads.boosted_at')
-            ->select('vehicles.*')              
+                ->orderByDesc('ads.boosted_at')
+                ->select('vehicles.*')
                 // 👈 Ensures consistent ordering
                 ->get();
-                
-                
         });
-      
+
 
         $paginatedVehicles = new LengthAwarePaginator(
             $vehicles->forPage($page, $perPage),
@@ -87,7 +84,7 @@ class VehicleController extends Controller
             $page,
             ['path' => request()->url(), 'query' => request()->query()]
         );
-       
+
 
 
         return view("vehicles.index", compact('paginatedVehicles', 'companies', 'categories', 'model', 'dealers'));
@@ -145,15 +142,15 @@ class VehicleController extends Controller
         if ($data['company_id'] == "other") {
             $newCompany = $request->input('new-company');
             $newModel = $request->input('new-model');
-            $company=Company::create([
-                'company_name'=>$newCompany
+            $company = Company::create([
+                'company_name' => $newCompany
             ]);
-            $model=CarModel::Create([
-                'model_name'=>$newModel,
-                'company_id'=>$company->id
+            $model = CarModel::Create([
+                'model_name' => $newModel,
+                'company_id' => $company->id
             ]);
-            $data['company_id']=$company->id;
-            $data['model_id']=$model->id;
+            $data['company_id'] = $company->id;
+            $data['model_id'] = $model->id;
         }
         $data['user_id'] = Auth::id();
         $vehicle = Vehicle::create($data);
@@ -174,13 +171,14 @@ class VehicleController extends Controller
                 "image_url" => $path,
 
             ]);
-            Ad::create([
+            
+        }
+        Ad::create([
                 'user_id' => Auth::id(),
                 'vehicle_id' => $vehicle->id,
                 'views' => 0,
                 'boosted' => false,
             ]);
-        }
         return redirect()->route("dashboard");
     }
 
@@ -350,9 +348,9 @@ class VehicleController extends Controller
         $category_id = $request->input("category_id");
         $company_id = $request->input("company_id") ?? null;
         $model_id = $request->input("model_id") ?? null;
-        $vehicles = Vehicle::with(['company', 'body', 'gearbox', 'color', 'fuel', 'model', 'category', 'condition', 'images','ad'])
-        ->join('ads','ads.vehicle_id','vehicles.id')   
-        ->where("vehicles.user_id", "<>", Auth::id())
+        $vehicles = Vehicle::with(['company', 'body', 'gearbox', 'color', 'fuel', 'model', 'category', 'condition', 'images', 'ad'])
+            ->join('ads', 'ads.vehicle_id', 'vehicles.id')
+            ->where("vehicles.user_id", "<>", Auth::id())
             ->when($request->input('category_id'), function ($query) use ($category_id) {
                 $query->where("category_id", $category_id);
             })
@@ -366,12 +364,12 @@ class VehicleController extends Controller
             ->when(!empty($c_id), function ($query) use ($c_id) {
                 $query->where("category_id", $c_id);
             })
-            ->whereHas('ad',function($query) {
-                $query->orderBy('boosted','asc')->latest();
+            ->whereHas('ad', function ($query) {
+                $query->orderBy('boosted', 'asc')->latest();
             })
             ->orderByDesc('ads.boosted_at')
             ->select('vehicles.*')
-            
+
             ->get();
         return view('vehicles.filter', compact('vehicles', 'model', 'companies', 'categories'));
     }

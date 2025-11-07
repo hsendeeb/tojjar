@@ -159,7 +159,7 @@
                             alt="">
                         <i id="staticIcon" class="bi bi-upload"></i>
 
-                        <img style="display:none;object-fit:cover;width:119px" id="preview" src="" alt="">
+                        <img style="display:none;object-fit:cover;width:70px" id="preview" src="" alt="preview">
                         <input class="form-control d-none image-input" type="file" name="images[]" id="images">
                     </label>
 
@@ -167,7 +167,7 @@
                         <img id="staticImage" src="https://www.autotrader.com.lb/bundles/appffrontend/images/1.jpg"
                             alt="">
                         <i id="staticIcon" class="bi bi-upload"></i>
-                        <img style="display:none;width:119px" id="preview" src="" alt="">
+                        <img style="display:none;width:70px" id="preview" src="" alt="preview">
 
                         <input class="form-control d-none image-input" type="file" name="images[]" id="images">
                     </label>
@@ -178,7 +178,7 @@
                             alt="">
                         <i id="staticIcon" class="bi bi-upload"></i>
 
-                        <img style="display:none;width:119px" id="preview" src="" alt="">
+                        <img style="display:none;width:70px" id="preview" src="" alt="preview">
                         <input class="form-control d-none image-input" type="file" name="images[]" id="images">
                     </label>
 
@@ -188,7 +188,7 @@
                             alt="">
                         <i id="staticIcon" class="bi bi-upload"></i>
 
-                        <img style="display:none;width:119px" id="preview" src="" alt="">
+                        <img style="display:none;width:70px" id="preview" src="" alt="preview">
                         <input class="form-control d-none image-input" type="file" name="images[]" id="images">
                     </label>
 
@@ -197,7 +197,7 @@
                         <img id="staticImage" src="https://www.autotrader.com.lb/bundles/appffrontend/images/1.jpg"
                             alt="">
                         <i id="staticIcon" class="bi bi-upload"></i>
-                        <img style="display:none;width:119px" id="preview" src="" alt="">
+                        <img style="display:none;width:70px" id="preview" src="" alt="preview">
                         <input class="form-control d-none image-input" type="file" name="images[]" id="images">
                     </label>
 
@@ -206,7 +206,7 @@
                         <img id="staticImage" src="https://www.autotrader.com.lb/bundles/appffrontend/images/1.jpg"
                             alt="">
                         <i id="staticIcon" class="bi bi-upload"></i>
-                        <img style="display:none;width:119px" id="preview" src="" alt="">
+                        <img style="display:none;width:70px" id="preview" src="" alt="preview">
                         <input class="form-control d-none image-input" type="file" name="images[]" id="images">
                     </label>
 
@@ -215,7 +215,7 @@
                         <img id="staticImage" src="https://www.autotrader.com.lb/bundles/appffrontend/images/1.jpg"
                             alt="">
                         <i id="staticIcon" class="bi bi-upload"></i>
-                        <img style="display:none;width:119px" id="preview" src="" alt="">
+                        <img style="display:none;width:70px" id="preview" src="" alt="preview">
                         <input class="form-control d-none image-input" type="file" name="images[]" id="images">
                     </label>
 
@@ -224,7 +224,7 @@
                         <img id="staticImage" src="https://www.autotrader.com.lb/bundles/appffrontend/images/1.jpg"
                             alt="">
                         <i id="staticIcon" class="bi bi-upload"></i>
-                        <img style="display:none;width:119px" id="preview" src="" alt="">
+                        <img style="display:none;width:70px" id="preview" src="" alt="preview">
                         <input class="form-control d-none image-input" type="file" name="images[]" id="images">
                     </label>
 
@@ -233,7 +233,7 @@
                         <img id="staticImage" src="https://www.autotrader.com.lb/bundles/appffrontend/images/1.jpg"
                             alt="">
                         <i id="staticIcon" class="bi bi-upload"></i>
-                        <img style="display:none;width:119px" id="preview" src="" alt="">
+                        <img style="display:none;width:70px" id="preview" src="" alt="preview">
                         <input class="form-control d-none image-input" type="file" name="images[]" id="images">
                     </label>
 
@@ -241,7 +241,7 @@
                         <img id="staticImage" src="https://www.autotrader.com.lb/bundles/appffrontend/images/1.jpg"
                             alt="">
                         <i id="staticIcon" class="bi bi-upload"></i>
-                        <img style="display:none;width:119px" id="preview" src="" alt="">
+                        <img style="display:none;width:70px" id="preview" src="" alt="preview">
                         <input class="form-control d-none image-input" type="file" name="images[]" id="images">
                     </label>
                 </div>

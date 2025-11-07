@@ -86,7 +86,7 @@
 
     </div>
 
-    <h1 id="featured" class="h1 text-center mt-5 archivo brush">Featured cars</h1>
+    <h1 id="featured" class="h1 text-center mt-5 archivo brush">Featured cars <i class="bi bi-award-fill"></i></h1>
     <div id="body" class="container mt-3">
         <div class="row">
             
@@ -157,8 +157,8 @@
                                 <span class="bg-success bg-opacity-10 fw-bolder rounded-pill text-success px-2"><i
                                         class="bi bi-calendar3"></i> {{$vehicle->year}}</span>
                                 <span
-                                    style="background-color:{{ ($vehicle->color->color == 'white') ? 'silver' : $vehicle->color->color }};"
-                                    class=" text-white bg-opacity-25 fs-6 fw-bolder rounded-pill px-2">
+                                    style="background-color:{{ ($vehicle->color->color == 'black') ? 'black'.';'. 'color:white' : $vehicle->color->color }};"
+                                    class="bg-opacity-25 fs-6 fw-bolder rounded-pill px-2">
                                     <i class=" bi bi-droplet-fill"></i> {{$vehicle->color->color}}</span>
 
                                 <span class="text-sm bg-secondary bg-opacity-25 fs-6 fw-bolder rounded-pill px-2"> <i

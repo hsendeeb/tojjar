@@ -34,7 +34,7 @@
             <form class="mt-3" action="{{ route('payment') }}" method="post" enctype="multipart/form-data">
               @csrf
               <label class="form-label" for="username">proof of payment (upload the whish invoice):</label>
-              <input type="file" class="form-control mt-2" name="proof" id="proof" required>
+              <input type="file" class="form-control mt-2 border-danger form-input" name="proof" id="proof" required>
               @if(session('success'))
                 <div class="mt-3 bg-success bg-opacity-10 rounded-2 p-2">
                   <span><i class="bi bi-check-circle-fill me-1"></i></span> {{ session('success') }}
@@ -46,7 +46,7 @@
               <p class="fw-bolder">Any extra payment will extend your subscription by 1 month</p>
               </div>
               @endif
-              <a class="btn btn-outline-primary mt-2 w-100" href="{{ route('dashboard') }}">Go back</a>
+             
 
 
               <button type="submit" class="btn btn-danger w-100 px-4 mt-4">submit request</button>

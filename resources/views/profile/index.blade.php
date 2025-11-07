@@ -73,7 +73,7 @@
                         
                     </div>
         
-                    @if(!$user->premium && $user->subscription->isEmpty())
+                    @if(!$user->premium && $user->subscription->isEmpty() || !$user->subscription[0]->is_active)
                     <div class="mt-2">
                     <a href="{{ route('subscribePage') }}" style="background-color:rgb(255, 0, 0);color:white" class="btn fw-bolder">Upgrade to premium <i class="bi bi-rocket-takeoff-fill"></i></a>
                     </div>

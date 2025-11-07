@@ -117,6 +117,12 @@
                     <i class="bi bi-box-arrow-in-right"></i> {{ __('login') }}
                 </x-responsive-nav-link>
             @endguest
+            @if(Auth::user()?->admin)
+            <x-responsive-nav-link :href="route('admin.dashboard', Auth::id())"
+                 >   
+                      <span><i class="bi bi-diagram-3-fill"></i></span>  {{ __('Admin dashboard') }}                       
+                    </x-responsive-nav-link>
+                    @endif
 
         </div>
 
@@ -134,6 +140,7 @@
                         :active="request()->routeIs('profile.index')">   
                         {{ __('Profile') }}                       
                     </x-responsive-nav-link>
+                    
                              @if(Auth::user()->image != 'public/images/avatar.png')
                             <img src="{{ Storage::url(Auth::user()->image)}}"
                                 style="width:40px; height:40px; object-fit:cover;" class="rounded-circle d-inline-flex" loading="lazy">
