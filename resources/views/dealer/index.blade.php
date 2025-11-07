@@ -43,7 +43,7 @@
                             <div class="card-footer bg-white p-0 mt-1">
                                 
                                 <a name="viewMore" href="{{ route('profile.show', $dealer->user->id) }}"
-                                    class="btn bg-black  text-white fw-bolder bg-opacity-75 w-100">view dealer<i
+                                    class="btn bg-black  text-white fw-bolder w-100">view dealer<i
                                         class="bi bi-arrow-right-circle-fill ms-2"></i></a>
                               
                                     </div>

@@ -23,6 +23,12 @@
                 required autofocus autocomplete="name" />
             <x-input-error class="mt-2" :messages="$errors->get('name')" />
         </div>
+        <div>
+            <x-input-label for="username" :value="__('Username')" />
+            <x-text-input id="username" name="username" type="text" class="mt-1 block w-full" :value="old('username', $user->username)"
+                required autofocus autocomplete="username" />
+            <x-input-error class="mt-2" :messages="$errors->get('username')" />
+        </div>
         @if($user->image != 'public/images/avatar.png')
             <img src="{{ Storage::url($user->image)}}" style="width:100px; height:100px; object-fit:cover;"
                 class="rounded-circle me-2" loading="lazy">

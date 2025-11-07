@@ -14,7 +14,8 @@ class VehicleObserver
      */
     public function created(Vehicle $vehicle)
     {
-            
+              
+
         self::flushVehicleCache();
     }
 

@@ -12,16 +12,22 @@
           <div class="card-body">
             <h2 class="card-title h2 archivo text-center">Pay via whish money</h2>
 
-            <p class="card-text text-muted text-center">Unlock all features with our premium subscription.</p>
+            <p class="card-text text-muted text-center fw-bolder">Unlock all features with our premium subscription.</p>
+            <ul class="list-unstyled mt-3">
+          <li class="d-flex align-items-start mb-2"><span><i class="bi bi-check-lg me-2"></i></span>  Unlimited ad boosts <span><i class="ms-2 bi bi-rocket-takeoff-fill"></i></span></li>
+          <li class="d-flex align-items-start mb-2"><span><i class="bi bi-check-lg me-2"></i></span>  Verification badge <span class="ms-2 text-primary"><i class="bi bi-patch-check-fill"></i></span></li>
+          <li class="d-flex align-items-start mb-2"><span><i class="bi bi-check-lg me-2"></i></span>  Your ads will be at top of search results <span class="ms-2"><i class="bi bi-graph-up-arrow"></i></span>
+</li>
+        </ul>
             <h2 class="text-primary h2 text-center mt-3 mb-3">$20 <small class="text-muted">/month</small></h2>
             <div class="p-3 bg-info bg-opacity-10 rounded-2">
               <ul class="list-unstyled">
                 <li class="mt-2">1.pay via whish to this number: <span
                     class="fw-bolder">{{ env('PHONE_NUMBER') }}</span></li>
-                <li class="mt-2">2.take of picture of the invoice and upload it here</li>
+                <li class="mt-2">2.take a photo of the invoice and upload it here .</li>
                 <li class="mt-2"><span class="fw-bolder">Notice:</span>
-                  If you pay through whish to whish you can send the payment link via whatsapp to this
-                  number:{{ env('PHONE_NUMBER') }}
+                  If you pay through <span class="fw-bolder">"whish to whish"</span> screenshot the invoice and upload it here.
+                 
                 </li>
               </ul>
             </div>
@@ -40,7 +46,7 @@
               <p class="fw-bolder">Any extra payment will extend your subscription by 1 month</p>
               </div>
               @endif
-              <a class="btn btn-outline-primary mt-2 w-100" href="{{ route('dashboard') }}">Continue browsing</a>
+              <a class="btn btn-outline-primary mt-2 w-100" href="{{ route('dashboard') }}">Go back</a>
 
 
               <button type="submit" class="btn btn-danger w-100 px-4 mt-4">submit request</button>

@@ -81,7 +81,7 @@
                     @if($user->premium && $user?->subscription[0]->is_active)
                     <div class="mt-2 bg-info bg-opacity-10 rounded-2 p-2">
                     <p>
-                   <i class="bi bi-clock-fill"></i>  Your premium plan ends at <span class="fw-bolder me-2">{{date_format($user->subscription[0]?->ends_at ,'d/m/Y') }}</span>
+                   <i class="bi bi-clock-fill"></i>  Your premium plan ends on <span class="fw-bolder me-2">{{date_format($user->subscription[0]?->ends_at ,'d/m/Y') }}</span>
                     </p> 
                     <a class="btn btn-sm btn-outline-primary mt-2" href="{{ route('subscribePage') }}">Renew now</a>
                     </div>

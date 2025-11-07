@@ -53,7 +53,7 @@
     </div>
     <h3 class="px-2 mt-3 fw-bold">Dealers</h3>
     <div class="d-flex justify-content-end px-2">
-        <a class="btn btn-outline-danger rounded-pill px-3 py-0" href="{{ route('dealers.index') }}">see all</a>
+        <a class="btn text-danger px-1 py-0" href="{{ route('dealers.index') }}">see all <i class="bi bi-arrow-right"></i></a>
     </div>
     <div class="d-flex flex-nowrap  gap-3 overflow-x-auto over mt-3 py-3">
 

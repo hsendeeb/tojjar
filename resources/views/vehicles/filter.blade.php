@@ -123,7 +123,7 @@
                            
                               <div class="d-flex gap-2 ">
                                     <div class="w-75">
-                                    <a name="viewMore" href="{{ route('vehicle.show', $vehicle) }}"
+                                    <a name="viewMore" id="viewBtn" data-id="{{$vehicle->ad->id}}" href="{{ route('vehicle.show', $vehicle) }}"
                                         class="btn bg-black fw-bolder text-white w-100">view more <i
                                             class="bi bi-arrow-right-circle-fill"></i></a>
                                              </div>

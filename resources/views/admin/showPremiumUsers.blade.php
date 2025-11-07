@@ -73,7 +73,7 @@
                  
                 <td>{{ $record->id }}</td>
             
-                <td><a href="{{ route('profile.show',$record->id) }}">{{ $record->user->username }}</a></td>
+                <td><a href="{{ route('profile.show',$record->user->id) }}">{{ $record->user->username }}</a></td>
                 <td>{{ $record->user->email }}</td>
                 <td>{{ $record->plan }}</td>
                  <td>{{ $record->starts_at}}</td>
@@ -82,9 +82,15 @@
                 
                  <td>{{ $record->created_at }}</td>
                  <td>{{ $record->updated_at }}</td>
-                <td>
-                    <img class="rounded-circle" style="width:30px;height:30px" src='{{ Storage::url($record->user->image) }}'>
-                </td>
+              <td>
+                     @if($record->user->image != 'public/images/avatar.png')
+                            <img src="{{ Storage::url($record->user->image)}}" style="width:40px; height:40x; object-fit:cover;"
+                                class="rounded-circle me-2" loading="lazy">
+                        @else
+                            <img src="/images/avatar.jpg" style="width:40px; height:40px; object-fit:cover;"
+                                class="rounded-circle me-2" loading="lazy">
+                        @endif
+                      </td>
             
             </tr>
             

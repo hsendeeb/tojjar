@@ -65,17 +65,14 @@ class VehicleController extends Controller
                 'user'
                 
             ])
-            ->whereHas('ad',function($query){
-                    $query->where('boosted',true)
-                    ->orderBy('boosted','desc');
-                 })
-                 ->whereHas('user',function($query) {
-                    $query->where('premium',true);
-                 })
+            ->join('ads','ads.vehicle_id','vehicles.id')
+            ->where('ads.boosted',true)
                 ->when(Auth::check(), function ($query) {
-                    $query->where("user_id", "<>", Auth::id());
+                    $query->where("vehicles.user_id", "<>", Auth::id());
                
-                })              
+                })
+             ->orderByDesc('ads.boosted_at')
+            ->select('vehicles.*')              
                 // 👈 Ensures consistent ordering
                 ->get();
                 
@@ -354,7 +351,8 @@ class VehicleController extends Controller
         $company_id = $request->input("company_id") ?? null;
         $model_id = $request->input("model_id") ?? null;
         $vehicles = Vehicle::with(['company', 'body', 'gearbox', 'color', 'fuel', 'model', 'category', 'condition', 'images','ad'])
-            ->where("vehicles.user_id", "<>", Auth::id())
+        ->join('ads','ads.vehicle_id','vehicles.id')   
+        ->where("vehicles.user_id", "<>", Auth::id())
             ->when($request->input('category_id'), function ($query) use ($category_id) {
                 $query->where("category_id", $category_id);
             })
@@ -369,8 +367,10 @@ class VehicleController extends Controller
                 $query->where("category_id", $c_id);
             })
             ->whereHas('ad',function($query) {
-                $query->orderBy('boosted','desc')->latest();
+                $query->orderBy('boosted','asc')->latest();
             })
+            ->orderByDesc('ads.boosted_at')
+            ->select('vehicles.*')
             
             ->get();
         return view('vehicles.filter', compact('vehicles', 'model', 'companies', 'categories'));

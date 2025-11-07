@@ -74,7 +74,7 @@
         <tr>
 
           <td>{{ $record->id }}</td>
-          <td><a href="{{ route('profile.show', $record->id) }}">{{ $record->company->company_name }}</a></td>
+          <td><a href="{{ route('vehicle.show', $record->id) }}">{{ $record->company->company_name }}</a></td>
           <td>{{ $record->model->model_name }}</td>
           <td>{{ $record->year }}</td>
           <td>{{ $record->mileage }}</td>

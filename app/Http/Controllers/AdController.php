@@ -67,6 +67,7 @@ class AdController extends Controller
             $ad = Ad::findOrFail($id);
             if (!$ad->boosted) {
                 $ad->boosted = true;
+                $ad->boosted_at=now();
                 $ad->save();
                 return response()->json([
                     'boosted' => $ad->boosted,

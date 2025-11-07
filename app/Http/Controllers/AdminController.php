@@ -169,7 +169,6 @@ class AdminController extends Controller
 }
   public function showPaymentRequests() {
         $records=PaymentRequest::with('user')
-        
         ->get();
         
         $companies=Company::all();

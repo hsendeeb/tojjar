@@ -13,7 +13,7 @@
     <div class="container-fluid mt-5">
         <div class="row">
             <div class="col-12">
-                <div class="p-5 text-center">
+                <div class="p-2 text-center">
                     <div class="container d-flex justify-content-center mt-2">
                      
                         @if($user->image !='public/images/avatar.png')
@@ -123,7 +123,7 @@
                            
                                 <div class="d-flex gap-2 ">
                                     <div class="w-75">
-                                    <a id="viewBtn" name="viewMore" href="{{ route('vehicle.show', $vehicle) }}"
+                                    <a id="viewBtn" data-id="{{$vehicle->ad->id}}" name="viewMore" href="{{ route('vehicle.show', $vehicle) }}"
                                         class="btn bg-black fw-bolder text-white w-100">view more <i
                                             class="bi bi-arrow-right-circle-fill"></i></a>
                                              </div>
@@ -150,7 +150,7 @@
                     </a>
                 </div>
             @empty
-                <div class="container-fluid d-flex justify-content-center">
+                <div class="container-fluid d-flex justify-content-center mt-5">
                     <img class="img-responsive w-50 mix-blend-multiply" src="/images/NoAds.png" alt="no ads">
                 </div>
 

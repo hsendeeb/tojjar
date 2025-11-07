@@ -49,7 +49,7 @@
             </li>
             
             <li class="mb-2">
-              <a href="#featured" class="text-danger">featured vehicles</i></a>
+              <a href="{{route('dashboard','#featured')}}" class="text-danger">featured vehicles</i></a>
             </li>
             <li class="mb-2">
               <a href="{{ route('dealers.index') }}" class="text-danger"></i>Dealers</a>
