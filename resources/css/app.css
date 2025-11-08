@@ -9,12 +9,9 @@
     color: black;
   }
 }
-@media screen and (min-width:900px){
-    #mainImage {
-        display: none;
-    }
+
     
-}
+
 @media screen and (max-width:768px) {
   #logo {
       font-family:Impact, Arial Black;
@@ -31,6 +28,13 @@ body {
 
 .login {
     background-image:url("/resources/images/loginImage.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+}
+#searchBar {
+    background-image:url("/public/images/red2.png");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;

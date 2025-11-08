@@ -42,10 +42,17 @@
               @endif
              @if(!empty($subscription) && $subscription->is_active)
               <div class="mt-3 bg-success bg-opacity-10 rounded-2 p-2">
-              <p>Your premium plan is currently active.</p>
+              <p>Your  premium plan is currently active.</p>
               <p class="fw-bolder">Any extra payment will extend your subscription by 1 month</p>
               </div>
               @endif
+              @if(Auth::user()->paymentRequest->last()->status=='rejected') 
+              <div class="mt-3 bg-danger bg-opacity-10 rounded-2 p-2">
+              <p><span class="text-danger me-2"><i class="bi bi-x-circle-fill"></i></span>Your last premium plan request is rejected.</p>
+              <p class="fw-bolder">To fix this you can contact  this number:71/994952</p>
+              </div>
+              @endif
+             
              
 
 

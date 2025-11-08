@@ -311,29 +311,7 @@ class VehicleController extends Controller
     }
 
 
-    public function detect(Request $request)
-    {
-        $request->validate([
-            'image' => 'required|image|max:5120', // max 5MB
-        ]);
-
-        $imagePath = $request->file('image')->store('images', 'public');
-        $imageUrl = asset('storage/' . $imagePath);
-
-        // Send to Azure Computer Vision API
-        $response = Http::withHeaders([
-            'Ocp-Apim-Subscription-Key' => env('AZURE_VISION_KEY'),
-        ])->post('https://westeurope.api.cognitive.microsoft.com/vision/v3.2/analyze', [
-            'url' => $imageUrl,
-            'visualFeatures' => 'Tags',
-        ]);
-
-        $tags = collect($response->json()['tags'])->pluck('name')->toArray();
-
-        $result = in_array('car', $tags) ? '✅ This image contains a car.' : '❌ No car detected in the image.';
-
-        return back()->with('result', $result);
-    }
+  
     public function filteredSearch(Request $request, ?string $category_name = null)
     {
         if ($category_name) {
@@ -364,9 +342,7 @@ class VehicleController extends Controller
             ->when(!empty($c_id), function ($query) use ($c_id) {
                 $query->where("category_id", $c_id);
             })
-            ->whereHas('ad', function ($query) {
-                $query->orderBy('boosted', 'asc')->latest();
-            })
+
             ->orderByDesc('ads.boosted_at')
             ->select('vehicles.*')
 

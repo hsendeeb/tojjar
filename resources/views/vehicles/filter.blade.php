@@ -54,16 +54,49 @@
 
                         <div class="position-relative d-inline-block">
                              @if(!$vehicle->available)
-                             <img class="position-absolute top-100 start-50 translate-middle" src="/images/sold.png" alt="sold">
+                             <img class="position-absolute top-100 start-50 translate-middle z-1" src="/images/sold.png" alt="sold">
                             @endif
-                            <img src="{{ Storage::url($vehicle->images[0]->image_url) }}" loading="lazy"
-                                class="img-fluid rounded object-fit-cover" style="height: 250px;width:1000px"
-                                alt="Vehicle Image">
+                             <div id="vehicleCarousel-{{ $vehicle->id }}" class="carousel slide" data-bs-ride="false">
+                                @if($vehicle->images->count() > 0)
+                                    <div class="carousel-indicators">
+                                        @foreach($vehicle->images as $i => $img)
+                                            <button type="button"
+                                                data-bs-target="#vehicleCarousel-{{ $vehicle->id }}"
+                                                data-bs-slide-to="{{ $i }}"
+                                                class="{{ $i === 0 ? 'active' : '' }}"
+                                                {{ $i === 0 ? 'aria-current="true"' : '' }}
+                                                aria-label="Slide {{ $i + 1 }}"></button>
+                                        @endforeach
+                                    </div>
+                                @endif
+                                <div class="carousel-inner  rounded-3">
+                                    @foreach($vehicle->images as $index => $image)
+                                        <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+                                            <img style="height:300px;width:1000px; cursor: pointer;"
+                                                class=" rounded-3 object-fit-cover"
+                                                data-bs-toggle="modal" src="{{ asset('storage/' . $image->image_url) }}"
+                                                alt="Vehicle Image {{ $index + 1 }}">
+                                        </div>
+
+
+                                    @endforeach
+                                </div>
+                                <button class="carousel-control-prev " type="button"
+                                    data-bs-target="#vehicleCarousel-{{ $vehicle->id }}" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon " aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button"
+                                    data-bs-target="#vehicleCarousel-{{ $vehicle->id }}" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon text-black" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                            </div>
                             <div
                                 class="glass-price position-absolute top-0 end-0  text-white fw-bolder px-3 py-1 rounded-bottom-start shadow-sm">
                                 $ {{ number_format($vehicle->price) }}
                             </div>
-                            @if($vehicle->ad->boosted)
+                            @if($vehicle->ad?->boosted)
                             <div
                                 class=" position-absolute top-0 start-0  text-white fw-bolder px-3 py-1 rounded-bottom-start ">
                                <img src="/images/crown.png" alt="">

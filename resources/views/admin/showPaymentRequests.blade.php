@@ -94,15 +94,39 @@
                    
                     <button type="submit"  class="btn btn-sm btn-success">Accept</button>
                     </form>
+                   <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+ Reject
+</button>
                    
-                    <form action="{{ route('admin.reject',$record->id) }}" method="POST">
+                    <!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered  ">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Are you sure</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="{{ route('admin.reject',['id'=>$record->id]) }}" method="POST">
                     @csrf
-                    
-                    <button type="submit"  class="btn btn-sm btn-danger ">Reject</button>
-                    </form> 
+                  
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+        <button type="submit" class="btn btn-primary">Yes</button>
+      </div>
+        </form>
+    </div>
+  </div>
+</div> 
                     </div>
                     @elseif($record->status=='approved')
                     <span class="text-success"><i class="bi bi-check-circle-fill"></i></span>
+                    @elseif($record->status=='rejected')
+                    <span class="text-danger"><i class="bi bi-x-circle-fill"></i></span>
                     @endif
 
                     

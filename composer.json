@@ -12,6 +12,7 @@
         "php": "^8.2",
         "laravel/breeze": "^2.3",
         "laravel/framework": "^12.0",
+        "laravel/telescope": "^5.15",
         "laravel/tinker": "^2.10.1",
         "predis/predis": "^3.2",
         "spatie/laravel-image-optimizer": "^1.8",
@@ -19,6 +20,7 @@
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
+        "itsgoingd/clockwork": "^5.3",
         "laravel/pail": "^1.2.2",
         "laravel/pint": "^1.24",
         "laravel/sail": "^1.41",

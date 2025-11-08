@@ -10,7 +10,8 @@ class Ad extends Model
         'user_id',
         'vehicle_id',
         'views',
-        'boosted'
+        'boosted',
+        'boosted_at'
     ];
     public function user(){
         return $this->belongsTo(User::class);

@@ -122,10 +122,10 @@
                                 </h5>
                                 <p class="card-text"><small class="text-muted">
                                         <i class="bi bi-heart-fill"></i> Likes:
-                                        {{ $vehicle->ad->likes->count() }}</small></p>
+                                        {{ $vehicle->ad?->likes->count() }}</small></p>
                                 <p class="card-text"><small class="text-muted">
                                         <i class="bi bi-eye-fill"></i> views:
-                                        {{ $vehicle->ad->views}}</small></p>
+                                        {{ $vehicle->ad?->views}}</small></p>
                                 <p class="card-text text-secondary">
                                     <small class="text-muted"><i class="bi bi-clock-fill"></i>
                                         {{date_format($vehicle->created_at, "d,M,Y")}}</small>
@@ -134,10 +134,10 @@
                                         {{date_format($vehicle->updated_at, "d,M,Y")}}</small></p>
                             </div>
                             <div class="card-footer d-flex justify-content-center align-items-center mb-0 d-flex gap-2">
-                              @if(!$vehicle->ad->boosted)
-                                <button data-id="{{ $vehicle->ad->id }}"  class="boostBtn btn btn-danger rounded-2 w-100 ">Boost <span><i class="bi bi-lightning-fill"></i></span></button>
+                              @if(!$vehicle->ad?->boosted)
+                                <button data-id="{{ $vehicle->ad?->id }}"  class="boostBtn btn btn-danger rounded-2 w-100 ">Boost <span><i class="bi bi-lightning-fill"></i></span></button>
                                @else
-                                <button data-id="{{ $vehicle->ad->id }}"  class="boostBtn btn  fw-bolder text-danger rounded-2 w-100 ">Boosted <span> <i class="bi bi-lightning-fill"></i></span></button>
+                                <button data-id="{{ $vehicle->ad?->id }}"  class="boostBtn btn  fw-bolder text-danger rounded-2 w-100 ">Boosted <span> <i class="bi bi-lightning-fill"></i></span></button>
 
                                 @endif
                                 <div class="btn-group">

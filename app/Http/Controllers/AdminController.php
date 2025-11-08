@@ -239,6 +239,11 @@ public function accept(string $id,string $user_id){
     return redirect()->back();
  
 }
+public function reject(string $id) {
+    $paymentRequest=PaymentRequest::findOrFail($id);
+    $paymentRequest->update(['status'=>'rejected']);
+    return redirect()->back();
+}
 public function showBoostedAds(){
     $companies=Company::all();
      $records=Ad::with('vehicle','user','likes')

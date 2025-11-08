@@ -220,22 +220,20 @@ $("#company").on("change", function () {
     const companyId = $(this).val();
 
     if (companyId) {
-        $("#model").slideDown(500).show();
+        $("#model").slideDown(300).show();
         $("#model").empty();
         $.ajax({
             url: "/get-models/" + companyId,
             method: "GET",
             success: function (data) {
-                $("#model").prop("disabled", false);
-                $("#company").addClass("bg-info bg-opacity-25  ");
-                $("#model").addClass("bg-primary bg-opacity-10 ");
+                $("#model").prop("disabled", false);    
                 $("#model").removeClass("opacity-50");
                 $("#model").append(
                     "<option value=''disabled selected>select model</option>"
                 );
                 $.each(data, function (index, model) {
                     $("#model").append(
-                        `<option value=${model.id}>${model.model_name}</option`
+                        `<option value=${model.id}>${model.model_name}</option>`
                     );
                 });
             },

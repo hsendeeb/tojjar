@@ -7,18 +7,20 @@
 
     <button id="glass-button" class="glass-button px-4 py-1 rounded-pill text-dark"><i
             class="bi bi-arrow-up-circle-fill"></i></button>
-
-    <div class="container-fluid  d-flex gap-2 p-1 bg-transparent ">
-        <form class="d-flex justify-content-center form-control bg-transparent" method="GET"
+   <div class="py-3" id="searchBar" >
+    <div class="container-fluid  d-flex gap-2 p-1 bg-transparent  ">
+        <form class="d-flex gap-2 justify-content-center form-control border-0 bg-transparent" method="GET"
             action="{{ route('company.show') }}">
-            <input id="search" name="company_name" type="text" class="form-control w-100 " required
+            <input  id="search" name="company_name" type="text" class="form-control opacity-50 " required
                 placeholder="search for any car">
-            <button type="submit" class=" text-dark px-2 fs-3"> <i class="bi bi-search"></i></button>
+            <button type="submit" class=" text-white px-2 fs-3"> <i class="bi bi-search"></i></button>
 
         </form>
+        
     </div>
-    <div style="display: none;height:100px;" class="bg-white  shadow z-1 overflow-y-auto px-3  " id="suggestions">
+     <div style="display: none;height:100px;" class="bg-white  shadow z-1 overflow-y-auto px-3" id="suggestions">
     </div>
+   
 
     <div id="alert" class="container d-flex justify-content-center">
         @if(session("notFound"))
@@ -30,17 +32,17 @@
 
 
     <div class="container mt-3 px-2">
-        <form class="d-flex gap-2 flex-wrap justify-content-center" action="{{ route("filteredSearch") }}"
+        <form class="d-flex gap-1 flex-wrap justify-content-center" action="{{ route("filteredSearch") }}"
             method="POST">
             @csrf
-            <select class="rounded-pill border-0" name="category_id" id="category">
+            <select class="rounded-pill border-0 " name="category_id" id="category">
                 <option value="" disabled selected>select category</option>
                 @foreach ($categories as $category)
                     <option value="{{ $category->id }}">{{ $category->category }}</option>
                 @endforeach
 
             </select>
-            <select class="opacity-50 text-primary fw-bolder rounded-pill border-0 " name="company_id" id="company"
+            <select class="opacity-50  fw-bolder rounded-pill border-0 " name="company_id" id="company"
                 disabled autocomplete="off">
                 <option value="" disabled selected>select company</option>
             </select>
@@ -50,6 +52,7 @@
             <button type="submit" class="btn btn-primary    px-3 py-0  text-white rounded-pill fw-bold">search</button>
         </form>
 
+    </div>
     </div>
     <h3 class="px-2 mt-3 fw-bold">Dealers</h3>
     <div class="d-flex justify-content-end px-2">

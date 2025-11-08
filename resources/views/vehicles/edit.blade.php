@@ -21,7 +21,7 @@
                 </select>
                 <x-input-error :messages="$errors->get('category_id')" class="mt-2" />
             </div>
-            <div class="mt-3">
+            <div id="companyContainer" class="mt-3">
                 <label for="company" class="form-label me-2">car company: </label>
                 <select class="form-control" name="company_id" id="company_id">
                    <option value="">select a company</option>
@@ -34,7 +34,7 @@
                  <div class="mt-3">
                     <label for="model_id">car model:</label>
                 <select class="form-control mt-2" name="model_id" id="carModel">
-                    <option class="active" value="{{ $vehicle->model_id }}">{{$vehicle->model->model_name}}</option>
+                    <option class="active" value="{{ old($vehicle->model_id) }}">{{$vehicle->model->model_name}}</option>
                 </select>
                  <x-input-error :messages="$errors->get('carModel_id')" class="mt-2" />
             </div>
