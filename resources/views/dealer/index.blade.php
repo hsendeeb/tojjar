@@ -33,7 +33,7 @@
 
                             <div class="card-body  px-2"  >
                                 <h5 class="text-nowrap h5 text-center card-title archivo  fw-bolder bg-opacity-25  py-1">
-                                    {{$dealer->name}} 
+                                    {{$dealer->user->username}} 
                                     @if($dealer->user->premium) <span class="text-primary"><i
                                                 class="bi bi-patch-check-fill"></i></span>
                                                  @endif

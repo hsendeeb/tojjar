@@ -58,27 +58,34 @@
     <div class="d-flex justify-content-end px-2">
         <a class="btn text-danger px-1 py-0" href="{{ route('dealers.index') }}">see all <i class="bi bi-arrow-right"></i></a>
     </div>
-    <div class="d-flex flex-nowrap  gap-3 overflow-x-auto over mt-3 py-3">
+    <div class="d-flex flex-nowrap  gap-4  overflow-x-auto  mt-3 py-3 px-3">
 
         @forelse ($dealers as $dealer)
-            <a id="dealer" href="{{ route('profile.show', $dealer->user->id) }}">
-                <div class="px-3">
-                    @if($dealer->user->image != 'public/images/avatar.png')
-                        <img class="rounded-circle object-fit-cover" style="width:55px;height:50px"
-                            src="{{ Storage::url($dealer->user->image)}}" alt=" logo">
+             
+    <div class="d-flex flex-column align-items-center" style="min-width: 70px;">
+        <a class="text-center" id="dealer" href="{{ route('profile.show',$dealer->user->id) }}">
+                        @if($dealer->user->image != 'public/images/avatar.png')
+                        <div class="rounded-circle overflow-hidden" style="width:70px; height:70px;">
+                            <img class="w-100 h-100 object-fit-cover"
+                                src="{{ Storage::url($dealer->user->image)}}" alt=" logo">
+                        </div>
                     @else
-                        <img class="rounded-circle object-fit-cover" style="width:55px;height:50px" src="/images/avatar.jpg"
-                            alt=" logo">
+                        <div class="rounded-circle overflow-hidden" style="width:70px; height:70px;">
+                            <img class="w-100 h-100 object-fit-cover" 
+                                src="/images/avatar.jpg" alt=" logo">
+                        </div>
                     @endif
-                    <small class="text-nowrap fw-bold text-center mt-2">{{ $dealer->name }}
-                            @if($dealer->user->premium) <span class="text-primary"><i
+                    <small class="text-nowrap mt-2 text-center">{{ $dealer->user->username }} 
+                         @if($dealer->user->premium) <span class="text-primary"><i
                                                 class="bi bi-patch-check-fill"></i></span>
                                                  @endif
-                        
                     </small>
+                   </div> 
+                   </a>
 
-                </div>
-            </a>
+            
+                
+        
 
 
         @empty
@@ -190,7 +197,7 @@
                                         <img src="/images/avatar.jpg" style="width:25px; height:25px; object-fit:cover;"
                                             class="rounded-circle me-2" loading="lazy">
                                     @endif
-                                    <small class="fw-bolder">{{ $vehicle->user->name }}
+                                    <small class="fw-bolder">{{ $vehicle->user->username }}
                                          @if($vehicle->user->premium) <span class="text-primary"><i
                                                 class="bi bi-patch-check-fill"></i></span>
                                                  @endif

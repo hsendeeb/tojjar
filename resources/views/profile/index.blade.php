@@ -53,7 +53,7 @@
                                 class="rounded-circle me-2" loading="lazy">
                         @endif
                     </div>
-                    <h3 class="h3 mt-1">{{$user->name}}
+                    <h3 class="h3 mt-1">{{$user->username}}
                          @if($user->premium) <span class="text-primary"><i
                                                 class="bi bi-patch-check-fill"></i></span>
                                                  @endif</h3>
@@ -72,6 +72,18 @@
                         </div>
                         
                     </div>
+                    @if(!$user->bio)
+                    <div class="text-center my-2">
+                    <a href="{{ route('profile.edit','#bio') }}" class="text-danger fw-bolder">Add bio <i class="bi bi-info-circle-fill"></i></a>
+
+                    </div>
+                    @endif
+                    @if($user->bio)
+                    <div class="text-center my-2">
+                        {{ $user->bio }}
+
+                    </div>
+                    @endif
         
                     @if(!$user->premium && $user->subscription->isEmpty() || !$user->subscription[0]->is_active)
                     <div class="mt-2">
@@ -94,7 +106,7 @@
             </div>
         </div>
 
-        <div class="row ">
+        <div class="row  ">
             <h1 class=" text-center h1 archivo brush px-2">My Ads</h1>
             @forelse ($vehicles as $vehicle)
                 <div class="card mb-3 w-75 mx-auto p-0 mt-3 notHover">
@@ -135,9 +147,9 @@
                             </div>
                             <div class="card-footer d-flex justify-content-center align-items-center mb-0 d-flex gap-2">
                               @if(!$vehicle->ad?->boosted)
-                                <button data-id="{{ $vehicle->ad?->id }}"  class="boostBtn btn btn-danger rounded-2 w-100 ">Boost <span><i class="bi bi-lightning-fill"></i></span></button>
+                                <button data-id="{{ $vehicle->ad?->id }}"  class="boostBtn btn btn-danger rounded-2 w-100 ">Boost <span><i class="bi bi-rocket-takeoff-fill"></i></span></button>
                                @else
-                                <button data-id="{{ $vehicle->ad?->id }}"  class="boostBtn btn  fw-bolder text-danger rounded-2 w-100 ">Boosted <span> <i class="bi bi-lightning-fill"></i></span></button>
+                                <button data-id="{{ $vehicle->ad?->id }}"  class="boostBtn btn  fw-bolder text-danger rounded-2 w-100 ">Boosted <span> <i class="bi bi-rocket-takeoff-fill"></i></span></button>
 
                                 @endif
                                 <div class="btn-group">

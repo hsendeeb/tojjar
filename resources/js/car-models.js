@@ -382,7 +382,7 @@ document.querySelectorAll(".boostBtn").forEach((btn) => {
                 } else {
                     btn.innerHTML =
                         "Boosted" +
-                        "<span> <i class='bi bi-lightning-fill'></i></span>";
+                        "<span> <i class='bi bi-rocket-takeoff-fill'></i></span>";
                     btn.classList.remove('btn-danger');
                     btn.classList.add('fw-bolder', 'text-danger');
                 }

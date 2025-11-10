@@ -32,6 +32,8 @@
                                         <div class="modal-body text-center">
                                             <img src="{{ asset('storage/' . $image->image_url) }}" alt="full image"
                                                 class="img-fluid rounded">
+                                                
+                                                
                                         </div>
                                     </div>
                                 </div>
@@ -172,7 +174,7 @@
                         @endif
 
                         <div>
-                            <p class="archivo">{{$vehicle->user->name." ". $vehicle->user->last_name}}
+                            <p class="archivo">{{$vehicle->user->username}}
                                 @if($vehicle->user->premium) <span class="text-primary"><i
                                                 class="bi bi-patch-check-fill"></i></span>
                                                  @endif

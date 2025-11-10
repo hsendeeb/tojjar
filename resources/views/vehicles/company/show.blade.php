@@ -144,7 +144,7 @@
                                             <img src="/images/avatar.jpg" style="width:25px; height:25px; object-fit:cover;"
                                                 class="rounded-circle me-2" loading="lazy">
                                         @endif
-                                        <small class="fw-bolder">{{ $vehicle->user->name }}
+                                        <small class="fw-bolder">{{ $vehicle->user->username }}
                                             @if($vehicle->user->premium) <span class="text-primary"><i
                                                 class="bi bi-patch-check-fill"></i></span>
                                                  @endif

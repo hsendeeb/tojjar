@@ -25,7 +25,7 @@
                                 class="rounded-circle me-2" loading="lazy">
                         @endif
                     </div>
-                    <h3 class="  h3 mt-3">{{$user->name}}
+                    <h3 class="  h3 mt-3">{{$user->username}}
                         @if($user->premium) <span class="text-primary"><i
                                                 class="bi bi-patch-check-fill"></i></span>
                                                  @endif
@@ -44,6 +44,12 @@
                             <h4 class="h4 archivo mt-1">{{ ($totalLikes >= 1000) ? number_format($totalLikes/ 1000, 1) . 'K' : $totalLikes }}</h4>
                         </div>
                     </div>
+                     @if($user->bio)
+                    <div class="text-center mt-2">
+                        {{ $user->bio }}
+
+                    </div>
+                    @endif
                     @if(Auth::check() && $user->id == Auth::id())
                         <a class=" underline text-danger" href="{{ route('profile.edit') }}">Edit profile</a>
                     @endif
@@ -85,9 +91,9 @@
                             <div class="d-flex flex-wrap gap-2 mt-3 ">
                                 <span class="bg-success bg-opacity-10 fw-bolder rounded-pill text-success px-2"><i
                                         class="bi bi-calendar3"></i> {{$vehicle->year}}</span>
-                                <span
-                                    style="background-color:{{ ($vehicle->color->color == 'white') ? 'silver' : $vehicle->color->color }};"
-                                    class=" text-white bg-opacity-25 fs-6 fw-bolder rounded-pill px-2">
+                                 <span
+                                    style="background-color:{{ ($vehicle->color->color == 'black') ? 'black'.';'. 'color:white' : $vehicle->color->color }};"
+                                    class="bg-opacity-25 fs-6 fw-bolder rounded-pill px-2">
                                     <i class=" bi bi-droplet-fill"></i> {{$vehicle->color->color}}</span>
 
                                 <span class="text-sm bg-secondary bg-opacity-25 fs-6 fw-bolder rounded-pill px-2"> <i
@@ -116,7 +122,7 @@
                                         <img src="/images/avatar.jpg" style="width:25px; height:25px; object-fit:cover;" alt="user-image"
                                             class="rounded-circle me-2" loading="lazy">
                                     @endif
-                                    <small class="fw-bolder">{{ $vehicle->user->name }}
+                                    <small class="fw-bolder">{{ $vehicle->user->username }}
                                           @if($user->premium) <span class="text-primary"><i
                                                 class="bi bi-patch-check-fill"></i></span>
                                                  @endif

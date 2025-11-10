@@ -44,6 +44,11 @@
             <input type="hidden" name="hiddenImage" value="{{ old('hiddenImage', $user->image) }}">
         </div>
         <div>
+            <x-input-label for="bio" :value="__('bio')" />
+           <textarea cols="40" id="bio" name="bio" placeholder="write something about you"></textarea>
+            <x-input-error class="mt-2" :messages="$errors->get('bio')" />
+            </div>
+        <div>
             <x-input-label for="phone" :value="__('phone')" />
             <x-text-input id="phone" name="phone" type="text" class="mt-1 block w-full" :value="old('phone', $user->phone)" required autofocus autocomplete="phone" />
             <x-input-error class="mt-2" :messages="$errors->get('phone')" />
