@@ -1,6 +1,6 @@
 <x-app-layout>
   <div class="placeAd container mt-2">
-    <button onclick="history.back()" class="btn btn-outline-danger text-start">Cancel</button>
+    <a href="{{ route('profile.index',Auth::id()) }}" class="btn btn-outline-danger text-start">Cancel</a>
         <h1 class=" h1 mt-3 fw-bolder text-center text-danger font-sans ">Edit Ad</h1>
     
     </div>
@@ -34,9 +34,9 @@
                  <div class="mt-3">
                     <label for="model_id">car model:</label>
                 <select class="form-control mt-2" name="model_id" id="carModel">
-                    <option class="active" value="{{ old($vehicle->model_id) }}">{{$vehicle->model->model_name}}</option>
+                    <option class="active" value="{{$vehicle->model_id}}">{{$vehicle->model->model_name}}</option>
                 </select>
-                 <x-input-error :messages="$errors->get('carModel_id')" class="mt-2" />
+                 <x-input-error :messages="$errors->get('model_id')" class="mt-2" />
             </div>
             <div class="mt-3">
                 <label for="price" class="form-label fw-bold">price: </label>
@@ -180,6 +180,11 @@
         </form>
           
     </div>
+@if ($errors->any())
+    @foreach ($errors->all() as $error)
+        <div class="alert alert-danger">{{ $error }}</div>
+    @endforeach
+@endif
   
    
  <script>

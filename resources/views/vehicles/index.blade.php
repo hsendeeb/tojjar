@@ -95,6 +95,40 @@
 
 
     </div>
+    <div class="d-flex flex-wrap gap-5 mt-5 justify-content-center align-items-center">
+        <div onclick="document.getElementById('car').submit()" class="d-flex flex-column text-center cursor-pointer">
+            <img src="/images/car.png"  class="mix-blend-multiply" style="max-width:150px" alt="car">
+   <form id="car" action="/vehicles/filter/car" method="POST">
+              @csrf
+                <button type="submit">car</button>
+
+              </form>
+        </div>
+        <div onclick="document.getElementById('truck').submit()" class="d-flex flex-column text-center cursor-pointer">
+            <img src="/images/truck.png" class="mix-blend-multiply" style="max-width:150px" alt="car">
+   <form id="truck" action="/vehicles/filter/trucks" method="POST">
+              @csrf
+                <button  type="submit">Trucks</button>
+
+              </form>
+        </div>
+         <div onclick="document.getElementById('moto').submit()" class="d-flex flex-column text-center cursor-pointer">
+            <img src="/images/moto.png" class="mix-blend-multiply" style="max-width:150px" alt="car">
+   <form id="moto" action="/vehicles/filter/motorcycles" method="POST">
+              @csrf
+                <button type="submit">Motorcycles</button>
+
+              </form>
+        </div>
+         <div onclick="document.getElementById('van').submit()" class="d-flex flex-column text-center cursor-pointer">
+            <img src="/images/Van.png" class="mix-blend-multiply" style="max-width:150px" alt="car">
+   <form id="van" action="/vehicles/filter/Van" method="POST">
+              @csrf
+                <button type="submit">Van</button>
+
+              </form>
+        </div>
+    </div>
 
     <h1 id="featured" class="h1 text-center mt-5 archivo brush">Featured cars <i class="bi bi-award-fill"></i></h1>
     <div id="body" class="container mt-3">

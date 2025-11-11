@@ -252,15 +252,6 @@ class VehicleController extends Controller
 
             foreach ($request->file('images') as $image) {
                 $path = $image->store("vehicle_images", "public");
-
-                // try to optimize the image file if optimizer is available
-                $fullPath = storage_path('app/public/' . $path);
-                try {
-                    OptimizerChainFactory::create()->optimize($fullPath);
-                } catch (\Throwable $e) {
-                    Log::warning('Image optimization failed: ' . $e->getMessage());
-                }
-
                 Vehicle_image::where("vehicle_id", $vehicle->id)
                     ->where('id', $image_id)
                     ->updateOrCreate([
