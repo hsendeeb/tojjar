@@ -24,7 +24,7 @@ class Ad extends Model
 }
 public function isLikedBy(User $user): bool
 {
-    return $this->likes()->where('user_id', $user->id)->exists();
+    return $this->likes->contains('user_id', $user->id);
 }
 
     

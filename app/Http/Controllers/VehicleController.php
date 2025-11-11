@@ -19,6 +19,7 @@ use App\Models\Color;
 use App\Models\Condition;
 use App\Models\EngineSize;
 use App\Models\Vehicle_image;
+use App\Models\Like;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Cache;
@@ -38,6 +39,9 @@ class VehicleController extends Controller
      */
     public function index()
     {
+        DB::listen(function($query) {
+            Log::info($query->sql);
+        });
         $categories = Category::all();
         $companies = Company::all();
         $model = CarModel::all();
@@ -75,6 +79,12 @@ class VehicleController extends Controller
                 // 👈 Ensures consistent ordering
                 ->get();
         });
+        $userLikedAds = Ad::with('likes')
+        ->whereHas('likes', function($query){
+          $query->where('likes.user_id',Auth::id());
+        })
+        ->get();
+        
 
 
         $paginatedVehicles = new LengthAwarePaginator(
@@ -87,7 +97,7 @@ class VehicleController extends Controller
 
 
 
-        return view("vehicles.index", compact('paginatedVehicles', 'companies', 'categories', 'model', 'dealers'));
+        return view("vehicles.index", compact('paginatedVehicles', 'userLikedAds','companies', 'categories', 'model', 'dealers'));
     }
 
 

@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Cache;
 use App\Models\Ad;
 use App\Models\User;
 use App\Models\Vehicle;
@@ -12,10 +15,14 @@ class AdController extends Controller
 {
     public function like(string $id)
     {
+        DB::listen(function($query) {
+            Log::info($query->sql);
+        });
         $user = Auth::user();
         $ad = Ad::findOrFail($id);
 
         $isLiked = $ad->isLikedBy($user);
+        
         if ($isLiked) {
             $ad->likes()->where('user_id', Auth::id())->delete();
             $isLiked = false;
@@ -26,6 +33,7 @@ class AdController extends Controller
             ]);
             $isLiked = true;
         }
+      // Cache::forget('vehicles');
         return response()->json([
             'likes' => $ad->likes()->count(),
             'isLiked' => $isLiked
