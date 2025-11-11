@@ -52,7 +52,7 @@ class VehicleController extends Controller
 
         $perPage = 10;
         $page = request()->get('page', 1); // Defaults to page 1 if not provided
-        $vehicles = Cache::remember('vehicles', now()->addMinutes(30), function () {
+        $vehicles = Cache::remember('vehicles', now()->addMinutes(50), function () {
             return Vehicle::with([
                 'company',
                 'body',
@@ -79,13 +79,7 @@ class VehicleController extends Controller
                 // 👈 Ensures consistent ordering
                 ->get();
         });
-        $userLikedAds = Ad::with('likes')
-        ->whereHas('likes', function($query){
-          $query->where('likes.user_id',Auth::id());
-        })
-        ->get();
-        
-
+       
 
         $paginatedVehicles = new LengthAwarePaginator(
             $vehicles->forPage($page, $perPage),
@@ -97,7 +91,7 @@ class VehicleController extends Controller
 
 
 
-        return view("vehicles.index", compact('paginatedVehicles', 'userLikedAds','companies', 'categories', 'model', 'dealers'));
+        return view("vehicles.index", compact('paginatedVehicles','companies', 'categories', 'model', 'dealers'));
     }
 
 

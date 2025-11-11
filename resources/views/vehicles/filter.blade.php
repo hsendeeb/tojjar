@@ -112,9 +112,9 @@
                             <div class="d-flex flex-wrap gap-2 mt-3 ">
                                 <span class="bg-success bg-opacity-10 fw-bolder rounded-pill text-success px-2"><i
                                         class="bi bi-calendar3"></i> {{$vehicle->year}}</span>
-                                <span
-                                    style="background-color:{{ ($vehicle->color->color == 'white') ? 'silver' : $vehicle->color->color }};"
-                                    class=" text-white bg-opacity-25 fs-6 fw-bolder rounded-pill px-2">
+                                 <span
+                                    style="background-color:{{ ($vehicle->color->color == 'black') ? 'black'.';'. 'color:white' : $vehicle->color->color }};"
+                                    class="bg-opacity-25 fs-6 fw-bolder rounded-pill px-2">
                                     <i class=" bi bi-droplet-fill"></i> {{$vehicle->color->color}}</span>
 
                                 <span class="text-sm bg-secondary bg-opacity-25 fs-6 fw-bolder rounded-pill px-2"> <i
@@ -187,6 +187,7 @@
                 </div>
             @endforelse
         </div>
+         
 
 
     </div>
