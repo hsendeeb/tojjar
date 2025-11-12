@@ -173,28 +173,9 @@ foreach ($request->file('images') as $image) {
 $imageInstance = Image::read($image);
 
 // Get original dimensions
-$originalWidth = $imageInstance->width();
-$originalHeight = $imageInstance->height();
-
-// Calculate target dimensions to fit within 3:4 aspect ratio
-$targetRatio = 3 / 4;
-$currentRatio = $originalWidth / $originalHeight;
-
-if ($currentRatio > $targetRatio) {
-    // Image is too wide — limit width
-    $newHeight = $originalHeight;
-    $newWidth = intval($originalHeight * $targetRatio);
-} else {
-    // Image is too tall — limit height
-    $newWidth = $originalWidth;
-    $newHeight = intval($originalWidth / $targetRatio);
-}
-
-// Crop to 3:4
-$imageInstance = $imageInstance->crop($newWidth, $newHeight);
 
 // Resize to desired output size (e.g. 600x800)
-$imageInstance = $imageInstance->resize(600, 800);
+$imageInstance = $imageInstance->scale(600, 800);
 
 // Encode and save
 $optimized = $imageInstance->encode(new JpegEncoder(quality: 80));
@@ -298,7 +279,7 @@ $optimized = $imageInstance->encode(new JpegEncoder(quality: 80));
 
 $imageInstance = Image::read($image);
 
-// Get original dimensions
+
 
 
 // Resize to desired output size (e.g. 600x800)
