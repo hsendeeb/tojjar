@@ -1,5 +1,10 @@
 <x-app-layout>
+@php
+    $categories = Cache::get('categories', []);
+     $companies = Cache::get('companies', []);
+      $model = Cache::get('models', []);
 
+@endphp
     <button id="glass-button" class="glass-button px-4 py-1 rounded-pill text-dark"><i
             class="bi bi-arrow-up-circle-fill"></i></button>
    <div class="container-fluid pt-4 d-flex gap-2 p-1 bg-transparent">

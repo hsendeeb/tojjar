@@ -46,12 +46,12 @@ class CompanyController extends Controller
      */
     public function show(Request $request, ?string $Cname = null)
     {
-        $categories = Category::all();
-        $companies = Company::all();
-        $model = CarModel::all();
+          $categories =Cache::remember('categories',now()->addMinutes(30),fn()=>  Category::all());
+        $companies = Cache::remember('companies',now()->addMinutes(30),fn()=>  Company::all());
+        $model = Cache::remember('models',now()->addMinutes(30),fn()=>  CarModel::all());
         $page = request()->get('page', 1);
         $name = $request->input("company_name") ?: $Cname;
-        $vehicles = Vehicle::with(['company', 'body', 'gearbox', 'color', 'fuel', 'model', 'category', 'condition', 'images'])
+        $vehicles = Vehicle::with(['company', 'body', 'gearbox', 'color', 'fuel', 'model', 'category', 'condition', 'images','ad','ad.likes','user'])
             ->where("user_id", "<>", Auth::id())
             ->whereHas('company', function ($query) use ($name) {
                 $query->where('company_name', 'LIKE', '%' . $name . '%');

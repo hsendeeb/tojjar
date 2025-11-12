@@ -39,12 +39,9 @@ class VehicleController extends Controller
      */
     public function index()
     {
-        DB::listen(function($query) {
-            Log::info($query->sql);
-        });
-        $categories = Category::all();
-        $companies = Company::all();
-        $model = CarModel::all();
+        $categories =Cache::remember('categories',now()->addMinutes(30),fn()=>  Category::all());
+        $companies = Cache::remember('companies',now()->addMinutes(30),fn()=>  Company::all());
+        $model = Cache::remember('models',now()->addMinutes(30),fn()=>  CarModel::all());
         $dealers = Dealer::with('user')
             ->where('dealers.user_id', '<>', Auth::id())
             ->get();
@@ -65,8 +62,7 @@ class VehicleController extends Controller
                 'images',
                 'engineType',
                 'engineSize',
-                'ad',
-                
+                'ad.likes',
                 'user'
 
             ])
@@ -80,7 +76,7 @@ class VehicleController extends Controller
                 // 👈 Ensures consistent ordering
                 ->get();
         });
-        $likedVehicles=Vehicle::with('ad.likes')->get();
+       
        
 
         $paginatedVehicles = new LengthAwarePaginator(
@@ -93,7 +89,7 @@ class VehicleController extends Controller
 
 
 
-        return view("vehicles.index", compact('paginatedVehicles','companies','likedVehicles', 'categories', 'model', 'dealers'));
+        return view("vehicles.index", compact('paginatedVehicles','companies', 'categories', 'model', 'dealers'));
     }
 
 
@@ -316,14 +312,15 @@ class VehicleController extends Controller
         } else {
             $c_id = null;
         }
-        $categories = Category::all();
-        $companies = Company::all();
-        $model = CarModel::all();
+         $categories =Cache::remember('categories',now()->addMinutes(30),fn()=>  Category::all());
+        $companies = Cache::remember('companies',now()->addMinutes(30),fn()=>  Company::all());
+        $model = Cache::remember('models',now()->addMinutes(30),fn()=>  CarModel::all());
+       
 
         $category_id = $request->input("category_id");
         $company_id = $request->input("company_id") ?? null;
         $model_id = $request->input("model_id") ?? null;
-        $vehicles = Vehicle::with(['company', 'body', 'gearbox', 'color', 'fuel', 'model', 'category', 'condition', 'images', 'ad'])
+        $vehicles = Vehicle::with(['company', 'body', 'gearbox', 'color', 'fuel', 'model', 'category', 'condition', 'images', 'ad','ad.likes','user'])
             ->join('ads', 'ads.vehicle_id', 'vehicles.id')
             ->where("vehicles.user_id", "<>", Auth::id())
             ->when($request->input('category_id'), function ($query) use ($category_id) {
@@ -342,9 +339,8 @@ class VehicleController extends Controller
 
             ->orderByDesc('ads.boosted_at')
             ->select('vehicles.*')
-
             ->get();
-        return view('vehicles.filter', compact('vehicles', 'model', 'companies', 'categories'));
+        return view('vehicles.filter', compact('vehicles'));
     }
     public function markAsSold(string $id)
     {
@@ -367,12 +363,19 @@ class VehicleController extends Controller
     }
     public function filteredPrice(?int $price = null)
     {
-        $categories = Category::all();
-        $companies = Company::all();
-        $model = CarModel::all();
+        $categories =Cache::remember('categories',now()->addMinutes(30),fn()=>  Category::all());
+        $companies = Cache::remember('companies',now()->addMinutes(30),fn()=>  Company::all());
+        $model = Cache::remember('models',now()->addMinutes(30),fn()=>  CarModel::all());
 
-        $vehicles = Vehicle::where('price', '<=', 2000)->get();
+          $vehicles = Vehicle::with(['company', 'body', 'gearbox', 'color', 'fuel', 'model', 'category', 'condition', 'images', 'ad','ad.likes','user'])
+            ->join('ads', 'ads.vehicle_id', 'vehicles.id')
+            ->where("vehicles.user_id", "<>", Auth::id())
+             ->where("vehicles.price", "<=", 2000)
+             ->orderByDesc('ads.boosted_at')
+            ->select('vehicles.*')
+            ->get();
 
+        
 
         return view('vehicles.filter', compact('vehicles', 'categories', 'companies', 'model'));
     }

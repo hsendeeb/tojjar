@@ -60,11 +60,13 @@ class AdController extends Controller
             'condition',
             'images',
             'engineType',
-            'engineSize'
-        )->whereHas('ad', function ($q) use ($user) {
-            $q->whereHas('likes', function ($q2) use ($user) {
-                $q2->where('user_id', $user->id);
-            });
+            'engineSize',
+            'ad.likes',
+            'user'
+        )->whereHas('ad.likes', function ($q) use ($user) {
+
+                $q->where('user_id', $user->id);
+           
         })->get();
 
         return view('vehicles.likedAds', compact("vehicles"));
