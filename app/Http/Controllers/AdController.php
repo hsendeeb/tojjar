@@ -21,7 +21,8 @@ class AdController extends Controller
         $user = Auth::user();
         $ad = Ad::findOrFail($id);
 
-        $isLiked = $ad->isLikedBy($user);
+        $isLiked = $ad->isCurrentUserLike();
+       
         
         if ($isLiked) {
             $ad->likes()->where('user_id', Auth::id())->delete();
@@ -33,7 +34,7 @@ class AdController extends Controller
             ]);
             $isLiked = true;
         }
-      // Cache::forget('vehicles');
+       Cache::forget('vehicles');
         return response()->json([
             'likes' => $ad->likes()->count(),
             'isLiked' => $isLiked

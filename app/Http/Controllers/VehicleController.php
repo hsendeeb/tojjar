@@ -66,6 +66,7 @@ class VehicleController extends Controller
                 'engineType',
                 'engineSize',
                 'ad',
+                
                 'user'
 
             ])
@@ -79,6 +80,7 @@ class VehicleController extends Controller
                 // 👈 Ensures consistent ordering
                 ->get();
         });
+        $likedVehicles=Vehicle::with('ad.likes')->get();
        
 
         $paginatedVehicles = new LengthAwarePaginator(
@@ -91,7 +93,7 @@ class VehicleController extends Controller
 
 
 
-        return view("vehicles.index", compact('paginatedVehicles','companies', 'categories', 'model', 'dealers'));
+        return view("vehicles.index", compact('paginatedVehicles','companies','likedVehicles', 'categories', 'model', 'dealers'));
     }
 
 

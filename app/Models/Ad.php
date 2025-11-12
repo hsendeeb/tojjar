@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Ad extends Model
 {
@@ -24,7 +25,18 @@ class Ad extends Model
 }
 public function isLikedBy(User $user): bool
 {
-    return $this->likes->contains('user_id', $user->id);
+    // Check if likes are already eager-loaded to prevent N+1
+    if ($this->relationLoaded('likes')) {
+        return $this->likes->where('user_id', $user->id)->isNotEmpty();
+    }
+    // Fallback to database query if not eager-loaded
+    return $this->likes()->where('user_id', $user->id)->exists();
+}
+
+public function isCurrentUserLike(): bool
+{
+    // For use after with('likes') eager loading
+    return Auth::check() && $this->likes->where('user_id', Auth::id())->isNotEmpty();
 }
 
     

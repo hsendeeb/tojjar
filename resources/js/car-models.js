@@ -275,9 +275,9 @@ document.querySelectorAll(".likeBtn").forEach((btn) => {
             success: function (data) {
                 $("#like-count-" + adId).text(data.likes);
                 if (data.isLiked) {
-                    console.log(data.isLiked);
+                    console.log(data.isLiked +""+adId);
                     icon.classList.remove("bi", "bi-heart");
-                    icon.classList.add("bi", "bi-heart-fill", "text-danger");
+                   icon.classList.add("bi", "bi-heart-fill", "text-danger");
                     sound.currentTime = 0;
                     sound.play();
                 } else {
