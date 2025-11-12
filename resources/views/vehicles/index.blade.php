@@ -13,7 +13,7 @@
             action="{{ route('company.show') }}">
             <input  id="search" name="company_name" type="text" class="form-control opacity-50 " required
                 placeholder="search for any car">
-            <button type="submit" class=" text-white px-2 fs-3"> <i class="bi bi-search"></i></button>
+            <button type="submit" class="px-2 fs-3"> <i class="bi bi-search"></i></button>
 
         </form>
         

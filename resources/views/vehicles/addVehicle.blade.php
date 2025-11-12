@@ -160,7 +160,7 @@
                         <i id="staticIcon" class="bi bi-upload"></i>
 
                         <img style="display:none;object-fit:cover;width:70px" id="preview" src="" alt="preview">
-                        <input class="form-control d-none image-input" type="file" name="images[]" id="images">
+                        <input class="form-control d-none image-input" type="file" name="images[]" multiple id="images">
                     </label>
 
                     <label class="upload-label fw-bold btn  py-4 px-3 border-2 border-black">
@@ -242,7 +242,7 @@
                             alt="">
                         <i id="staticIcon" class="bi bi-upload"></i>
                         <img style="display:none;width:70px" id="preview" src="" alt="preview">
-                        <input class="form-control d-none image-input" type="file" name="images[]" id="images">
+                        <input class="form-control d-none image-input" type="file"  name="images[]" id="images">
                     </label>
                 </div>
                 <x-input-error :messages="$errors->get('images')" class="mt-2" />

@@ -1,6 +1,8 @@
 <?php
 
+
 namespace App\Http\Controllers;
+
 
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Models\BodyType;
@@ -28,7 +30,10 @@ use Illuminate\Support\Facades\Http;
 use App\Models\EngineType;
 use App\Models\Dealer;
 use Spatie\ImageOptimizer\OptimizerChainFactory;
+use Intervention\Image\Laravel\Facades\Image;
 use Illuminate\Support\Facades\Log;
+
+use Intervention\Image\Encoders\JpegEncoder;
 
 class VehicleController extends Controller
 
@@ -135,7 +140,9 @@ class VehicleController extends Controller
             'location' => ['required', 'string', 'max:100'],
             'price' => ['required', 'integer', 'min:0'],
             'description' => 'required',
-            'images' => 'required|min:1',
+          'images' => 'required|array|min:1',
+'images.*' => 'image|mimes:jpeg,png,jpg,webp',
+
             'engineSize_id' => 'nullable',
             'engineType_id' => 'required',
             'user_id' => [Rule::in([Auth::id()])],
@@ -156,25 +163,55 @@ class VehicleController extends Controller
         }
         $data['user_id'] = Auth::id();
         $vehicle = Vehicle::create($data);
-        foreach ($request->file('images') as $image) {
-            $path = $image->store("vehicle_images", "public");
 
-            // optimize the stored image if optimizer is available
-            $fullPath = storage_path('app/public/' . $path);
-            try {
-                OptimizerChainFactory::create()->optimize($fullPath);
-            } catch (\Throwable $e) {
-                // don't break the upload process if optimizer/binaries aren't available
-                Log::warning('Image optimization failed: ' . $e->getMessage());
-            }
+foreach ($request->file('images') as $image) {
+    try {
+        $originalSize = $image->getSize(); // in bytes
+ $filename = uniqid() . '.jpg';
 
-            Vehicle_image::create([
-                'vehicle_id' => $vehicle->id,
-                "image_url" => $path,
 
-            ]);
-            
-        }
+$imageInstance = Image::read($image);
+
+// Get original dimensions
+$originalWidth = $imageInstance->width();
+$originalHeight = $imageInstance->height();
+
+// Calculate target dimensions to fit within 3:4 aspect ratio
+$targetRatio = 3 / 4;
+$currentRatio = $originalWidth / $originalHeight;
+
+if ($currentRatio > $targetRatio) {
+    // Image is too wide — limit width
+    $newHeight = $originalHeight;
+    $newWidth = intval($originalHeight * $targetRatio);
+} else {
+    // Image is too tall — limit height
+    $newWidth = $originalWidth;
+    $newHeight = intval($originalWidth / $targetRatio);
+}
+
+// Crop to 3:4
+$imageInstance = $imageInstance->crop($newWidth, $newHeight);
+
+// Resize to desired output size (e.g. 600x800)
+$imageInstance = $imageInstance->resize(600, 800);
+
+// Encode and save
+$optimized = $imageInstance->encode(new JpegEncoder(quality: 80));
+       Storage::disk('public')->put("vehicle_images/{$filename}", (string) $optimized);
+
+        $optimizedSize = Storage::disk('public')->size("vehicle_images/{$filename}");
+
+        
+
+        Vehicle_image::create([
+            'vehicle_id' => $vehicle->id,
+            'image_url' => "vehicle_images/{$filename}",
+        ]);
+    } catch (\Throwable $e) {
+        Log::warning('Image optimization failed: ' . $e->getMessage());
+    }
+}
         Ad::create([
                 'user_id' => Auth::id(),
                 'vehicle_id' => $vehicle->id,
@@ -240,7 +277,8 @@ class VehicleController extends Controller
             'location' => ['required', 'string', 'max:100'],
             'price' => ['required', 'integer', 'min:0'],
             'description' => 'required',
-            'images' => 'nullable',
+    'images.*' => 'nullable|image|mimes:jpeg,png,jpg,webp',
+
             'engineType_id' => 'required',
             'engineSize_id' => 'nullable',
             'user_id' => [Rule::in([Auth::id()])],
@@ -253,15 +291,64 @@ class VehicleController extends Controller
 
 
             foreach ($request->file('images') as $image) {
-                $path = $image->store("vehicle_images", "public");
-                Vehicle_image::where("vehicle_id", $vehicle->id)
+                  try {
+        $originalSize = $image->getSize(); // in bytes
+          $filename = uniqid() . '.jpg';
+
+
+$imageInstance = Image::read($image);
+
+// Get original dimensions
+$originalWidth = $imageInstance->width();
+$originalHeight = $imageInstance->height();
+
+// Calculate target dimensions to fit within 3:4 aspect ratio
+$targetRatio = 3 / 4;
+$currentRatio = $originalWidth / $originalHeight;
+
+if ($currentRatio > $targetRatio) {
+    // Image is too wide — limit width
+    $newHeight = $originalHeight;
+    $newWidth = intval($originalHeight * $targetRatio);
+} else {
+    // Image is too tall — limit height
+    $newWidth = $originalWidth;
+    $newHeight = intval($originalWidth / $targetRatio);
+}
+
+// Crop to 3:4
+$imageInstance = $imageInstance->crop($newWidth, $newHeight);
+
+// Resize to desired output size (e.g. 600x800)
+$imageInstance = $imageInstance->resize(600, 800);
+
+// Encode and save
+$optimized = $imageInstance->encode(new JpegEncoder(quality: 80));
+Storage::disk('public')->put("vehicle_images/{$filename}", (string) $optimized);
+            
+;
+
+      
+     
+
+        $optimizedSize = Storage::disk('public')->size("vehicle_images/{$filename}");
+
+       
+          Vehicle_image::where("vehicle_id", $vehicle->id)
                     ->where('id', $image_id)
                     ->updateOrCreate([
                         "id" => $image_id,
-                        "image_url" => $path,
+                        "image_url" =>"vehicle_images/{$filename}",
                         "vehicle_id" => $vehicle->id
 
                     ]);
+
+        
+    } catch (\Throwable $e) {
+        Log::warning('Image optimization failed: ' . $e->getMessage());
+    }
+               
+              
             }
         }
 
