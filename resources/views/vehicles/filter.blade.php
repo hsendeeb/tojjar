@@ -41,12 +41,14 @@
 
     </div>
     <hr>
+   
     <h3
-        class=" h3 text-center bg-info bg-opacity-25 fw-bolder text-sm fw-bolder px-4 py-2 mt-2 mx-2 rounded-3">
+        class=" bg-info bg-opacity-25 text-center py-2  h3  fw-bolder text-sm fw-bolder">
         <span class="archivo">
-         
-        </span> {{"(". number_format(count($vehicles)) . " " . "results)"}}
-    </h3>
+          {{$vehicles->first()?->company?->company_name}}
+        </span>{{"(". number_format(count($vehicles)) . " " . "results)"}}
+        </h3>
+
 
   
     <div id="body" class="container-fluid mt-3">

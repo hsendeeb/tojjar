@@ -138,15 +138,18 @@ document.querySelectorAll(".image-input").forEach((input) => {
             this.closest(".upload-label").querySelector("#staticImage");
         const staticIcon =
             this.closest(".upload-label").querySelector("#staticIcon");
- imageCount.innerHTML=e.target.files.length+"/10" ;
+         if(e.target.files.length>0) {
+            imageCount.innerHTML=e.target.files.length+"/10"+" "+"<i class='bi bi-check-circle-fill'></i>" ;
+         } else {
+             staticImage.style.display = "block";
+            staticIcon.style.display = "block";
+            imageCount.innerHTML="0/10";
+         }
         if (file && file.type.startsWith("image/")) {
+            
             
             const reader = new FileReader();
             reader.onload = function (e) {
-                 
-                preview.src = e.target.result;
-
-                preview.style.display = "block";
 
                 staticImage.style.display = "none";
                 staticIcon.style.display = "none";
@@ -398,5 +401,10 @@ document.querySelectorAll(".boostBtn").forEach((btn) => {
         });
     });
 });
+document.querySelectorAll('.sortBtn').forEach((btn)=>{
+    btn.addEventListener('click',function() {
+        const sort=btn.getAttribute('data-sort');
+    })
+})
 
 

@@ -76,7 +76,7 @@
               </form>
             
             </li>
-           <li>
+           <li class="mt-2">
               <form action="/vehicles/filter/trucks" method="POST">
               @csrf
                 <button type="submit">Trucks</button>
@@ -84,13 +84,13 @@
               </form>
             
             </li>
-           <li>
+           <li class="mt-2">
               <form action="/vehicles/filter/Van" method="POST">
               @csrf
                 <button type="submit">Van</button>
 
               </form>
-           <li>
+           <li class="mt-2">
               <form action="/vehicles/filter/motorcycles" method="POST">
               @csrf
                 <button type="submit">motorcycles</button>

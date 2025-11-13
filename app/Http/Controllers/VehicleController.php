@@ -149,6 +149,7 @@ class VehicleController extends Controller
 
         ]);
         if ($data['company_id'] == "other") {
+           
             $newCompany = $request->input('new-company');
             $newModel = $request->input('new-model');
             $company = Company::UpdateOrCreate([

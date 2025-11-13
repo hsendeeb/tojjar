@@ -58,7 +58,7 @@ class CompanyController extends Controller
             })->paginate(20,);;
 
         return view(
-            'vehicles.company.show',
+            'vehicles.filter',
             compact(
                 "vehicles",
                 "categories",
@@ -94,7 +94,10 @@ class CompanyController extends Controller
 
     public function suggest($input)
     {
-        $suggestion = Company::where("company_name", "like", $input . "%")->get();
+        $suggestion = Company::where("company_name", "like", $input . "%")
+         ->distinct()
+        ->get();
+       
 
         return response()->json($suggestion);
     }

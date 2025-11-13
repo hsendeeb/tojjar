@@ -9,8 +9,9 @@
 
         
 
-    <h1 id="featured" class="h1 text-center mt-5 archivo brush">Dealers</h1>
+    <h1 id="featured" class="h1 text-center text-white mt-5 archivo redBrush">Dealers</h1>
     <div id="body" class="container mt-3">
+        <small class="text-primary fw-bolder">{{ $dealers->count() }} dealers</small>
         <div class="row">
             @forelse($dealers as $dealer)
                 <div class="col-md-4 mt-5">

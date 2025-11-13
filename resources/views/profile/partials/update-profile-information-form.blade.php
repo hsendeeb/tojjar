@@ -45,7 +45,10 @@
         </div>
         <div>
             <x-input-label for="bio" :value="__('bio')" />
-           <textarea cols="40" id="bio" name="bio" placeholder="write something about you"></textarea>
+           <textarea cols="30" id="bio" name="bio" placeholder="write something about you">
+            {{Auth::user()->bio}}
+           </textarea>
+           
             <x-input-error class="mt-2" :messages="$errors->get('bio')" />
             </div>
         <div>

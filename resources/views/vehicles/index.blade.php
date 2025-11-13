@@ -11,8 +11,8 @@
     <div class="container-fluid  d-flex gap-2 p-1 bg-transparent  ">
         <form class="d-flex gap-2 justify-content-center form-control border-0 bg-transparent" method="GET"
             action="{{ route('company.show') }}">
-            <input  id="search" name="company_name" type="text" class="form-control opacity-50 " required
-                placeholder="search for any car">
+            <input  id="search" name="company_name" type="text" class="form-control  " required
+                placeholder="search for any vehicles">
             <button type="submit" class="px-2 fs-3"> <i class="bi bi-search"></i></button>
 
         </form>
@@ -130,7 +130,7 @@
         </div>
     </div>
 
-    <h1 id="featured" class="h1 text-center mt-5 archivo brush">Featured cars <i class="bi bi-award-fill"></i></h1>
+    <h1 id="featured" class="h1 text-center mt-5 archivo brush">Featured Ads <i class="bi bi-award-fill"></i></h1>
     <div id="body" class="container mt-3">
         <div class="row">
             
