@@ -130,17 +130,20 @@ $("#search").on("keyup", function () {
 const label = document.querySelector(".upload-label");
 
 document.querySelectorAll(".image-input").forEach((input) => {
-    input.addEventListener("change", function () {
+    input.addEventListener("change", function (e) {
         const file = this.files[0];
+        const imageCount=document.getElementById('imageCount');
         const preview = this.closest(".upload-label").querySelector("#preview");
         const staticImage =
             this.closest(".upload-label").querySelector("#staticImage");
         const staticIcon =
             this.closest(".upload-label").querySelector("#staticIcon");
-
+ imageCount.innerHTML=e.target.files.length+"/10" ;
         if (file && file.type.startsWith("image/")) {
+            
             const reader = new FileReader();
             reader.onload = function (e) {
+                 
                 preview.src = e.target.result;
 
                 preview.style.display = "block";
@@ -149,6 +152,7 @@ document.querySelectorAll(".image-input").forEach((input) => {
                 staticIcon.style.display = "none";
             };
             reader.readAsDataURL(file);
+          
         } else {
             preview.style.display = "none";
             preview.src = "";
@@ -394,3 +398,5 @@ document.querySelectorAll(".boostBtn").forEach((btn) => {
         });
     });
 });
+
+

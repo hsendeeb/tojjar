@@ -44,6 +44,7 @@ $totalLikes = DB::table('likes')
             'condition',
             'images',
             'ad',
+            'ad.likes',
             'user'
         ])
             ->when(Auth::check(), function ($query) use ($id) {
@@ -132,11 +133,13 @@ $totalLikes = DB::table('likes')
             'model',
             'category',
             'condition',
-            'images'
+            'images',
+            'ad',
+            'ad.likes',
+            'user'
         ])
             ->where("user_id", $id)
             ->orderBy('created_at', 'desc') // 👈 Ensures consistent ordering
-
             ->get();
 
         return view("profile.show", compact('user', 'vehicles','totalLikes'));

@@ -33,6 +33,7 @@ class VehicleObserver
     {
         Cache::forget("vehicles");
         Cache::forget("vehicles.profile");  
+        
     }
 
 }

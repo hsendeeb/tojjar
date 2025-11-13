@@ -180,6 +180,8 @@
         </form>
           
     </div>
+    <x-errors.unified/>
+
 @if ($errors->any())
     @foreach ($errors->all() as $error)
         <div class="alert alert-danger">{{ $error }}</div>
@@ -196,6 +198,8 @@
     let existingInputs = 0;
 let newInputs = 0;
 const maxInputs = 10;
+
+
 
     function add(existingCount) {
     if (existingInputs === 0) {
@@ -217,9 +221,13 @@ const maxInputs = 10;
     const img=document.createElement("img");
    
     input.type = "file";
-    input.name = `images[new_${newInputs}]`;
+    input.name = `images[]`;
+    input.setAttribute('multiple',"");
+    input.setAttribute("accept","image/*");
+
     input.className = "form-control image-input";
     img.id="preview";
+    
     inputWrapper.appendChild(input);
     container.appendChild(inputWrapper);
     container.appendChild(img);

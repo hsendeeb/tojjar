@@ -151,99 +151,22 @@
                 </div>
             </div>
             <div class="mt-3">
-                <label for="images" class="form-label fw-bold ">image</label><br>
+                <label for="images" class="form-label fw-bold ">image (10 images maximum):</label><br>
                 <div class="d-flex flex-wrap gap-2 justify-content-center">
                     <label class="upload-label fw-bold btn  py-4 px-3 border-2 border-black">
 
                         <img id="staticImage" src="https://www.autotrader.com.lb/bundles/appffrontend/images/1.jpg"
                             alt="">
                         <i id="staticIcon" class="bi bi-upload"></i>
+                       
 
-                        <img style="display:none;object-fit:cover;width:70px" id="preview" src="" alt="preview">
-                        <input class="form-control d-none image-input" type="file" name="images[]" multiple id="images">
+                      
+                        <input class="form-control d-none image-input" type="file" name="images[]" multiple accept="image/*" id="images">
+                    <small id="imageCount" class="text-success d-block"></small>
                     </label>
-
-                    <label class="upload-label fw-bold btn  py-4 px-3 border-2 border-black">
-                        <img id="staticImage" src="https://www.autotrader.com.lb/bundles/appffrontend/images/1.jpg"
-                            alt="">
-                        <i id="staticIcon" class="bi bi-upload"></i>
-                        <img style="display:none;width:70px" id="preview" src="" alt="preview">
-
-                        <input class="form-control d-none image-input" type="file" name="images[]" id="images">
-                    </label>
-
-                    <label class=" upload-label fw-bold btn  py-4 px-3 border-2 border-black">
-
-                        <img id="staticImage" src="https://www.autotrader.com.lb/bundles/appffrontend/images/1.jpg"
-                            alt="">
-                        <i id="staticIcon" class="bi bi-upload"></i>
-
-                        <img style="display:none;width:70px" id="preview" src="" alt="preview">
-                        <input class="form-control d-none image-input" type="file" name="images[]" id="images">
-                    </label>
-
-                    <label class="upload-label fw-bold btn  py-4 px-3 border-2 border-black">
-
-                        <img id="staticImage" src="https://www.autotrader.com.lb/bundles/appffrontend/images/1.jpg"
-                            alt="">
-                        <i id="staticIcon" class="bi bi-upload"></i>
-
-                        <img style="display:none;width:70px" id="preview" src="" alt="preview">
-                        <input class="form-control d-none image-input" type="file" name="images[]" id="images">
-                    </label>
+                    
 
 
-                    <label class="upload-label fw-bold btn  py-4 px-3 border-2 border-black">
-                        <img id="staticImage" src="https://www.autotrader.com.lb/bundles/appffrontend/images/1.jpg"
-                            alt="">
-                        <i id="staticIcon" class="bi bi-upload"></i>
-                        <img style="display:none;width:70px" id="preview" src="" alt="preview">
-                        <input class="form-control d-none image-input" type="file" name="images[]" id="images">
-                    </label>
-
-
-                    <label class="upload-label fw-bold btn  py-4 px-3 border-2 border-black">
-                        <img id="staticImage" src="https://www.autotrader.com.lb/bundles/appffrontend/images/1.jpg"
-                            alt="">
-                        <i id="staticIcon" class="bi bi-upload"></i>
-                        <img style="display:none;width:70px" id="preview" src="" alt="preview">
-                        <input class="form-control d-none image-input" type="file" name="images[]" id="images">
-                    </label>
-
-
-                    <label class="upload-label fw-bold btn  py-4 px-3 border-2 border-black">
-                        <img id="staticImage" src="https://www.autotrader.com.lb/bundles/appffrontend/images/1.jpg"
-                            alt="">
-                        <i id="staticIcon" class="bi bi-upload"></i>
-                        <img style="display:none;width:70px" id="preview" src="" alt="preview">
-                        <input class="form-control d-none image-input" type="file" name="images[]" id="images">
-                    </label>
-
-
-                    <label class="upload-label fw-bold btn  py-4 px-3 border-2 border-black">
-                        <img id="staticImage" src="https://www.autotrader.com.lb/bundles/appffrontend/images/1.jpg"
-                            alt="">
-                        <i id="staticIcon" class="bi bi-upload"></i>
-                        <img style="display:none;width:70px" id="preview" src="" alt="preview">
-                        <input class="form-control d-none image-input" type="file" name="images[]" id="images">
-                    </label>
-
-
-                    <label class="upload-label fw-bold btn  py-4 px-3 border-2 border-black">
-                        <img id="staticImage" src="https://www.autotrader.com.lb/bundles/appffrontend/images/1.jpg"
-                            alt="">
-                        <i id="staticIcon" class="bi bi-upload"></i>
-                        <img style="display:none;width:70px" id="preview" src="" alt="preview">
-                        <input class="form-control d-none image-input" type="file" name="images[]" id="images">
-                    </label>
-
-                    <label class="upload-label fw-bold btn  py-4 px-3 border-2 border-black">
-                        <img id="staticImage" src="https://www.autotrader.com.lb/bundles/appffrontend/images/1.jpg"
-                            alt="">
-                        <i id="staticIcon" class="bi bi-upload"></i>
-                        <img style="display:none;width:70px" id="preview" src="" alt="preview">
-                        <input class="form-control d-none image-input" type="file"  name="images[]" id="images">
-                    </label>
                 </div>
                 <x-input-error :messages="$errors->get('images')" class="mt-2" />
 

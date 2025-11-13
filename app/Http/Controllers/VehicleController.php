@@ -44,9 +44,9 @@ class VehicleController extends Controller
      */
     public function index()
     {
-        $categories =Cache::remember('categories',now()->addMinutes(30),fn()=>  Category::all());
-        $companies = Cache::remember('companies',now()->addMinutes(30),fn()=>  Company::all());
-        $model = Cache::remember('models',now()->addMinutes(30),fn()=>  CarModel::all());
+        $categories = Cache::remember('categories', now()->addMinutes(30), fn() =>  Category::all());
+        $companies = Cache::remember('companies', now()->addMinutes(30), fn() =>  Company::all());
+        $model = Cache::remember('models', now()->addMinutes(30), fn() =>  CarModel::all());
         $dealers = Dealer::with('user')
             ->where('dealers.user_id', '<>', Auth::id())
             ->get();
@@ -81,8 +81,8 @@ class VehicleController extends Controller
                 // 👈 Ensures consistent ordering
                 ->get();
         });
-       
-       
+
+
 
         $paginatedVehicles = new LengthAwarePaginator(
             $vehicles->forPage($page, $perPage),
@@ -94,7 +94,7 @@ class VehicleController extends Controller
 
 
 
-        return view("vehicles.index", compact('paginatedVehicles','companies', 'categories', 'model', 'dealers'));
+        return view("vehicles.index", compact('paginatedVehicles', 'companies', 'categories', 'model', 'dealers'));
     }
 
 
@@ -140,8 +140,8 @@ class VehicleController extends Controller
             'location' => ['required', 'string', 'max:100'],
             'price' => ['required', 'integer', 'min:0'],
             'description' => 'required',
-          'images' => 'required|array|min:1',
-'images.*' => 'image|mimes:jpeg,png,jpg,webp',
+            'images' => 'required|array|min:1|max:10',
+            'images.*' => 'image|mimes:jpeg,png,jpg,webp|max:10000',
 
             'engineSize_id' => 'nullable',
             'engineType_id' => 'required',
@@ -151,7 +151,7 @@ class VehicleController extends Controller
         if ($data['company_id'] == "other") {
             $newCompany = $request->input('new-company');
             $newModel = $request->input('new-model');
-            $company = Company::create([
+            $company = Company::UpdateOrCreate([
                 'company_name' => $newCompany
             ]);
             $model = CarModel::Create([
@@ -164,41 +164,40 @@ class VehicleController extends Controller
         $data['user_id'] = Auth::id();
         $vehicle = Vehicle::create($data);
 
-foreach ($request->file('images') as $image) {
-    try {
-        $originalSize = $image->getSize(); // in bytes
- $filename = uniqid() . '.jpg';
+        foreach ($request->file('images') as $image) {
+            try {
+
+                $filename = uniqid() . '.jpg';
 
 
-$imageInstance = Image::read($image);
+                $imageInstance = Image::read($image);
 
-// Get original dimensions
 
-// Resize to desired output size (e.g. 600x800)
-$imageInstance = $imageInstance->scale(600, 800);
+                // Resize to desired output size (e.g. 600x800)
+                $imageInstance = $imageInstance->scale(600, 800);
 
-// Encode and save
-$optimized = $imageInstance->encode(new JpegEncoder(quality: 80));
-       Storage::disk('public')->put("vehicle_images/{$filename}", (string) $optimized);
+                // Encode and save
+                $optimized = $imageInstance->encode(new JpegEncoder(quality: 80));
+                Storage::disk('public')->put("vehicle_images/{$filename}", (string) $optimized);
 
-        $optimizedSize = Storage::disk('public')->size("vehicle_images/{$filename}");
+                $optimizedSize = Storage::disk('public')->size("vehicle_images/{$filename}");
 
-        
 
-        Vehicle_image::create([
-            'vehicle_id' => $vehicle->id,
-            'image_url' => "vehicle_images/{$filename}",
-        ]);
-    } catch (\Throwable $e) {
-        Log::warning('Image optimization failed: ' . $e->getMessage());
-    }
-}
+
+                Vehicle_image::create([
+                    'vehicle_id' => $vehicle->id,
+                    'image_url' => "vehicle_images/{$filename}",
+                ]);
+            } catch (\Throwable $e) {
+                Log::warning('Image optimization failed: ' . $e->getMessage());
+            }
+        }
         Ad::create([
-                'user_id' => Auth::id(),
-                'vehicle_id' => $vehicle->id,
-                'views' => 0,
-                'boosted' => false,
-            ]);
+            'user_id' => Auth::id(),
+            'vehicle_id' => $vehicle->id,
+            'views' => 0,
+            'boosted' => false,
+        ]);
         return redirect()->route("dashboard");
     }
 
@@ -243,81 +242,66 @@ $optimized = $imageInstance->encode(new JpegEncoder(quality: 80));
      */
     public function update(Request $request, Vehicle $vehicle)
     {
-        $image_id = $request->input('image_id');
-        $data = $request->validate([
-            'company_id' => 'required',
-            'model_id' => 'required',
-            'category_id' => 'required',
-            'condition_id' => 'nullable',
-            'year' => 'required',
-            'body_id' => 'required',
-            'gearbox_id' => 'required',
-            'fuel_id' => 'required',
-            'mileage' => 'required|min:0',
-            'color_id' => 'required',
-            'location' => ['required', 'string', 'max:100'],
-            'price' => ['required', 'integer', 'min:0'],
-            'description' => 'required',
-    'images.*' => 'nullable|image|mimes:jpeg,png,jpg,webp',
+        try {
+            $image_id = $request->input('image_id');
+            $data = $request->validate([
+                'company_id' => 'required',
+                'model_id' => 'required',
+                'category_id' => 'required',
+                'condition_id' => 'nullable',
+                'year' => 'required',
+                'body_id' => 'required',
+                'gearbox_id' => 'required',
+                'fuel_id' => 'required',
+                'mileage' => 'required|min:0',
+                'color_id' => 'required',
+                'location' => ['required', 'string', 'max:100'],
+                'price' => ['required', 'integer', 'min:0'],
+                'description' => 'required',
+                'images' => 'required|array|min:1|max:10',
+                'images.*' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:10000',
+                'engineType_id' => 'required',
+                'engineSize_id' => 'nullable',
+                'user_id' => [Rule::in([Auth::id()])],
 
-            'engineType_id' => 'required',
-            'engineSize_id' => 'nullable',
-            'user_id' => [Rule::in([Auth::id()])],
+            ]);
+            $data['user_id'] = Auth::id();
 
-        ]);
-        $data['user_id'] = Auth::id();
-
-        $vehicle->update($data);
-        if ($request->file('images')) {
-
-
-            foreach ($request->file('images') as $image) {
-                  try {
-        $originalSize = $image->getSize(); // in bytes
-          $filename = uniqid() . '.jpg';
+            $vehicle->update($data);
+            if ($request->file('images')) {
 
 
-$imageInstance = Image::read($image);
+                foreach ($request->file('images') as $image) {
+                    try {
+                        $filename = uniqid() . '.jpg';
+                        $imageInstance = Image::read($image);
+                        // Resize to desired output size (e.g. 600x800)
+                        $imageInstance = $imageInstance->scale(600, 800);
+                        // Encode and save
+                        $optimized = $imageInstance->encode(new JpegEncoder(quality: 80));
+                        Storage::disk('public')->put("vehicle_images/{$filename}", (string) $optimized);;
+                        $optimizedSize = Storage::disk('public')->size("vehicle_images/{$filename}");
 
 
+                        $vehicle->images()
+                            ->create([
+                                "image_url" => "vehicle_images/{$filename}",
+                                
 
-
-// Resize to desired output size (e.g. 600x800)
-$imageInstance = $imageInstance->scale(600, 800)
-;
-
-// Encode and save
-$optimized = $imageInstance->encode(new JpegEncoder(quality: 80));
-Storage::disk('public')->put("vehicle_images/{$filename}", (string) $optimized);
-            
-;
-
-      
-     
-
-        $optimizedSize = Storage::disk('public')->size("vehicle_images/{$filename}");
-
-       
-          Vehicle_image::where("vehicle_id", $vehicle->id)
-                    ->where('id', $image_id)
-                    ->updateOrCreate([
-                        "id" => $image_id,
-                        "image_url" =>"vehicle_images/{$filename}",
-                        "vehicle_id" => $vehicle->id
-
-                    ]);
-
-        
-    } catch (\Throwable $e) {
-        Log::warning('Image optimization failed: ' . $e->getMessage());
-    }
-               
-              
+                            ]);
+                    } catch (\Throwable $e) {
+                        Log::warning('Image optimization failed: ' . $e->getMessage());
+                    }
+                }
             }
-        }
 
-        return redirect()->route('profile.index', Auth::id());
+            return redirect()->route('profile.index', Auth::id());
+         } catch (\Illuminate\Http\Exceptions\PostTooLargeException $ex) {
+            Log::info($ex->getMessage());
+            return redirect()->back()->withErrors([' Something went wrong while uploading the file.']);
+        }
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -355,7 +339,7 @@ Storage::disk('public')->put("vehicle_images/{$filename}", (string) $optimized);
     }
 
 
-  
+
     public function filteredSearch(Request $request, ?string $category_name = null)
     {
         if ($category_name) {
@@ -363,15 +347,15 @@ Storage::disk('public')->put("vehicle_images/{$filename}", (string) $optimized);
         } else {
             $c_id = null;
         }
-         $categories =Cache::remember('categories',now()->addMinutes(30),fn()=>  Category::all());
-        $companies = Cache::remember('companies',now()->addMinutes(30),fn()=>  Company::all());
-        $model = Cache::remember('models',now()->addMinutes(30),fn()=>  CarModel::all());
-       
+        $categories = Cache::remember('categories', now()->addMinutes(30), fn() =>  Category::all());
+        $companies = Cache::remember('companies', now()->addMinutes(30), fn() =>  Company::all());
+        $model = Cache::remember('models', now()->addMinutes(30), fn() =>  CarModel::all());
+
 
         $category_id = $request->input("category_id");
         $company_id = $request->input("company_id") ?? null;
         $model_id = $request->input("model_id") ?? null;
-        $vehicles = Vehicle::with(['company', 'body', 'gearbox', 'color', 'fuel', 'model', 'category', 'condition', 'images', 'ad','ad.likes','user'])
+        $vehicles = Vehicle::with(['company', 'body', 'gearbox', 'color', 'fuel', 'model', 'category', 'condition', 'images', 'ad', 'ad.likes', 'user'])
             ->join('ads', 'ads.vehicle_id', 'vehicles.id')
             ->where("vehicles.user_id", "<>", Auth::id())
             ->when($request->input('category_id'), function ($query) use ($category_id) {
@@ -414,19 +398,19 @@ Storage::disk('public')->put("vehicle_images/{$filename}", (string) $optimized);
     }
     public function filteredPrice(?int $price = null)
     {
-        $categories =Cache::remember('categories',now()->addMinutes(30),fn()=>  Category::all());
-        $companies = Cache::remember('companies',now()->addMinutes(30),fn()=>  Company::all());
-        $model = Cache::remember('models',now()->addMinutes(30),fn()=>  CarModel::all());
+        $categories = Cache::remember('categories', now()->addMinutes(30), fn() =>  Category::all());
+        $companies = Cache::remember('companies', now()->addMinutes(30), fn() =>  Company::all());
+        $model = Cache::remember('models', now()->addMinutes(30), fn() =>  CarModel::all());
 
-          $vehicles = Vehicle::with(['company', 'body', 'gearbox', 'color', 'fuel', 'model', 'category', 'condition', 'images', 'ad','ad.likes','user'])
+        $vehicles = Vehicle::with(['company', 'body', 'gearbox', 'color', 'fuel', 'model', 'category', 'condition', 'images', 'ad', 'ad.likes', 'user'])
             ->join('ads', 'ads.vehicle_id', 'vehicles.id')
             ->where("vehicles.user_id", "<>", Auth::id())
-             ->where("vehicles.price", "<=", 2000)
-             ->orderByDesc('ads.boosted_at')
+            ->where("vehicles.price", "<=", 2000)
+            ->orderByDesc('ads.boosted_at')
             ->select('vehicles.*')
             ->get();
 
-        
+
 
         return view('vehicles.filter', compact('vehicles', 'categories', 'companies', 'model'));
     }

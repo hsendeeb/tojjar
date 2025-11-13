@@ -10,6 +10,11 @@
             {{ session('message') }}
         </div>
     @endif
+        @if (session('deleteMessage'))
+        <div id="alert" class="alert alert-danger fw-bolder">
+          <span class="me-2"><i class="bi bi-trash-fill"></i></span>  {{ session('deleteMessage') }}
+        </div>
+        @endif
    
         <div class="modal fade" id="premiumModal" tabindex="-1" aria-labelledby="premiumModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
