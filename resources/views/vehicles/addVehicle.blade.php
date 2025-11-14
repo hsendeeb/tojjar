@@ -1,4 +1,7 @@
 <x-app-layout>
+     <div id="loader-wrapper">
+        <div class="spinner"></div>
+    </div>
     <a class="btn btn-outline-danger rounded-2 ms-2 mt-2 px-3 py-1" href="/">back</a>   
     <div class="container-fluid mt-2 d-flex justify-content-center bg-white">
         <img id="forSale" style="width: 200px;height:200px;object-fit:cover" src="/images/forSale.png">
@@ -6,7 +9,7 @@
  
     <div class="container bg-white p-3 mt-5 d-flex justify-content-center align-items-center">
       
-        <form id="addVehicle" class="form-control" method="POST" action="{{ route('placeAd') }}"
+        <form id="vehicleForm" class="form-control" method="POST" action="{{ route('placeAd') }}"
             enctype="multipart/form-data">
             @csrf
             <h2 class="h2 fw-bold  px-2 py-1 mt-2">Basic info</h2>
@@ -34,7 +37,9 @@
 
                 <label id="carModelLabel" for="carModel" class="form-label me-2 mt-2 fw-bold">car model: </label>
                 <select class="form-control mt-2" name="model_id" id="carModel">
+
                     <option value="">select model</option>
+                    
                 </select>
                 <x-input-error :messages="$errors->get('model_id')" class="mt-2" />
             </div>
@@ -178,10 +183,10 @@
     </div>
 
     <div class="text-center mt-5 ">
-        <button type="submit"
+        <button id="submit" type="submit"
             class="d-inline-flex gap-2 justify-content-center align-items-center btn btn-danger w-75 text-center px-2 py-2">
             submit
-            <div class="btn-spinner" style="display:none"></div>
+            <div id="btn-spinner" class="btn-spinner" style="display:none"></div>
         </button>
 
     </div>

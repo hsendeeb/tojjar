@@ -31,6 +31,7 @@ class AdController extends Controller
             $ad->likes()->create([
                 'user_id' => Auth::id(),
                 'ad_id' => $ad->id,
+                'liked_at'=>now()
             ]);
             $isLiked = true;
         }
@@ -64,9 +65,9 @@ class AdController extends Controller
             'ad.likes',
             'user'
         )->whereHas('ad.likes', function ($q) use ($user) {
-
-                $q->where('user_id', $user->id);
-           
+                $q->where('user_id', $user->id)
+                ->orderByDesc('liked_at');
+               
         })->get();
 
         return view('vehicles.likedAds', compact("vehicles"));
@@ -80,6 +81,8 @@ class AdController extends Controller
                 $ad->boosted = true;
                 $ad->boosted_at=now();
                 $ad->save();
+                Cache::forget('vehicles');
+                Cache::forget('filteredVehicles');
                 return response()->json([
                     'boosted' => $ad->boosted,
                     'premium' => $user->premium

@@ -7,7 +7,7 @@
     
     <div class="container-fluid bg-white p-3 mt-5 d-flex justify-content-center align-items-center pt-16">
          
-        <form  class="form-control" method="POST" action="{{ route('vehicle.update',$vehicle) }}" enctype="multipart/form-data">
+        <form id="vehicleForm"  class="form-control" method="POST" action="{{ route('vehicle.update',$vehicle) }}" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <h3 class="h3 text-center0 px-2">Basic info</h3>
@@ -174,7 +174,12 @@
 
             </div>
             <div class="text-center mt-5">
-                <button type="submit" class="btn btn-danger w-50 mx-auto px-3 py-2">submit</button>
+                 <button id="submit" type="submit"
+            class="d-inline-flex gap-2 justify-content-center align-items-center btn btn-danger w-75 text-center px-2 py-2">
+            submit
+            <div id="btn-spinner" class="btn-spinner" style="display:none"></div>
+        </button>
+        
             </div>
             
         </form>

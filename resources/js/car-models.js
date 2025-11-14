@@ -8,6 +8,16 @@ if (loader) {
         document.getElementById("loader-wrapper").style.display = "none";
     });
 }
+const BtnLoader = document.getElementById("btn-spinner");
+const form = document.getElementById("vehicleForm");
+if (form) {
+    form.addEventListener("submit", function (e) {
+        BtnLoader.style.display = "block";
+        console.error(error);
+    });
+    
+    }
+
 const search = document.getElementById("search");
 if (search) {
     document.getElementById("search").addEventListener("blur", () => {
@@ -65,7 +75,7 @@ $("#company_id").on("change", function () {
                 success: function (data) {
                     $("#carModel")
                         .empty()
-                        .append('<option value="">Select Model</option>');
+                        .append('<option value="other">other</option>');
                     $.each(data, function (index, model) {
                         $("#carModel").append(
                             "<option value=" +
@@ -132,30 +142,30 @@ const label = document.querySelector(".upload-label");
 document.querySelectorAll(".image-input").forEach((input) => {
     input.addEventListener("change", function (e) {
         const file = this.files[0];
-        const imageCount=document.getElementById('imageCount');
+        const imageCount = document.getElementById("imageCount");
         const preview = this.closest(".upload-label").querySelector("#preview");
         const staticImage =
             this.closest(".upload-label").querySelector("#staticImage");
         const staticIcon =
             this.closest(".upload-label").querySelector("#staticIcon");
-         if(e.target.files.length>0) {
-            imageCount.innerHTML=e.target.files.length+"/10"+" "+"<i class='bi bi-check-circle-fill'></i>" ;
-         } else {
-             staticImage.style.display = "block";
+        if (e.target.files.length > 0) {
+            imageCount.innerHTML =
+                e.target.files.length +
+                "/10" +
+                " " +
+                "<i class='bi bi-check-circle-fill'></i>";
+        } else {
+            staticImage.style.display = "block";
             staticIcon.style.display = "block";
-            imageCount.innerHTML="0/10";
-         }
+            imageCount.innerHTML = "0/10";
+        }
         if (file && file.type.startsWith("image/")) {
-            
-            
             const reader = new FileReader();
             reader.onload = function (e) {
-
                 staticImage.style.display = "none";
                 staticIcon.style.display = "none";
             };
             reader.readAsDataURL(file);
-          
         } else {
             preview.style.display = "none";
             preview.src = "";
@@ -233,7 +243,7 @@ $("#company").on("change", function () {
             url: "/get-models/" + companyId,
             method: "GET",
             success: function (data) {
-                $("#model").prop("disabled", false);    
+                $("#model").prop("disabled", false);
                 $("#model").removeClass("opacity-50");
                 $("#model").append(
                     "<option value=''disabled selected>select model</option>"
@@ -249,17 +259,7 @@ $("#company").on("change", function () {
         $("#company").removeClass("bg-info bg-opacity-50 ");
     }
 });
-document.addEventListener("DOMContentLoaded", function () {
-    const form = document.getElementById("addVehicle");
 
-    if (form) {
-        document
-            .getElementById("addVehicle")
-            .addEventListener("submit", function () {
-                document.getElementById("btn-spinner").style.display = "block";
-            });
-    }
-});
 
 const token = document
     .querySelector('meta[name="csrf-token"]')
@@ -282,9 +282,9 @@ document.querySelectorAll(".likeBtn").forEach((btn) => {
             success: function (data) {
                 $("#like-count-" + adId).text(data.likes);
                 if (data.isLiked) {
-                    console.log(data.isLiked +""+adId);
+                    console.log(data.isLiked + "" + adId);
                     icon.classList.remove("bi", "bi-heart");
-                   icon.classList.add("bi", "bi-heart-fill", "text-danger");
+                    icon.classList.add("bi", "bi-heart-fill", "text-danger");
                     sound.currentTime = 0;
                     sound.play();
                 } else {
@@ -373,38 +373,43 @@ document.querySelectorAll(".boostBtn").forEach((btn) => {
                 if (!data.premium) {
                     console.log(data.premium);
                     // show Bootstrap modal if user is not premium
-                    const modalEl = document.getElementById('premiumModal');
+                    const modalEl = document.getElementById("premiumModal");
                     if (modalEl) {
                         // create modal instance with default options (allow closing by ESC and backdrop click)
-                        const modal = new bootstrap.Modal(modalEl, { keyboard: true, backdrop: true });
+                        const modal = new bootstrap.Modal(modalEl, {
+                            keyboard: true,
+                            backdrop: true,
+                        });
                         modal.show();
 
                         // ensure the close button explicitly hides the modal (defensive)
-                        const closeBtn = modalEl.querySelector('[data-bs-dismiss="modal"]');
+                        const closeBtn = modalEl.querySelector(
+                            '[data-bs-dismiss="modal"]'
+                        );
                         if (closeBtn) {
-                            closeBtn.addEventListener('click', () => modal.hide());
+                            closeBtn.addEventListener("click", () =>
+                                modal.hide()
+                            );
                         }
                     } else {
-                        console.warn('premiumModal element not found');
+                        console.warn("premiumModal element not found");
                     }
                 } else {
                     btn.innerHTML =
                         "Boosted" +
                         "<span> <i class='bi bi-rocket-takeoff-fill'></i></span>";
-                    btn.classList.remove('btn-danger');
-                    btn.classList.add('fw-bolder', 'text-danger');
+                    btn.classList.remove("btn-danger");
+                    btn.classList.add("fw-bolder", "text-danger");
                 }
             },
             error: function (xhr) {
-                console.error('Boost request failed', xhr);
-            }
+                console.error("Boost request failed", xhr);
+            },
         });
     });
 });
-document.querySelectorAll('.sortBtn').forEach((btn)=>{
-    btn.addEventListener('click',function() {
-        const sort=btn.getAttribute('data-sort');
-    })
-})
-
-
+document.querySelectorAll(".sortBtn").forEach((btn) => {
+    btn.addEventListener("click", function () {
+        const sort = btn.getAttribute("data-sort");
+    });
+});

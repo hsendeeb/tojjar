@@ -244,6 +244,7 @@ class VehicleController extends Controller
     public function update(Request $request, Vehicle $vehicle)
     {
         try {
+
             $image_id = $request->input('image_id');
             $data = $request->validate([
                 'company_id' => 'required',
@@ -259,7 +260,7 @@ class VehicleController extends Controller
                 'location' => ['required', 'string', 'max:100'],
                 'price' => ['required', 'integer', 'min:0'],
                 'description' => 'required',
-                'images' => 'required|array|min:1|max:10',
+                'images' => 'array|min:1|max:10',
                 'images.*' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:10000',
                 'engineType_id' => 'required',
                 'engineSize_id' => 'nullable',
@@ -267,11 +268,15 @@ class VehicleController extends Controller
 
             ]);
             $data['user_id'] = Auth::id();
+            $hasExistingImages = $vehicle->images()->exists(); // assuming a relation like $ad->images()
+
+if (!$hasExistingImages && !$request->hasFile('images')) {
+    return back()->withErrors(['images' => 'At least one image is required.']);
+}
+
 
             $vehicle->update($data);
             if ($request->file('images')) {
-
-
                 foreach ($request->file('images') as $image) {
                     try {
                         $filename = uniqid() . '.jpg';
@@ -294,6 +299,8 @@ class VehicleController extends Controller
                         Log::warning('Image optimization failed: ' . $e->getMessage());
                     }
                 }
+            } else {
+
             }
 
             return redirect()->route('profile.index', Auth::id());

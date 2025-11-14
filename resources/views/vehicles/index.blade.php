@@ -65,8 +65,8 @@
     <div class="d-flex flex-column align-items-center" style="min-width: 70px;">
         <a class="text-center" id="dealer" href="{{ route('profile.show',$dealer->user->id) }}">
                         @if($dealer->user->image != 'public/images/avatar.png')
-                        <div class="rounded-circle overflow-hidden" style="width:70px; height:70px;">
-                            <img class="w-100 h-100 object-fit-cover"
+                        <div class="rounded-circle gradient-border  overflow-hidden" style="width:70px; height:70px;">
+                            <img class=" rounded-circle w-100 h-100 object-fit-cover "
                                 src="{{ Storage::url($dealer->user->image)}}" alt=" logo">
                         </div>
                     @else
@@ -95,7 +95,10 @@
 
 
     </div>
+    <hr>
+    <h3 class="h3 text-center mt-4">Categories</h3>
     <div class="d-flex flex-wrap gap-5 mt-5 justify-content-center align-items-center">
+        
         <div onclick="document.getElementById('car').submit()" class="d-flex flex-column text-center cursor-pointer">
             <img src="/images/car.png"  class="mix-blend-multiply" style="max-width:150px" alt="car">
    <form id="car" action="/vehicles/filter/car" method="POST">

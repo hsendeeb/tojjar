@@ -83,6 +83,14 @@ body {
     transition: ease 0.3s;
     
 }
+.gradient-border {
+  border: 2px solid transparent;
+  border-radius: 1rem; /* or use Bootstrap class like rounded-3 */
+  background-image: linear-gradient(white, white), linear-gradient(to right, #ff0000, #f504a5be);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+}
+
 #backToTop {
   position: fixed;
   bottom: 40px;
@@ -133,8 +141,8 @@ body {
       width: 60px;
       height: 60px;
       border: 6px solid transparent;
-      border-top: 6px solid #e53935;
-      border-right: 6px solid #e53935;
+      border-top: 6px solid #ff0000;
+      border-right: 6px solid #ff0000;
       border-radius: 50%;
       animation: spin 1s linear infinite;
       position: relative;
@@ -148,10 +156,10 @@ body {
       right: 8px;
       bottom: 8px;
       border: 4px solid transparent;
-      border-bottom: 4px solid #e53935;
-      border-left: 4px solid #e53935;
+      border-bottom: 4px solid #ff0000;
+      border-left: 4px solid #ff0000;
       border-radius: 50%;
-      animation: spinReverse 0.6s linear infinite;
+      animation: spinReverse 0.6s linear infinite;  
     }
 
     @keyframes spin {
