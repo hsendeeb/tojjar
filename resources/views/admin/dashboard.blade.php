@@ -191,13 +191,13 @@
           <div class="modal-body">
             <form action="{{ route('admin.store') }}" method="POST">
               @csrf
-              <label class="form-label" for="user_name">admin :</label>
+              <label class="form-label" for="name">Full name :</label>
               <div>
                 <input class="form-control" type="text" name="name" required>
               </div>
               <div class="mt-2">
-                  <label class="form-label" for="last_name">last name :</label>
-                <input class="form-control" type="text" name="last_name" required>
+                  <label class="form-label" for="username">user name :</label>
+                <input class="form-control" type="text" name="username" required>
               </div>
               <div class="mt-2">
                   <label class="form-label" for="email">email :</label>

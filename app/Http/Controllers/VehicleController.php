@@ -358,16 +358,23 @@ if (!$hasExistingImages && !$request->hasFile('images')) {
         $categories = Cache::remember('categories', now()->addMinutes(30), fn() =>  Category::all());
         $companies = Cache::remember('companies', now()->addMinutes(30), fn() =>  Company::all());
         $model = Cache::remember('models', now()->addMinutes(30), fn() =>  CarModel::all());
-
+        $colors=Color::all();
 
         $category_id = $request->input("category_id");
         $company_id = $request->input("company_id") ?? null;
         $model_id = $request->input("model_id") ?? null;
+        $price=$request->input('price') ?? null;;
+        $yearFrom=$request->input('yearFrom') ?? null;
+        $yearTo=$request->input('yearTo') ?? null;
+         $color=$request->input('color') ?? null;
         $vehicles = Vehicle::with(['company', 'body', 'gearbox', 'color', 'fuel', 'model', 'category', 'condition', 'images', 'ad', 'ad.likes', 'user'])
             ->join('ads', 'ads.vehicle_id', 'vehicles.id')
             ->where("vehicles.user_id", "<>", Auth::id())
             ->when($request->input('category_id'), function ($query) use ($category_id) {
                 $query->where("category_id", $category_id);
+            })
+            ->when($request->input('price'), function ($query) use ($price) {
+                $query->where("price", "<=",$price);
             })
 
             ->when($request->input('company_id'), function ($query) use ($company_id) {
@@ -379,11 +386,26 @@ if (!$hasExistingImages && !$request->hasFile('images')) {
             ->when(!empty($c_id), function ($query) use ($c_id) {
                 $query->where("category_id", $c_id);
             })
+            ->when($yearFrom, function ($query) use ($yearFrom) {
+                $query->where("year", '>=',$yearFrom);
+            })
+             ->when($yearTo, function ($query) use ($yearTo) {
+                $query->where("year", '<=',$yearTo);
+            })
+            ->when(!empty($c_id), function ($query) use ($c_id) {
+                $query->where("category_id", $c_id);
+            })
+            ->when($color, function ($query) use ($color) {
+                $query->with("color")
+                ->whereHas('color',function($q) use($color) {
+                    $q->where('colors.color',"LIKE",$color);
+                });
+            })
 
             ->orderByDesc('ads.boosted_at')
             ->select('vehicles.*')
             ->get();
-        return view('vehicles.filter', compact('vehicles'));
+        return view('vehicles.filter', compact('vehicles','categories','colors'));
     }
     public function markAsSold(string $id)
     {

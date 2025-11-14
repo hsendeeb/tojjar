@@ -3,8 +3,8 @@
         <div class="spinner"></div>
     </div>
     <a class="btn btn-outline-danger rounded-2 ms-2 mt-2 px-3 py-1" href="/">back</a>   
-    <div class="container-fluid mt-2 d-flex justify-content-center bg-white">
-        <img id="forSale" style="width: 200px;height:200px;object-fit:cover" src="/images/forSale.png">
+    <div class="container-fluid mt-2 d-flex justify-content-center ">
+        <img class="mix-blend-multiply rounded-2" id="forSale" style="width: 200px;height:200px;object-fit:cover;" src="/images/forSale.png">
     </div>
  
     <div class="container bg-white p-3 mt-5 d-flex justify-content-center align-items-center">
@@ -163,15 +163,9 @@
                         <img id="staticImage" src="https://www.autotrader.com.lb/bundles/appffrontend/images/1.jpg"
                             alt="">
                         <i id="staticIcon" class="bi bi-upload"></i>
-                       
-
-                      
                         <input class="form-control d-none image-input" type="file" name="images[]" multiple accept="image/*" id="images">
                     <small id="imageCount" class="text-success d-block"></small>
                     </label>
-                    
-
-
                 </div>
                 <x-input-error :messages="$errors->get('images')" class="mt-2" />
 

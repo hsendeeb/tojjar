@@ -60,19 +60,24 @@ class AdminController extends Controller
     {
         $data=$request->validate([
              'name' => ['required', 'string', 'max:255'],
-            'last_name'=>['required','string','max:255'],
+            'username'=>['unique:users','required','string','max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'phone' => [
         'required',
         'string',
         'regex:/^(?:\+961|961|0)?(3|70|71|76|78|79|81|82|83|84|85|88|89)\d{6}$/',
-        'unique:users,phone', // Adjust 'users' and 'phone' to your table and column
+        'unique:users,phone',
     ],
+    'account_type'=>'nullable',
 
 
             'password' => ['required', Rules\Password::defaults()],
         ]);
-        $user=User::create($data);
+        $data['account_type']='admin';
+        $user=User::create($data  );
+                      
+     
+        
        Admin::create([
             'user_id'=>$user->id,
         ]);
@@ -137,7 +142,9 @@ class AdminController extends Controller
                 'condition',
                 'images',
                 'engineType',
-                'engineSize'
+                'engineSize',
+                'ad',
+                'ad.likes'
             ])->get();
             return view('admin.showVehicles',compact('records','companies'));
     }

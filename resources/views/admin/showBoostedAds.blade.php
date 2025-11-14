@@ -73,7 +73,7 @@
                 <tr>
 
                     <td>{{ $record->id }}</td>
-                    <td>{{ $record->vehicle->company->company_name }}</td>
+                    <td><a href="{{ route('vehicle.show', $record->vehicle->id) }}">{{ $record->vehicle->company->company_name }}</a></td>
                     <td>{{ $record->vehicle->model->model_name }}</td>
 
                     <td><a href="{{ route('profile.show', $record->user->id) }}">{{ $record->user->name }}</a></td>

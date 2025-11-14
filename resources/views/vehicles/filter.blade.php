@@ -2,12 +2,7 @@
       <div id="loader-wrapper">
         <div class="spinner"></div>
       </div>
-@php
-    $categories = Cache::get('categories', []);
-     $companies = Cache::get('companies', []);
-      $model = Cache::get('models', []);
 
-@endphp
     <button id="glass-button" class="glass-button px-4 py-1 rounded-pill text-dark"><i
             class="bi bi-arrow-up-circle-fill"></i></button>
    <div class="container-fluid pt-4 d-flex gap-2 p-1 bg-transparent">
@@ -44,13 +39,52 @@
 
     </div>
     <hr>
-   
+   <div class="d-flex justify-content-between align-items-center px-2 bg-info bg-opacity-25 ">
     <h3
-        class=" bg-info bg-opacity-25 text-center py-2  h3  fw-bolder text-sm fw-bolder">
+        class=" text-center p-2  h3  fw-bolder text-sm fw-bolder">
         <span class="archivo">
-          {{$vehicles->first()?->company?->company_name}}
-        </span>{{"(". number_format(count($vehicles)) . " " . "results)"}}
+          
+        </span>{{ number_format(count($vehicles)) . " " . "results"}}
         </h3>
+        <div class="dropdown">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+   <i class="bi bi-funnel-fill"></i>
+  </button>
+  <ul class="dropdown-menu" >
+       
+        <form class="px-2"  action="{{ route('filteredSearch') }}" method="post">
+          @csrf
+           <div>
+            <label class="form-label text-sm" for="price">Price:<span id="rangeValue">{{ request('price') }}</span> $</label><br>
+            <input id="price"  min="100" max="300000" type="range" value="{{ request('price') }}" step="1" oninput="updateRange(this.value)" name="price" id="price">
+</div>
+ <label class="form-label text-sm fw-boldermt-2" for="year">year</label><br>
+<div class="d-flex gap-2">       
+            <input style="height: 20px" class=" w-50 p-0" id="yearFrom" placeholder="From" type="number"  name="yearFrom" value="{{ request('yearFrom') }}">
+            
+            <input style="height: 20px"  class=" w-50 p-0" id="yearTo" placeholder="To" type="number"  name="yearTo" value="{{ request('yearTo') }}">
+       </div>
+       <hr class="dropdown-divider">
+       <div class="mt-2">  
+        <label class="form-label text-sm fw-bold" for="colors">Color:</label>     
+         <input list="colors" class=" w-50 p-0" id="yearFrom" type="text"  name="color" value="{{ request('color') }}">
+         <span  style="color: {{ request('color') }}"><i class="bi bi-droplet-fill"></i></span>  
+         <datalist id="colors">
+                @foreach($colors as $color)
+                <option value="{{ $color->color}}">
+            @endforeach
+            </datalist>
+        </div>
+            <input type="hidden" name="category_id" value="{{ request('category_id') }}">
+          <input type="hidden" name="company_id" value="{{ request('company_id') }}">
+                <input type="hidden" name="model_id" value="{{ request('model_id') }}">
+       <button type="submit" class="btn  btn-sm mt-3 w-100 mx-auto btn-danger">Filter</button>
+            </form>
+
+   
+  </ul>
+</div>
+        </div>
 
 
   
@@ -201,5 +235,10 @@
 
 
     </div>
+    <script>
+        function updateRange(value) {
+    document.getElementById("rangeValue").textContent=value;
+}
+    </script>
 
 </x-app-layout>

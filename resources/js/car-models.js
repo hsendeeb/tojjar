@@ -413,3 +413,4 @@ document.querySelectorAll(".sortBtn").forEach((btn) => {
         const sort = btn.getAttribute("data-sort");
     });
 });
+
