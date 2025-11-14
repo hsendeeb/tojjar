@@ -6,8 +6,9 @@
     <button id="glass-button" class="glass-button px-4 py-1 rounded-pill text-dark"><i
             class="bi bi-arrow-up-circle-fill"></i></button>
    <div class="container-fluid pt-4 d-flex gap-2 p-1 bg-transparent">
-        <form class="d-flex justify-content-center form-control bg-transparent" method="GET"
-            action="{{ route('company.show') }}">
+        <form id="searchForm" class="d-flex justify-content-center form-control bg-transparent" method="post"
+            action="{{ route('filteredSearch') }}">
+            @csrf
             <input id="search" name="company_name" type="text" class="form-control w-100 " required
                 placeholder="search for any car">
             <button type="submit" class=" text-dark px-2 fs-3"> <i class="bi bi-search"></i></button>
@@ -50,28 +51,38 @@
   <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
    <i class="bi bi-funnel-fill"></i>
   </button>
-  <ul class="dropdown-menu" >
+  <ul class="dropdown-menu" style="width:300px" >
        
         <form class="px-2"  action="{{ route('filteredSearch') }}" method="post">
           @csrf
            <div>
             <label class="form-label text-sm" for="price">Price:<span id="rangeValue">{{ request('price') }}</span> $</label><br>
-            <input id="price"  min="100" max="300000" type="range" value="{{ request('price') }}" step="1" oninput="updateRange(this.value)" name="price" id="price">
+            <input   min="100" max="300000" type="range" value="{{ request('price') }}" step="1" oninput="updateRange(this.value)" name="price" id="price">
 </div>
- <label class="form-label text-sm fw-boldermt-2" for="year">year</label><br>
+ <label class="form-label text-sm fw-bolder mt-2" for="year"><span class="me-1"><i class="bi bi-calendar-week-fill"></i></span>year</label><br>
 <div class="d-flex gap-2">       
             <input style="height: 20px" class=" w-50 p-0" id="yearFrom" placeholder="From" type="number"  name="yearFrom" value="{{ request('yearFrom') }}">
             
             <input style="height: 20px"  class=" w-50 p-0" id="yearTo" placeholder="To" type="number"  name="yearTo" value="{{ request('yearTo') }}">
        </div>
        <hr class="dropdown-divider">
-       <div class="mt-2">  
-        <label class="form-label text-sm fw-bold" for="colors">Color:</label>     
+       <div class="mt-2 d-flex flex-column">  
+        <label class="form-label text-sm fw-bold" for="colors"> <span  style="color: {{ request('color') }}"><i class="bi bi-droplet-fill"></i></span>  Color: </label>     
          <input list="colors" class=" w-50 p-0" id="yearFrom" type="text"  name="color" value="{{ request('color') }}">
-         <span  style="color: {{ request('color') }}"><i class="bi bi-droplet-fill"></i></span>  
+        
          <datalist id="colors">
                 @foreach($colors as $color)
                 <option value="{{ $color->color}}">
+            @endforeach
+            </datalist>
+        </div>
+         <div class=" d-flex flex-column mt-2">  
+       
+      <label class="form-label text-sm fw-bold" for="location">  <span class="me-1"><i class="bi bi-geo-alt-fill"></i></span>Location:</label>    
+       <input list="locations" class=" w-50 p-0" id="location" type="text"  name="location" value="{{ request('location') }}">
+         <datalist id="locations">
+                @foreach($locations as $location)
+                <option value="{{ $location->location}}">
             @endforeach
             </datalist>
         </div>

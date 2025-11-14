@@ -113,7 +113,6 @@ class VehicleController extends Controller
         $fuelType = $this->cacheDropdown('fuel_types', 30, fn() => FuelType::all());
         $engineType = $this->cacheDropdown('engineType', 30, fn() => EngineType::all());
         $engineSize = $this->cacheDropdown('engineSize', 30, fn() => EngineSize::all());
-        $locations =
             $locations = DB::select('SELECT CONCAT(city,",",country) as location  FROM locations');
 
 
@@ -359,14 +358,17 @@ if (!$hasExistingImages && !$request->hasFile('images')) {
         $companies = Cache::remember('companies', now()->addMinutes(30), fn() =>  Company::all());
         $model = Cache::remember('models', now()->addMinutes(30), fn() =>  CarModel::all());
         $colors=Color::all();
+        $locations = DB::select('SELECT CONCAT(city,",",country) as location  FROM locations');
 
         $category_id = $request->input("category_id");
         $company_id = $request->input("company_id") ?? null;
+        $company_name = $request->input("company_name") ?? null;
         $model_id = $request->input("model_id") ?? null;
         $price=$request->input('price') ?? null;;
         $yearFrom=$request->input('yearFrom') ?? null;
         $yearTo=$request->input('yearTo') ?? null;
-         $color=$request->input('color') ?? null;
+        $color=$request->input('color') ?? null;
+        $location=$request->input('location') ?? null;
         $vehicles = Vehicle::with(['company', 'body', 'gearbox', 'color', 'fuel', 'model', 'category', 'condition', 'images', 'ad', 'ad.likes', 'user'])
             ->join('ads', 'ads.vehicle_id', 'vehicles.id')
             ->where("vehicles.user_id", "<>", Auth::id())
@@ -380,6 +382,12 @@ if (!$hasExistingImages && !$request->hasFile('images')) {
             ->when($request->input('company_id'), function ($query) use ($company_id) {
                 $query->where("company_id", $company_id);
             })
+            ->when($request->input('company_name'), function ($query) use ($company_name) {
+                $query->with("company")
+                ->whereHas('company',function($q) use($company_name){
+                    $q->where('company_name','LIKE','%' . $company_name . '%');
+                });
+            })
             ->when($request->input('model_id'), function ($query) use ($model_id) {
                 $query->where("model_id", $model_id);
             })
@@ -392,8 +400,9 @@ if (!$hasExistingImages && !$request->hasFile('images')) {
              ->when($yearTo, function ($query) use ($yearTo) {
                 $query->where("year", '<=',$yearTo);
             })
-            ->when(!empty($c_id), function ($query) use ($c_id) {
-                $query->where("category_id", $c_id);
+            
+            ->when($location, function ($query) use ($location) {
+                $query->where("location", 'LIKE',$location);
             })
             ->when($color, function ($query) use ($color) {
                 $query->with("color")
@@ -405,7 +414,7 @@ if (!$hasExistingImages && !$request->hasFile('images')) {
             ->orderByDesc('ads.boosted_at')
             ->select('vehicles.*')
             ->get();
-        return view('vehicles.filter', compact('vehicles','categories','colors'));
+        return view('vehicles.filter', compact('vehicles','categories','colors','locations'));
     }
     public function markAsSold(string $id)
     {

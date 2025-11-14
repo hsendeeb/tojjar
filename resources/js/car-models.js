@@ -120,14 +120,15 @@ $("#search").on("keyup", function () {
                     .append("<p class='text-secondary'>select a car</p>");
 
                 $.each(data, function (id, name) {
-                    const item = document.createElement("a");
+                    const item = document.createElement("button");
                     item.textContent = name.company_name;
                     item.classList.add("list-group-item");
                     item.classList.add("mt-2");
                     item.style.cursor = "pointer";
-                    item.href = `/company/show/${name.company_name}`;
+                   
                     item.onclick = () =>
-                        (window.location.href = `/company/show/${name.company_name}`);
+                         document.getElementById('searchForm').submit();
+
                     $("#suggestions").append(item);
                 });
             },
