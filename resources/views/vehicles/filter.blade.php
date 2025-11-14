@@ -1,4 +1,7 @@
 <x-app-layout>
+      <div id="loader-wrapper">
+        <div class="spinner"></div>
+      </div>
 @php
     $categories = Cache::get('categories', []);
      $companies = Cache::get('companies', []);

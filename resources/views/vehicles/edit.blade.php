@@ -1,4 +1,7 @@
 <x-app-layout>
+      <div id="loader-wrapper">
+        <div class="spinner"></div>
+      </div>
   <div class="placeAd container mt-2">
     <a href="{{ route('profile.index',Auth::id()) }}" class="btn btn-outline-danger text-start">Cancel</a>
         <h1 class=" h1 mt-3 fw-bolder text-center text-danger font-sans ">Edit Ad</h1>

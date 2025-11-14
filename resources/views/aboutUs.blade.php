@@ -48,6 +48,9 @@
   </style>
 </head>
 <body>
+    <div id="loader-wrapper">
+        <div class="spinner"></div>
+    </div>
     @include('layouts.navigation')
 
 
