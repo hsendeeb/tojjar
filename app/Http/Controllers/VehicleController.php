@@ -413,7 +413,7 @@ if (!$hasExistingImages && !$request->hasFile('images')) {
 
             ->orderByDesc('ads.boosted_at')
             ->select('vehicles.*')
-            ->get();
+            ->paginate(5)->appends($request->query());
         return view('vehicles.filter', compact('vehicles','categories','colors','locations'));
     }
     public function markAsSold(string $id)

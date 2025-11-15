@@ -6,9 +6,9 @@
     <button id="glass-button" class="glass-button px-4 py-1 rounded-pill text-dark"><i
             class="bi bi-arrow-up-circle-fill"></i></button>
    <div class="container-fluid pt-4 d-flex gap-2 p-1 bg-transparent">
-        <form id="searchForm" class="d-flex justify-content-center form-control bg-transparent" method="post"
+        <form id="searchForm" class="d-flex justify-content-center form-control bg-transparent" method="GET"
             action="{{ route('filteredSearch') }}">
-            @csrf
+            
             <input id="search" name="company_name" type="text" class="form-control w-100 " required
                 placeholder="search for any car">
             <button type="submit" class=" text-dark px-2 fs-3"> <i class="bi bi-search"></i></button>
@@ -19,10 +19,10 @@
     </div>
      <div class="container mt-1 px-2 py-2">
         <form class="d-flex gap-2 flex-wrap justify-content-center" action="{{ route("filteredSearch") }}"
-            method="POST">
-            @csrf
+            method="GET">
+           
             <select class="rounded-pill border-0" name="category_id" id="category">
-                <option value="" disabled selected>select category</option>
+                <option value=""  selected>select category</option>
                 @foreach ($categories as $category)
                     <option value="{{ $category->id }}">{{ $category->category }}</option>
                 @endforeach
@@ -53,17 +53,17 @@
   </button>
   <ul class="dropdown-menu" style="width:300px" >
        
-        <form class="px-2"  action="{{ route('filteredSearch') }}" method="post">
-          @csrf
+        <form class="px-2"  action="{{ route('filteredSearch') }}" method="GET">
+          
            <div>
             <label class="form-label text-sm" for="price">Price:<span id="rangeValue">{{ request('price') }}</span> $</label><br>
-            <input   min="100" max="300000" type="range" value="{{ request('price') }}" step="1" oninput="updateRange(this.value)" name="price" id="price">
+            <input   min="100" max="300000" type="range" value="{{ request('price') }}" step="1000" oninput="updateRange(this.value)" name="price" id="price">
 </div>
  <label class="form-label text-sm fw-bolder mt-2" for="year"><span class="me-1"><i class="bi bi-calendar-week-fill"></i></span>year</label><br>
 <div class="d-flex gap-2">       
-            <input style="height: 20px" class=" w-50 p-0" id="yearFrom" placeholder="From" type="number"  name="yearFrom" value="{{ request('yearFrom') }}">
+            <input style="height: 20px" class="form-input w-50 p-0" id="yearFrom" placeholder="From" type="number"  name="yearFrom" value="{{ request('yearFrom') }}">
             
-            <input style="height: 20px"  class=" w-50 p-0" id="yearTo" placeholder="To" type="number"  name="yearTo" value="{{ request('yearTo') }}">
+            <input style="height: 20px"  class="form-control w-50 p-0" id="yearTo" placeholder="To" type="number"  name="yearTo" value="{{ request('yearTo') }}">
        </div>
        <hr class="dropdown-divider">
        <div class="mt-2 d-flex flex-column">  
@@ -88,6 +88,7 @@
         </div>
             <input type="hidden" name="category_id" value="{{ request('category_id') }}">
           <input type="hidden" name="company_id" value="{{ request('company_id') }}">
+           <input type="hidden" name="company_name" value="{{ request('company_name') }}">
                 <input type="hidden" name="model_id" value="{{ request('model_id') }}">
        <button type="submit" class="btn  btn-sm mt-3 w-100 mx-auto btn-danger">Filter</button>
             </form>
@@ -243,7 +244,9 @@
             @endforelse
         </div>
          
-
+      <div class="d-flex justify-content-center gap-2 mt-3 mb-3">
+            <span>{{ $vehicles->links('pagination::bootstrap-5') }}</span>
+        </div>
 
     </div>
     <script>

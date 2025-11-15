@@ -120,8 +120,10 @@ $("#search").on("keyup", function () {
                     .append("<p class='text-secondary'>select a car</p>");
 
                 $.each(data, function (id, name) {
-                    const item = document.createElement("button");
-                    item.textContent = name.company_name;
+                    const item = document.createElement("input");
+                    item.value = name.company_name;
+                    item.name="company_name";
+                    item.type='submit';
                     item.classList.add("list-group-item");
                     item.classList.add("mt-2");
                     item.style.cursor = "pointer";

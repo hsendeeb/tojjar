@@ -9,8 +9,9 @@
             class="bi bi-arrow-up-circle-fill"></i></button>
    <div class="py-3" id="searchBar" >
     <div class="container-fluid  d-flex gap-2 p-1 bg-transparent  ">
-        <form class="d-flex gap-2 justify-content-center form-control border-0 bg-transparent" method="GET"
-            action="{{ route('company.show') }}">
+        <form id="searchForm" class="d-flex gap-2 justify-content-center form-control border-0 bg-transparent" method="GET"
+            action="{{ route('filteredSearch') }}">
+            
             <input  id="search" name="company_name" type="text" class="form-control  " required
                 placeholder="search for any vehicles">
             <button type="submit" class="px-2 fs-3"> <i class="bi bi-search"></i></button>
@@ -33,8 +34,7 @@
 
     <div class="container mt-3 px-2">
         <form class="d-flex gap-1 flex-wrap justify-content-center" action="{{ route("filteredSearch") }}"
-            method="POST">
-            @csrf
+            method="GET">            
             <select class="rounded-pill border-0 " name="category_id" id="category">
                 <option value="" disabled selected>select category</option>
                 @foreach ($categories as $category)
