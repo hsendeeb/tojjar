@@ -57,7 +57,7 @@
           
            <div>
             <label class="form-label text-sm" for="price">Price:<span id="rangeValue">{{ request('price') }}</span> $</label><br>
-            <input   min="100" max="300000" type="range" value="{{ request('price') }}" step="1000" oninput="updateRange(this.value)" name="price" id="price">
+            <input  min="100" max="300000" type="range" value="{{ request('price') }}" step="50" oninput="updateRange(this.value)" name="price" id="price">
 </div>
  <label class="form-label text-sm fw-bolder mt-2" for="year"><span class="me-1"><i class="bi bi-calendar-week-fill"></i></span>year</label><br>
 <div class="d-flex gap-2">       

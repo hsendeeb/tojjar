@@ -113,7 +113,7 @@ class VehicleController extends Controller
         $fuelType = $this->cacheDropdown('fuel_types', 30, fn() => FuelType::all());
         $engineType = $this->cacheDropdown('engineType', 30, fn() => EngineType::all());
         $engineSize = $this->cacheDropdown('engineSize', 30, fn() => EngineSize::all());
-            $locations = DB::select('SELECT CONCAT(city,",",country) as location  FROM locations');
+        $locations = DB::select('SELECT CONCAT(city,",",country) as location  FROM locations');
 
 
 
@@ -148,12 +148,13 @@ class VehicleController extends Controller
 
         ]);
         if ($data['company_id'] == "other") {
-           
-            $newCompany = $request->input('new-company');
+
+            $newCompany = trim(strtolower($request->input('new-company')));
             $newModel = $request->input('new-model');
-            $company = Company::UpdateOrCreate([
-                'company_name' => $newCompany
-            ]);
+            $company = Company::UpdateOrCreate(
+                ['company_name' => $newCompany],
+                ['company_name' => $newCompany]
+            );
             $model = CarModel::Create([
                 'model_name' => $newModel,
                 'company_id' => $company->id
@@ -269,9 +270,9 @@ class VehicleController extends Controller
             $data['user_id'] = Auth::id();
             $hasExistingImages = $vehicle->images()->exists(); // assuming a relation like $ad->images()
 
-if (!$hasExistingImages && !$request->hasFile('images')) {
-    return back()->withErrors(['images' => 'At least one image is required.']);
-}
+            if (!$hasExistingImages && !$request->hasFile('images')) {
+                return back()->withErrors(['images' => 'At least one image is required.']);
+            }
 
 
             $vehicle->update($data);
@@ -291,7 +292,7 @@ if (!$hasExistingImages && !$request->hasFile('images')) {
                         $vehicle->images()
                             ->create([
                                 "image_url" => "vehicle_images/{$filename}",
-                                
+
 
                             ]);
                     } catch (\Throwable $e) {
@@ -299,11 +300,10 @@ if (!$hasExistingImages && !$request->hasFile('images')) {
                     }
                 }
             } else {
-
             }
 
             return redirect()->route('profile.index', Auth::id());
-         } catch (\Illuminate\Http\Exceptions\PostTooLargeException $ex) {
+        } catch (\Illuminate\Http\Exceptions\PostTooLargeException $ex) {
             Log::info($ex->getMessage());
             return redirect()->back()->withErrors([' Something went wrong while uploading the file.']);
         }
@@ -357,18 +357,18 @@ if (!$hasExistingImages && !$request->hasFile('images')) {
         $categories = Cache::remember('categories', now()->addMinutes(30), fn() =>  Category::all());
         $companies = Cache::remember('companies', now()->addMinutes(30), fn() =>  Company::all());
         $model = Cache::remember('models', now()->addMinutes(30), fn() =>  CarModel::all());
-        $colors=Color::all();
+        $colors = Color::all();
         $locations = DB::select('SELECT CONCAT(city,",",country) as location  FROM locations');
 
         $category_id = $request->input("category_id");
         $company_id = $request->input("company_id") ?? null;
         $company_name = $request->input("company_name") ?? null;
         $model_id = $request->input("model_id") ?? null;
-        $price=$request->input('price') ?? null;;
-        $yearFrom=$request->input('yearFrom') ?? null;
-        $yearTo=$request->input('yearTo') ?? null;
-        $color=$request->input('color') ?? null;
-        $location=$request->input('location') ?? null;
+        $price = $request->input('price') ?? null;;
+        $yearFrom = $request->input('yearFrom') ?? null;
+        $yearTo = $request->input('yearTo') ?? null;
+        $color = $request->input('color') ?? null;
+        $location = $request->input('location') ?? null;
         $vehicles = Vehicle::with(['company', 'body', 'gearbox', 'color', 'fuel', 'model', 'category', 'condition', 'images', 'ad', 'ad.likes', 'user'])
             ->join('ads', 'ads.vehicle_id', 'vehicles.id')
             ->where("vehicles.user_id", "<>", Auth::id())
@@ -376,7 +376,7 @@ if (!$hasExistingImages && !$request->hasFile('images')) {
                 $query->where("category_id", $category_id);
             })
             ->when($request->input('price'), function ($query) use ($price) {
-                $query->where("price", "<=",$price);
+                $query->where("price", "<=", $price);
             })
 
             ->when($request->input('company_id'), function ($query) use ($company_id) {
@@ -384,9 +384,9 @@ if (!$hasExistingImages && !$request->hasFile('images')) {
             })
             ->when($request->input('company_name'), function ($query) use ($company_name) {
                 $query->with("company")
-                ->whereHas('company',function($q) use($company_name){
-                    $q->where('company_name','LIKE','%' . $company_name . '%');
-                });
+                    ->whereHas('company', function ($q) use ($company_name) {
+                        $q->where('company_name', 'LIKE', '%' . $company_name . '%');
+                    });
             })
             ->when($request->input('model_id'), function ($query) use ($model_id) {
                 $query->where("model_id", $model_id);
@@ -395,26 +395,26 @@ if (!$hasExistingImages && !$request->hasFile('images')) {
                 $query->where("category_id", $c_id);
             })
             ->when($yearFrom, function ($query) use ($yearFrom) {
-                $query->where("year", '>=',$yearFrom);
+                $query->where("year", '>=', $yearFrom);
             })
-             ->when($yearTo, function ($query) use ($yearTo) {
-                $query->where("year", '<=',$yearTo);
+            ->when($yearTo, function ($query) use ($yearTo) {
+                $query->where("year", '<=', $yearTo);
             })
-            
+
             ->when($location, function ($query) use ($location) {
-                $query->where("location", 'LIKE',$location);
+                $query->where("location", 'LIKE', $location);
             })
             ->when($color, function ($query) use ($color) {
                 $query->with("color")
-                ->whereHas('color',function($q) use($color) {
-                    $q->where('colors.color',"LIKE",$color);
-                });
+                    ->whereHas('color', function ($q) use ($color) {
+                        $q->where('colors.color', "LIKE", $color);
+                    });
             })
 
             ->orderByDesc('ads.boosted_at')
             ->select('vehicles.*')
             ->paginate(5)->appends($request->query());
-        return view('vehicles.filter', compact('vehicles','categories','colors','locations'));
+        return view('vehicles.filter', compact('vehicles', 'categories', 'colors', 'locations'));
     }
     public function markAsSold(string $id)
     {
