@@ -16,6 +16,7 @@ use function Pest\Laravel\instance;
 use Illuminate\Validation\Rules;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 
 
@@ -152,7 +153,10 @@ class AdminController extends Controller
         $user=User::findOrFail($id);
         $user->status="blocked";
         $user->blocked_at=Carbon::now();
+        DB::table('sessions')->where('user_id', $user->id)->delete();
+
         $user->save();
+        
         return redirect()->back();
 
     }

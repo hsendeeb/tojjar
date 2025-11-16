@@ -86,6 +86,15 @@ $("#company_id").on("change", function () {
                         );
                     });
                 },
+                error: function (xhr) {
+                // helpful debug info when something goes wrong (404, 419, etc.)
+                console.error(
+                    "error occured",
+                    xhr.status,
+                    xhr.responseText
+                );
+                
+            },
             });
         } else {
             $("#carModel")
@@ -133,6 +142,15 @@ $("#search").on("keyup", function () {
 
                     $("#suggestions").append(item);
                 });
+            },
+             error: function (xhr) {
+                // helpful debug info when something goes wrong (404, 419, etc.)
+                console.error(
+                    "delete image failed",
+                    xhr.status,
+                    xhr.responseText
+                );
+                
             },
         });
     } else {
@@ -257,6 +275,15 @@ $("#company").on("change", function () {
                     );
                 });
             },
+             error: function (xhr) {
+                // helpful debug info when something goes wrong (404, 419, etc.)
+                console.error(
+                    "delete image failed",
+                    xhr.status,
+                    xhr.responseText
+                );
+                
+            },
         });
     } else {
         $("#company").removeClass("bg-info bg-opacity-50 ");
@@ -356,7 +383,7 @@ document.querySelectorAll(".removeBtn").forEach((btn) => {
                     xhr.responseText
                 );
                 alert(
-                    `Unable to delete image (status ${xhr.status}). Check console for details.`
+                    `Unable to delete image (status ${xhr.status}).`
                 );
             },
         });

@@ -39,7 +39,7 @@
 
         <div class="flex items-center justify-end mt-4">
             <a class="underline text-start" href="{{ route('register') }}">
-                    {{ __('dont have account?Register') }}
+                    {{ __("Don't have account?Register") }}
                 </a>
            
 

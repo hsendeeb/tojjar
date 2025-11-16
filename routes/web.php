@@ -37,22 +37,21 @@ Route::middleware('auth')->group(function () {
      Route::put("/sold/{id}", [VehicleController::class, 'markAsSold'])->name('markSold');
      Route::put("/available/{id}", [VehicleController::class, 'markAsAvailable'])->name('markAvailable');
      Route::put("/ad/like/{id}", [AdController::class, 'like'])->name('like');
-     Route::get('/likedAds/{id}',[AdController::class,'likedAds'])->name('likedAds');
-     Route::delete('/image/{id}',[VehicleController::class,'deleteImage'])->name('deleteImage');
-     Route::post('/ad/boost/{id}',[AdController::class,'boost'])
-     ->middleware('premium')
-     ->name('boost');
-     Route::get('/subscription',function() {
+     Route::get('/likedAds/{id}', [AdController::class, 'likedAds'])->name('likedAds');
+     Route::delete('/image/{id}', [VehicleController::class, 'deleteImage'])->name('deleteImage');
+     Route::post('/ad/boost/{id}', [AdController::class, 'boost'])
+          ->middleware('premium')
+          ->name('boost');
+     Route::get('/subscription', function () {
           $subscription = Subscription::with('user')
-          ->where('user_id', Auth::id())
-          ->latest('ends_at')
-          ->first();         
-          return view('subscribePage',compact('subscription'));
-
+               ->where('user_id', Auth::id())
+               ->latest('ends_at')
+               ->first();
+          return view('subscribePage', compact('subscription'));
      })->name('subscribePage');
-     Route::post('/payment',[AdminController::class,'payment'])->name('payment');
+     Route::post('/payment', [AdminController::class, 'payment'])->name('payment');
 });
-     Route::put('/views/{id}',[AdController::class,'incrementViews'])->name('views');
+Route::put('/views/{id}', [AdController::class, 'incrementViews'])->name('views');
 Route::get("/profile/show/{id}", [ProfileController::class, 'show'])->name('profile.show');
 Route::get("/get-companies/{id}", [VehicleController::class, 'getCompanies'])->name('getCompanies');
 Route::get("/company/show/{name?}", [CompanyController::class, 'show'])->name('company.show');
@@ -62,7 +61,7 @@ Route::get("/get-suggestions/{input}", [CompanyController::class, 'suggest'])
      ->name("suggestions");
 Route::get("/vehicles/filter/{category_name?}", [VehicleController::class, 'filteredSearch'])
      ->name('filteredSearch');
-     Route::post("/vehicle/filter/{price?}", [VehicleController::class, 'filteredPrice'])
+Route::post("/vehicle/filter/{price?}", [VehicleController::class, 'filteredPrice'])
      ->name('filteredPrice');
 Route::post('/detect-car', [VehicleController::class, 'detect'])->name('detect.car');
 Route::get("/vehicle/show/{vehicle}", [VehicleController::class, 'show'])->name("vehicle.show");
@@ -83,13 +82,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
      Route::get('/admin/show', [AdminController::class, 'showAdmins'])->name('admin.showAdmins');
      Route::delete('/admin/{id}', [AdminController::class, 'destroy'])->name('admin.delete');
      Route::get('/admin/show/dealers', [AdminController::class, 'showDealers'])->name('showDealers');
-      Route::get('/admin/show/premiumUsers', [AdminController::class, 'showPremiumUsers'])->name('showPremiumUsers');
-     Route::get('/admin/show/paymentRequests',[AdminController::class,'showPaymentRequests'])->name('showPaymentRequests');
-      Route::get('/admin/show/boostedAds',[AdminController::class,'showBoostedAds'])->name('showBoostedAds');
-     Route::post('/admin/accept/{id}/{user_id}',[AdminController::class,'accept'])->name('admin.accept');
-     Route::post('/admin/reject/{id}',[AdminController::class,'reject'])->name('admin.reject');
-
-
+     Route::get('/admin/show/premiumUsers', [AdminController::class, 'showPremiumUsers'])->name('showPremiumUsers');
+     Route::get('/admin/show/paymentRequests', [AdminController::class, 'showPaymentRequests'])->name('showPaymentRequests');
+     Route::get('/admin/show/boostedAds', [AdminController::class, 'showBoostedAds'])->name('showBoostedAds');
+     Route::post('/admin/accept/{id}/{user_id}', [AdminController::class, 'accept'])->name('admin.accept');
+     Route::post('/admin/reject/{id}', [AdminController::class, 'reject'])->name('admin.reject');
 });
 
 

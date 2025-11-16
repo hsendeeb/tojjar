@@ -63,7 +63,7 @@
         @forelse ($dealers as $dealer)
              
     <div class="d-flex flex-column align-items-center" style="min-width: 70px;">
-        <a class="text-center" id="dealer" href="{{ route('profile.show',$dealer->user->id) }}">
+        <a class="text-center" id="dealer" href="{{ route('profile.show', $dealer->user->id) }}">
                         @if($dealer->user->image != 'public/images/avatar.png')
                         <div class="rounded-circle gradient-border  overflow-hidden" style="width:70px; height:70px;">
                             <img class=" rounded-circle w-100 h-100 object-fit-cover "
@@ -99,37 +99,41 @@
     <h3 class="h3 text-center mt-4">Categories</h3>
     <div class="d-flex flex-wrap gap-5 mt-5 justify-content-center align-items-center">
         
-        <div onclick="document.getElementById('car').submit()" class="d-flex flex-column text-center cursor-pointer">
-            <img src="/images/car.png"  class="mix-blend-multiply" style="max-width:150px" alt="car">
-   <form id="car" action="/vehicles/filter/car" method="POST">
-              @csrf
-                <button type="submit">car</button>
-
-              </form>
+        <div class="d-flex flex-column text-center cursor-pointer">
+           
+            <a class="text-decoration-none" href="/vehicles/filter/car">
+                 <img src="/images/car.png" class="mix-blend-multiply" style="max-width:150px" alt="car">
+        
+                car
+        
+            </a>
         </div>
-        <div onclick="document.getElementById('truck').submit()" class="d-flex flex-column text-center cursor-pointer">
-            <img src="/images/truck.png" class="mix-blend-multiply" style="max-width:150px" alt="car">
-   <form id="truck" action="/vehicles/filter/trucks" method="POST">
-              @csrf
-                <button  type="submit">Trucks</button>
+         <div class="d-flex flex-column text-center cursor-pointer">
+           
+   <a class="text-decoration-none" href="/vehicles/filter/trucks">
+     <img src="/images/truck.png"  class="mix-blend-multiply" style="max-width:150px" alt="truck">
+            
+               Trucks
 
-              </form>
+   </a>
         </div>
-         <div onclick="document.getElementById('moto').submit()" class="d-flex flex-column text-center cursor-pointer">
-            <img src="/images/moto.png" class="mix-blend-multiply" style="max-width:150px" alt="car">
-   <form id="moto" action="/vehicles/filter/motorcycles" method="POST">
-              @csrf
-                <button type="submit">Motorcycles</button>
+        <div class="d-flex flex-column text-center cursor-pointer">
+           
+   <a class="text-decoration-none" href="/vehicles/filter/motorcycles">
+     <img src="/images/moto.png"  class="mix-blend-multiply" style="max-width:150px" alt="moto">
+            
+               Motorcycles
 
-              </form>
+   </a>
         </div>
-         <div onclick="document.getElementById('van').submit()" class="d-flex flex-column text-center cursor-pointer">
-            <img src="/images/Van.png" class="mix-blend-multiply" style="max-width:150px" alt="car">
-   <form id="van" action="/vehicles/filter/Van" method="POST">
-              @csrf
-                <button type="submit">Van</button>
+         <div class="d-flex flex-column text-center cursor-pointer">
+           
+   <a class="text-decoration-none" href="/vehicles/filter/van">
+     <img src="/images/van.png"  class="mix-blend-multiply" style="max-width:150px" alt="van">
+            
+               Van
 
-              </form>
+   </a>
         </div>
     </div>
 
@@ -139,7 +143,7 @@
             
             @forelse($paginatedVehicles as $vehicle)
                 <div class="col-lg-4 mt-5">
-                   <a href="{{ route('vehicle.show',$vehicle) }}">
+                   <a href="{{ route('vehicle.show', $vehicle) }}">
                     <div class="card shadow ">
 
                         <div class="position-relative d-inline-block">
@@ -204,7 +208,7 @@
                                 <span class="bg-success bg-opacity-10 fw-bolder rounded-pill text-success px-2"><i
                                         class="bi bi-calendar3"></i> {{$vehicle->year}}</span>
                                 <span
-                                    style="background-color:{{ ($vehicle->color->color == 'black') ? 'black'.';'. 'color:white' : $vehicle->color->color }};"
+                                    style="background-color:{{ ($vehicle->color->color == 'black') ? 'black' . ';' . 'color:white' : $vehicle->color->color }};"
                                     class="bg-opacity-25 fs-6 fw-bolder rounded-pill px-2">
                                     <i class=" bi bi-droplet-fill"></i> {{$vehicle->color->color}}</span>
 
@@ -257,7 +261,7 @@
                                         <button data-bs-toggle="tooltip" title="{{(!Auth::check()) ? 'log in required' : '' }}"
                                             data-id="{{ $vehicle->ad?->id }}" class="fs-5 px-2 likeBtn"><i
                                                 id="like-icon-{{ $vehicle->ad?->id }}"
-                                                class=" {{(Auth::check() &&  $vehicle->ad?->isCurrentUserLike()) ? 'bi bi-heart-fill text-danger' : 'bi bi-heart' }}"></i>
+                                                class=" {{(Auth::check() && $vehicle->ad?->isCurrentUserLike()) ? 'bi bi-heart-fill text-danger' : 'bi bi-heart' }}"></i>
 
                                             <small
                                                 id="like-count-{{ $vehicle->ad?->id }}">{{ ($vehicle->ad?->likes->count() >= 1000) ? number_format($vehicle->ad?->likes->count() / 1000, 1) . 'K' : $vehicle->ad?->likes->count() }}</small>
