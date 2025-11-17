@@ -22,6 +22,7 @@ use function Pest\Laravel\instance;
 use Illuminate\Validation\Rules;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 
 
@@ -203,7 +204,18 @@ public function payment(Request $request) {
     $request->validate([
         'proof'=>'required|image'
     ]);
-    $path=$request->file('proof')->store('invoices','public');
+    try {
+                        $filename = uniqid() . '.jpg';
+                        $imageInstance = Image::read($request->file('proof'));
+                        // Resize to desired output size (e.g. 600x800)
+                        $imageInstance = $imageInstance->scale(200,400);
+                        // Encode and save
+                        $optimized = $imageInstance->encode(new JpegEncoder(quality: 80));
+                        Storage::disk('public')->put("invoices/{$filename}", (string) $optimized);
+    } catch(\Throwable $ex) {
+         Log::warning('Image optimization failed: ' . $e->getMessage());
+    }
+  
     PaymentRequest::create([
         'user_id'=>$user->id,
         'plan'=>'premium',
