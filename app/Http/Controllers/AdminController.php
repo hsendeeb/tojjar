@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SubscriptionEmail;
+
 use App\Models\User;
 use App\Models\Dealer;
 use App\Models\Vehicle;
@@ -230,6 +233,7 @@ public function accept(string $id,string $user_id){
                 'ends_at' => now()->addMonth(),
                 'is_active' => true
             ]);
+             Mail::to($user->email)->send(new SubscriptionEmail($user));
         }
     } else {
         // If user never had a subscription, create new one
@@ -240,12 +244,15 @@ public function accept(string $id,string $user_id){
             'ends_at' => now()->addMonth(),
             'is_active' => true
         ]);
+      
+        
     }
 
     if($subscribed) {
         $paymentRequest = PaymentRequest::findOrFail($id);
         $paymentRequest->update(['status' => 'approved']);
         $user->update(['premium' => true]);
+          Mail::to($user->email)->send(new SubscriptionEmail($user));
     }
     return redirect()->back();
  

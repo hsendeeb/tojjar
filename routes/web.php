@@ -8,6 +8,7 @@ use App\Http\Controllers\VehicleController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\AdController;
+use App\Http\Controllers\SendEmailController;
 use App\Http\Controllers\DealerController;
 use App\Models\CarModel;
 use App\Models\Subscription;
@@ -49,6 +50,7 @@ Route::middleware('auth')->group(function () {
                ->first();
           return view('subscribePage', compact('subscription'));
      })->name('subscribePage');
+     Route::get('send',[SendEmailController::class,'sendMail'])->name('send');
      Route::post('/payment', [AdminController::class, 'payment'])->name('payment');
 });
 Route::put('/views/{id}', [AdController::class, 'incrementViews'])->name('views');
