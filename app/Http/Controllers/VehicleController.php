@@ -128,7 +128,7 @@ class VehicleController extends Controller
         $data = $request->validate([
             'company_id' => 'nullable',
             'model_id' => 'nullable',
-            'title'=>'nullable',
+            'title' => 'nullable',
             'category_id' => 'required',
             'condition_id' => 'nullable',
             'year' => 'required',
@@ -250,7 +250,7 @@ class VehicleController extends Controller
             $data = $request->validate([
                 'company_id' => 'required',
                 'model_id' => 'required',
-                'title'=>'nullable',
+                'title' => 'nullable',
                 'category_id' => 'required',
                 'condition_id' => 'nullable',
                 'year' => 'required',
@@ -366,7 +366,8 @@ class VehicleController extends Controller
         $company_id = $request->input("company_id") ?? null;
         $company_name = $request->input("company_name") ?? null;
         $model_id = $request->input("model_id") ?? null;
-        $price = $request->input('price') ?? null;;
+        $price = $request->input('price') ?? null;
+        $fixedPrice = $request->input('fixedPrice') ?? null;
         $yearFrom = $request->input('yearFrom') ?? null;
         $yearTo = $request->input('yearTo') ?? null;
         $color = $request->input('color') ?? null;
@@ -379,6 +380,9 @@ class VehicleController extends Controller
             })
             ->when($request->input('price'), function ($query) use ($price) {
                 $query->where("price", "<=", $price);
+            })
+            ->when($request->input('fixedPrice'), function ($query) use ($fixedPrice) {
+                $query->where("price", "<=", $fixedPrice);
             })
 
             ->when($request->input('company_id'), function ($query) use ($company_id) {
@@ -437,19 +441,22 @@ class VehicleController extends Controller
         $vehicle->save();
         return back();
     }
-    public function filteredPrice(?int $price = null)
+    public function filteredPrice(Request $request, ?int $price = null)
     {
         $categories = Cache::remember('categories', now()->addMinutes(30), fn() =>  Category::all());
         $companies = Cache::remember('companies', now()->addMinutes(30), fn() =>  Company::all());
         $model = Cache::remember('models', now()->addMinutes(30), fn() =>  CarModel::all());
+        $colors = Color::all();
+        $locations = DB::select('SELECT CONCAT(city,",",country) as location  FROM locations');
+
 
         $vehicles = Vehicle::with(['company', 'body', 'gearbox', 'color', 'fuel', 'model', 'category', 'condition', 'images', 'ad', 'ad.likes', 'user'])
             ->join('ads', 'ads.vehicle_id', 'vehicles.id')
             ->where("vehicles.user_id", "<>", Auth::id())
-            ->where("vehicles.price", "<=", 2000)
+            ->where("vehicles.price", "<=", 5000)
             ->orderByDesc('ads.boosted_at')
             ->select('vehicles.*')
-            ->get();
+            ->paginate(20)->append($request->query());
 
 
 

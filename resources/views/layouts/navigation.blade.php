@@ -22,7 +22,7 @@
               </div>
                     @endguest
                 @auth
-                    <a class="btn btn-sm px-4  btn-danger archivo" href="{{ route('placeAdView') }}">Ad</a>
+                    <a class="btn btn-sm px-4  btn-danger archivo" href="{{ route('placeAdView') }}">Ad <i class="bi bi-cloud-upload-fill"></i></a>
                     @endauth
 
             </div>

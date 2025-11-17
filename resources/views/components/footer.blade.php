@@ -1,4 +1,4 @@
-<div class="container-fluid p-0 mb-0 mt-5">
+<div class="container-fluid p-0 mb-0 mt-4">
 
   <footer class="bg-dark text-center text-lg-start text-white">
     <!-- Grid container -->
@@ -42,9 +42,9 @@
 
           <ul class="list-unstyled">
             <li class="mb-2">
-             <form   action="{{ route('filteredPrice') }}" method="post">
-              @csrf
-              <button class="btn-link text-decoration-none text-danger p-0 m-0 align-baseline">Vehicles under 2000$</button>
+             <form   action="{{ route('filteredSearch') }}" method="GET">
+             <input type="hidden" name="fixedPrice" id="fixedPrice" value="5000">
+              <button type="submit" class="btn-link text-decoration-none text-danger p-0 m-0 align-baseline">Vehicles under 5000$</button>
              </form>
             </li>
             
