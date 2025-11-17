@@ -441,27 +441,7 @@ class VehicleController extends Controller
         $vehicle->save();
         return back();
     }
-    public function filteredPrice(Request $request, ?int $price = null)
-    {
-        $categories = Cache::remember('categories', now()->addMinutes(30), fn() =>  Category::all());
-        $companies = Cache::remember('companies', now()->addMinutes(30), fn() =>  Company::all());
-        $model = Cache::remember('models', now()->addMinutes(30), fn() =>  CarModel::all());
-        $colors = Color::all();
-        $locations = DB::select('SELECT CONCAT(city,",",country) as location  FROM locations');
-
-
-        $vehicles = Vehicle::with(['company', 'body', 'gearbox', 'color', 'fuel', 'model', 'category', 'condition', 'images', 'ad', 'ad.likes', 'user'])
-            ->join('ads', 'ads.vehicle_id', 'vehicles.id')
-            ->where("vehicles.user_id", "<>", Auth::id())
-            ->where("vehicles.price", "<=", 5000)
-            ->orderByDesc('ads.boosted_at')
-            ->select('vehicles.*')
-            ->paginate(20)->append($request->query());
-
-
-
-        return view('vehicles.filter', compact('vehicles', 'categories', 'companies', 'model'));
-    }
+    
     public function deleteImage(string $id)
     {
         $image = Vehicle_image::findOrFail($id);
