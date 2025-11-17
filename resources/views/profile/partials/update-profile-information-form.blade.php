@@ -39,7 +39,7 @@
 
         <div>
             <x-input-label for="image" :value="__('image')" />
-            <x-text-input id="image" name="image" type="file" class="mt-1 block w-full" autofocus />
+            <x-text-input id="image" name="image" type="file" accept="image/*" class="mt-1 block w-full" autofocus />
             <x-input-error class="mt-2" :messages="$errors->get('image')" />
             <input type="hidden" name="hiddenImage" value="{{ old('hiddenImage', $user->image) }}">
         </div>

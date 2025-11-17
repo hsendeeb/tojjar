@@ -34,7 +34,7 @@
             <form class="mt-3" action="{{ route('payment') }}" method="post" enctype="multipart/form-data">
               @csrf
               <label class="form-label" for="username">proof of payment (upload the whish invoice):</label>
-              <input type="file" class="form-control mt-2 border-danger form-input" name="proof" id="proof" required>
+              <input type="file" class="form-control mt-2 border-danger form-input" name="proof" id="proof" accept="image/*" required>
               @if(session('success'))
                 <div class="mt-3 bg-success bg-opacity-10 rounded-2 p-2">
                   <span><i class="bi bi-check-circle-fill me-1"></i></span> {{ session('success') }}

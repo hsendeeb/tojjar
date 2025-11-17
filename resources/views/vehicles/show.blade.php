@@ -16,7 +16,7 @@
                     <div class="carousel-inner  rounded-3">
                         @foreach($vehicle->images as $index => $image)
                             <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
-                                <img style="height: 300px;cursor: pointer;" class="img-fluid rounded-3 d-block w-100 object-fit-cover"
+                                <img style="height: 300px;width:1000px;cursor: pointer;" class="rounded-3 object-fit-cover"
                                     data-bs-toggle="modal" data-bs-target="#imageModal_{{ $index }}"
                                     src="{{ asset('storage/' . $image->image_url) }}"
                                     alt="Vehicle Image {{ $index + 1 }}">
@@ -55,8 +55,8 @@
                 <div class="thumbnail-scroll d-flex flex-nowrap overflow-auto gap-2 py-2">
 
                     @foreach($vehicle->images as $index => $image)
-                        <img src="{{ asset('storage/' . $image->image_url) }}" class="img-thumbnail object-fit-cover}}"
-                            style="width: 100px; height: 60px; cursor: pointer;" data-bs-target="#vehicleCarousel"
+                        <img src="{{ asset('storage/' . $image->image_url) }}" class="img-thumbnail object-fit-cover"
+                            style="width: 80px; height: 60px; cursor: pointer;" data-bs-target="#vehicleCarousel"
                             data-bs-slide-to="{{ $index }}" aria-label="Slide {{ $index + 1 }}" aria-current="true">
                     @endforeach
                 </div>

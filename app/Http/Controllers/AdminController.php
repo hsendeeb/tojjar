@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\RejectedSubscription;
+use Intervention\Image\Laravel\Facades\Image;
+use Intervention\Image\Encoders\JpegEncoder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\SubscriptionEmail;
-
+use App\Mail\RenewSubscription;
 use App\Models\User;
 use App\Models\Dealer;
 use App\Models\Vehicle;
@@ -226,6 +229,7 @@ public function accept(string $id,string $user_id){
                 'ends_at' => Carbon::parse($existingSubscription->ends_at)->addMonth(),
                 'is_active' => true
             ]);
+              Mail::to($user->email)->send(new RenewSubscription($user));
         } else {
             // If subscription exists but is inactive, start new period from now
             $subscribed = $existingSubscription->update([
@@ -233,7 +237,8 @@ public function accept(string $id,string $user_id){
                 'ends_at' => now()->addMonth(),
                 'is_active' => true
             ]);
-             Mail::to($user->email)->send(new SubscriptionEmail($user));
+              Mail::to($user->email)->send(new SubscriptionEmail($user));
+           
         }
     } else {
         // If user never had a subscription, create new one
@@ -244,6 +249,7 @@ public function accept(string $id,string $user_id){
             'ends_at' => now()->addMonth(),
             'is_active' => true
         ]);
+        Mail::to($user->email)->send(new SubscriptionEmail($user));
       
         
     }
@@ -252,7 +258,7 @@ public function accept(string $id,string $user_id){
         $paymentRequest = PaymentRequest::findOrFail($id);
         $paymentRequest->update(['status' => 'approved']);
         $user->update(['premium' => true]);
-          Mail::to($user->email)->send(new SubscriptionEmail($user));
+          
     }
     return redirect()->back();
  
@@ -260,6 +266,7 @@ public function accept(string $id,string $user_id){
 public function reject(string $id) {
     $paymentRequest=PaymentRequest::findOrFail($id);
     $paymentRequest->update(['status'=>'rejected']);
+    Mail::to($paymentRequest->user->email)->send(new RejectedSubscription($paymentRequest->user));
     return redirect()->back();
 }
 public function showBoostedAds(){

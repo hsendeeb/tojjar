@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>Welcome to Tojjar</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -37,13 +36,11 @@
 <body>
   <div class="container">
     <h1>Hi {{ $user->name }},</h1>
-    <p>Welcome to <strong>Tojjar</strong>! Your <strong>premium plan has been activated successfully </strong>.</p>
-    <p>The premium plan will be valid until <mark>{{ date_format($user->subscription->last()?->ends_at,'d/m/Y') }}!</mark></p>
-   <p>You now have full access to all features. Start exploring and enjoy the ride.</p>
-    <p>Wishing you a smooth and successful experience.</p>
-   <div class="text-center"><a href="{{ route('profile.index',$user->id) }}" class="btn btn-primary w-100 mx-auto">Go to profile</a></div>
+ <p>We regret to inform you that your recent request has been rejected after careful review.</p>
+    <p>If you believe this was a mistake or would like more information, feel free to contact our support team.</p>
+    <p>Thank you for your understanding.</p>
+
     <div class="footer">
-      
       &mdash; The Tojjar support Team<br>
       <a href="{{ env('APP_URL') }}">{{ env('APP_URL') }}</a>
     </div>

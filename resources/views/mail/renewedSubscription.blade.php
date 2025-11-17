@@ -37,10 +37,8 @@
 <body>
   <div class="container">
     <h1>Hi {{ $user->name }},</h1>
-    <p>Welcome to <strong>Tojjar</strong>! Your <strong>premium plan has been activated successfully </strong>.</p>
+    <p> Your <strong>premium plan has been renewed successfully </strong>.</p>
     <p>The premium plan will be valid until <mark>{{ date_format($user->subscription->last()?->ends_at,'d/m/Y') }}!</mark></p>
-   <p>You now have full access to all features. Start exploring and enjoy the ride.</p>
-    <p>Wishing you a smooth and successful experience.</p>
    <div class="text-center"><a href="{{ route('profile.index',$user->id) }}" class="btn btn-primary w-100 mx-auto">Go to profile</a></div>
     <div class="footer">
       
