@@ -124,7 +124,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{$vehicle->company->company_name}}
                                     <span class="brush px-3 py-1">{{$vehicle->model->model_name}}</span>
-                                    <h3 class="card-title py-1">
+                                    <h3 class="card-title  py-1">
                                {{ $vehicle->title }}
                             </h3>
                                     @if ($vehicle->available)
@@ -213,8 +213,9 @@
                     </div>
                 </div>
             @empty
-                <div class="container-fluid d-flex justify-content-center mt-5  ">
-                    <img class="img-responsive w-50 mix-blend-multiply" src="/images/noAds.png" alt="no ads">
+                <div class="container-fluid d-flex flex-column justify-content-center mt-5  ">
+                    <img class="img-responsive w-50 mx-auto mix-blend-multiply" src="/images/noAds.png" alt="no ads">
+               <a href="{{ route('placeAd') }}" class="btn rounded-2 w-50 mx-auto mt-3 text-white fw-bolder" style="background-color:red">Post ad</a>
                 </div>
 
 

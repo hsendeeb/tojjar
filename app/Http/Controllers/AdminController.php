@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\RejectedSubscription;
 use Intervention\Image\Laravel\Facades\Image;
+use Illuminate\Support\Facades\Log;
 use Intervention\Image\Encoders\JpegEncoder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -212,15 +213,15 @@ public function payment(Request $request) {
                         // Encode and save
                         $optimized = $imageInstance->encode(new JpegEncoder(quality: 80));
                         Storage::disk('public')->put("invoices/{$filename}", (string) $optimized);
-    } catch(\Throwable $ex) {
-         Log::warning('Image optimization failed: ' . $e->getMessage());
+    } catch(\Throwable $e) {
+        Log::warning('Image optimization failed: ' . $e->getMessage());
     }
   
     PaymentRequest::create([
         'user_id'=>$user->id,
         'plan'=>'premium',
         'amount'=>20.00,
-        'invoice_image'=>$path,
+        'invoice_image'=>"invoices/{$filename}",
         'status'=>'pending'
     ]);
     return redirect()->back()->with('success','payment request submitted.');

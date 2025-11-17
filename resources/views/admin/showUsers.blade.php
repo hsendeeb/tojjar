@@ -76,11 +76,11 @@
                  <td>{{ $record->status }}</td>
                 <td>
                      @if($record->image != 'public/images/avatar.png')
-                            <img src="{{ Storage::url($record->image)}}" style="width:40px; height:40x; object-fit:cover;"
-                                class="rounded-circle me-2" loading="lazy">
+                            <img src="{{ Storage::url($record->image)}}" style="width:40px;  object-fit:cover;"
+                                class=" me-2" loading="lazy">
                         @else
-                            <img src="/images/avatar.jpg" style="width:40px; height:40px; object-fit:cover;"
-                                class="rounded-circle me-2" loading="lazy">
+                            <img src="/images/avatar.jpg" style="width:40px;  object-fit:cover;"
+                                class=" me-2" loading="lazy">
                         @endif
                       </td>
                 <td>
