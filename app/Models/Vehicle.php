@@ -9,6 +9,7 @@ class Vehicle extends Model
 {
     protected $fillable=[
         "company_id",
+        "title",
 "model_id",
 "year",
 "category_id",

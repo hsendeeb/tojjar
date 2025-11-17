@@ -11,10 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('engines', function (Blueprint $table) {
-            $table->id();
-            $table->string("cylinders");
-            $table->string('size');
+        Schema::table('vehicles', function (Blueprint $table) {
+            $table->string('title')->nullable();
         });
     }
 
@@ -23,7 +21,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('engines', function (Blueprint $table) {
+        Schema::table('vehicles', function (Blueprint $table) {
             //
         });
     }

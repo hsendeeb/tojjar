@@ -128,6 +128,7 @@ class VehicleController extends Controller
         $data = $request->validate([
             'company_id' => 'nullable',
             'model_id' => 'nullable',
+            'title'=>'nullable',
             'category_id' => 'required',
             'condition_id' => 'nullable',
             'year' => 'required',
@@ -249,6 +250,7 @@ class VehicleController extends Controller
             $data = $request->validate([
                 'company_id' => 'required',
                 'model_id' => 'required',
+                'title'=>'nullable',
                 'category_id' => 'required',
                 'condition_id' => 'nullable',
                 'year' => 'required',
@@ -413,7 +415,7 @@ class VehicleController extends Controller
 
             ->orderByDesc('ads.boosted_at')
             ->select('vehicles.*')
-            ->paginate(5)->appends($request->query());
+            ->paginate(20)->appends($request->query());
         return view('vehicles.filter', compact('vehicles', 'categories', 'colors', 'locations'));
     }
     public function markAsSold(string $id)

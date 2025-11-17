@@ -41,7 +41,13 @@
                     <option value="">select model</option>
                     
                 </select>
+                
                 <x-input-error :messages="$errors->get('model_id')" class="mt-2" />
+            </div>
+             <div class="mt-3">
+                <label class="fw-bold" for="title">Custom title (optional):</label>
+                <input class="form-control" type="text" name="title" id="title">
+                <x-input-error :messages="$errors->get('title')" class="mt-2" />
             </div>
             <div class="mt-3">
                 <label for="price" class="form-label fw-bold">price: </label>
@@ -52,6 +58,11 @@
                 <label for="mileage" class="form-label fw-bold">mileage: </label>
                 <input class="form-control" type="number" name="mileage" id="mileage" min="0">
                 <x-input-error :messages="$errors->get('mileage')" class="mt-2" />
+            </div>
+             <div class="mt-3">
+                <label class="fw-bold" for="year">year:</label>
+                <input class="form-control" type="number" name="year" id="year" min="1950" max="{{ Date('Y') }}">
+                <x-input-error :messages="$errors->get('year')" class="mt-2" />
             </div>
             <hr class="border-2 mt-5">
             <h2 class=" h2 fw-bold mt-2 bg-info bg-opacity-10 px-2 py-1 rounded-3">Extra info</h2>
@@ -85,11 +96,7 @@
                 </select>
                 <x-input-error :messages="$errors->get('engineSize_id')" class="mt-2" />
             </div>
-            <div class="mt-3">
-                <label class="fw-bold" for="year">year:</label>
-                <input class="form-control" type="number" name="year" id="year" min="1950" max="{{ Date('Y') }}">
-                <x-input-error :messages="$errors->get('year')" class="mt-2" />
-            </div>
+           
             <div class="mt-3">
                 <label for="company" class="form-label fw-bold">Fuel type :</label>
                 <select class="form-control" name="fuel_id" id="fuel_id">

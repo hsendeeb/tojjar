@@ -200,9 +200,12 @@
                         </div>
 
                         <div class="card-body  px-2">
-                            <h3 class="card-title  fw-bolder bg-opacity-25  py-1">
+                            <h3 class="card-title  fw-bolder  py-1">
                                 {{$vehicle->company->company_name}} <span
-                                    class="fw-bolder  rounded-3 brush  bg-warning bg-opacity-25 px-4  py-1">{{$vehicle->model->model_name}}</span>
+                                    class="fw-bolder  rounded-3 brush   px-4  py-1">{{$vehicle->model->model_name}}</span>
+                            </h3>
+                             <h3 class="card-title   py-1">
+                               {{ $vehicle->title }}
                             </h3>
                             <div class="d-flex flex-wrap gap-2 mt-3 ">
                                 <span class="bg-success bg-opacity-10 fw-bolder rounded-pill text-success px-2"><i
@@ -283,7 +286,10 @@
 
                 </div>
             @empty
-                <h2 class="text-center">No results</h2>
+             <div class="container-fluid d-flex justify-content-center mt-5  ">
+                    <img class="img-responsive w-50 mix-blend-multiply" src="/images/noAds.png" alt="no ads">
+                </div>
+                <h2 class="text-center text-sm text-muted">No results</h2>
             @endforelse
         </div>
 
