@@ -255,7 +255,7 @@
                         <div class="card-footer  bg-white p-1 mt-1">
                             @if($vehicle->available)
 
-                                <div class="d-flex gap-2 ">
+                                <div class="d-flex justify-content-between">
                                     <div class="w-75">
                                         <a id="viewBtn" data-id="{{ $vehicle->ad->id }}" name="viewMore"
                                             href="{{ route('vehicle.show', $vehicle) }}"
@@ -263,7 +263,7 @@
                                                 class="bi bi-arrow-right-circle-fill"></i></a>
                                     </div>
 
-                                    <div id="likeContainer" class=" px-2 py-1">
+                                    <div id="likeContainer" class=" px-1 py-1">
                                         <button data-bs-toggle="tooltip" title="{{(!Auth::check()) ? 'log in required' : '' }}"
                                             data-id="{{ $vehicle->ad?->id }}" class="fs-5 px-2 likeBtn"><i
                                                 id="like-icon-{{ $vehicle->ad?->id }}"

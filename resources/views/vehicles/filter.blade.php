@@ -215,14 +215,14 @@
                         <div class="card-footer  bg-white p-2 mt-1">
                             @if($vehicle->available)
                            
-                              <div class="d-flex gap-2 ">
+                              <div class="d-flex justify-content-between  ">
                                     <div class="w-75">
                                     <a name="viewMore" id="viewBtn" data-id="{{$vehicle->ad->id}}" href="{{ route('vehicle.show', $vehicle) }}"
                                         class="btn bg-black fw-bolder text-white w-100">view more <i
                                             class="bi bi-arrow-right-circle-fill"></i></a>
                                              </div>
                                              
-                            <div id="likeContainer" class=" px-2 py-1">
+                            <div id="likeContainer" class=" px-1 py-1">
                                         <button data-id="{{ $vehicle->ad?->id }}" data-bs-toggle="tooltip" title="{{(!Auth::check()) ? 'log in required' : '' }}" class="fs-5 px-2 likeBtn"><i id="like-icon-{{ $vehicle->ad?->id }}"
                                                 class=" {{(Auth::check() && $vehicle->ad->isLikedBy(Auth::user())) ? 'bi bi-heart-fill text-danger' :'bi bi-heart' }}"></i>
 
@@ -237,7 +237,9 @@
                             @else
                                 <h4 class=" mb-0  text-danger h4 archivo text-center py-1">Sold</h4>
                             @endif
+                             <div class="px-2 mt-2"><small class="text-muted">{{ $vehicle->created_at->diffForHumans() }}</small></div>
                         </div>
+                        
                     </div>
                     </a>
                 </div>

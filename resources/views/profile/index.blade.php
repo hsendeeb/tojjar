@@ -61,7 +61,7 @@
                                 class="rounded-circle @if($user->premium) position-absolute @endif " loading="lazy">
                         @endif
                     </div>
-                    <h3 class="h3 mt-1">{{$user->username}}
+                    <h3 class="h3 mt-1">{{$user->name}}
                          @if($user->premium) <span class="text-primary"><i
                                                 class="bi bi-patch-check-fill"></i></span>
                                                  @endif</h3>
