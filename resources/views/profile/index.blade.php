@@ -127,9 +127,11 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{$vehicle->company->company_name}}
                                     <span class="brush px-3 py-1">{{$vehicle->model->model_name}}</span>
-                                    <h3 class="card-title  py-1">
+                                      @if($vehicle->title)
+                             <h3 class="card-title   py-1">
                                {{ $vehicle->title }}
                             </h3>
+                            @endif
                                     @if ($vehicle->available)
                                         <span
                                             class="badge rounded-pill text-bg-success bg-opacity-10 text-success">{{'Available' }}</span>

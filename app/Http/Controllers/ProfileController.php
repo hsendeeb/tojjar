@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use App\Models\User;
+
 use App\Models\Vehicle;
   use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Cache;
@@ -87,6 +88,7 @@ $totalLikes = DB::table('likes')
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
         }
+      
 
         $request->user()->save();
 

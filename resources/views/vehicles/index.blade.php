@@ -205,9 +205,11 @@
                                 {{$vehicle->company->company_name}} <span
                                     class="fw-bolder  rounded-3 brush   px-4  py-1">{{$vehicle->model->model_name}}</span>
                             </h3>
+                            @if($vehicle->title)
                              <h3 class="card-title   py-1">
                                {{ $vehicle->title }}
                             </h3>
+                            @endif
                             <div class="d-flex flex-wrap gap-2 mt-3 ">
                                 <span class="bg-success bg-opacity-10 fw-bolder rounded-pill text-success px-2"><i
                                         class="bi bi-calendar3"></i> {{$vehicle->year}}</span>
