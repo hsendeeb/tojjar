@@ -57,18 +57,18 @@
           
            <div>
             <label class="form-label text-sm" for="price">Price : <span id="rangeValue">{{ request('price') }}</span> $</label><br>
-            <input  min="1000" max="300000" type="range" value="{{ request('price',300000) }}" step="1000" oninput="updateRange(this.value)" name="price" id="price">
+            <input class="form-control"  min="1000" max="300000" type="range" value="{{ request('price',300000) }}" step="1000" oninput="updateRange(this.value)" name="price" id="price">
 </div>
  <label class="form-label text-sm fw-bolder mt-2" for="year"><span class="me-1"><i class="bi bi-calendar-week-fill"></i></span>year</label><br>
 <div class="d-flex gap-2">       
-            <input style="height: 20px" class="form-input w-50 p-0" id="yearFrom" placeholder="From" type="number"  name="yearFrom" value="{{ request('yearFrom') }}">
+            <input style="height: 20px" class="form-control-sm w-50 " id="yearFrom" placeholder="From" type="number"  name="yearFrom" value="{{ request('yearFrom') }}">
             
-            <input style="height: 20px"  class="form-control w-50 p-0" id="yearTo" placeholder="To" type="number"  name="yearTo" value="{{ request('yearTo') }}">
+            <input style="height: 20px"  class="form-control-sm w-50 " id="yearTo" placeholder="To" type="number"  name="yearTo" value="{{ request('yearTo') }}">
        </div>
        <hr class="dropdown-divider">
        <div class="mt-2 d-flex flex-column">  
         <label class="form-label text-sm fw-bold" for="colors"> <span  style="color: {{ request('color') }}"><i class="bi bi-droplet-fill"></i></span>  Color: </label>     
-         <input list="colors" class=" w-50 p-0" id="yearFrom" type="text"  name="color" value="{{ request('color') }}">
+         <input list="colors" class="form-control w-50 p-0" id="yearFrom" type="text"  name="color" value="{{ request('color') }}">
         
          <datalist id="colors">
                 @foreach($colors as $color)
@@ -79,7 +79,7 @@
          <div class=" d-flex flex-column mt-2">  
        
       <label class="form-label text-sm fw-bold" for="location">  <span class="me-1"><i class="bi bi-geo-alt-fill"></i></span>Location:</label>    
-       <input list="locations" class=" w-50 p-0" id="location" type="text"  name="location" value="{{ request('location') }}">
+       <input list="locations" class="form-control w-50 p-0" id="location" type="text"  name="location" value="{{ request('location') }}">
          <datalist id="locations">
                 @foreach($locations as $location)
                 <option value="{{ $location->location}}">
@@ -233,7 +233,7 @@
                                 </div>
                                  
                             @else
-                                <h4 class=" mb-0 bg-danger bg-opacity-25 text-danger h4 archivo text-center py-1">Sold</h4>
+                                <h4 class=" mb-0  text-danger h4 archivo text-center py-1">Sold</h4>
                             @endif
                         </div>
                     </div>

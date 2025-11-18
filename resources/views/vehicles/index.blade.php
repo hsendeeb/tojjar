@@ -195,6 +195,7 @@
                             <div
                                 class=" position-absolute top-0 start-0  text-white fw-bolder px-3 py-1 rounded-bottom-start ">
                                <img src="/images/crown.png" alt="">
+                               
                             </div>
                             @endif
                         </div>
@@ -277,7 +278,7 @@
                                 </div>
 
                             @else
-                                <h4 class=" mb-0 bg-danger bg-opacity-10 text-danger h4 archivo text-center">Sold</h4>
+                                <h4 class=" mb-0 text-danger h4 archivo text-center">Sold</h4>
 
                             @endif
                         </div>

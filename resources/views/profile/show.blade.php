@@ -14,15 +14,17 @@
         <div class="row">
             <div class="col-12">
                 <div class="p-2 text-center">
-                    <div class="container d-flex justify-content-center mt-2">
-                     
+                    <div class="container d-flex justify-content-center mt-2 position-relative" >
+                       @if($user->premium)
+                        <img class="postion-absolute  z-1" style="width: 110px;height:110px;top:0;left:0;" src="/images/frame.png" alt="premium user">
+                     @endif
                         @if($user->image !='public/images/avatar.png')
                             <img src="{{ Storage::url($user->image)}}" alt="user-image"
-                                style="width:100px; height:100px; object-fit:cover;" class="rounded-circle me-2"
+                                style="width:100px; height:100px; object-fit:cover;top:5px;" class="rounded-circle  @if($user->premium) position-absolute @endif  "
                                 loading="lazy">
                         @else
-                            <img src="/images/avatar.jpg" style="width:100px; height:100px; object-fit:cover;"
-                                class="rounded-circle me-2" loading="lazy">
+                            <img src="/images/avatar.jpg" style="width:100px; height:100px; object-fit:cover;top:5px"
+                                class="rounded-circle @if($user->premium) position-absolute @endif " loading="lazy">
                         @endif
                     </div>
                     <h3 class="  h3 mt-3">{{$user->username}}
@@ -157,7 +159,7 @@
                                 </div>
                                  
                             @else
-                                <h4 class=" mb-0 bg-danger bg-opacity-25 text-danger h4 archivo text-center py-1">Sold</h4>
+                                <h4 class=" mb-0  text-danger h4 archivo text-center py-1">Sold</h4>
                             @endif
                         </div>
                     </div>

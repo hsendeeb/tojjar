@@ -82,6 +82,7 @@
                         <span
                             class="fs-6 badge bg-warning rounded-pill text-dark fw-bolder bg-opacity-75 ">featured <i class="bi bi-award-fill"></i></span>
                     @endif
+                    
                 </div>
                 <div class="container-fluid mt-2">
                     <table class="table table-striped">
