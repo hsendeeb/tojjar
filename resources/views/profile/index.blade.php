@@ -153,7 +153,7 @@
                                         {{ $vehicle->ad?->views}}</small></p>
                                 <p class="card-text text-secondary">
                                     <small class="text-muted"><i class="bi bi-clock-fill"></i>
-                                        {{date_format($vehicle->created_at, "d,M,Y")}}</small>
+                                        {{date_format($vehicle->created_at, "d,M,Y")}} &middot; {{ $vehicle->created_at->diffForHumans() }}</small>
                                 </p>
                                 <p class="card-text"><small class="text-muted">Last updated
                                         {{date_format($vehicle->updated_at, "d,M,Y")}}</small></p>

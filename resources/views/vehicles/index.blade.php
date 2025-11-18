@@ -99,7 +99,7 @@
     <h3 class="h3 text-center mt-4">Categories</h3>
     <div class="d-flex flex-wrap gap-5 mt-5 justify-content-center align-items-center">
         
-        <div class="d-flex flex-column text-center cursor-pointer">
+        <div class="d-flex flex-column text-center cursor-pointer category">
            
             <a class="text-decoration-none" href="/vehicles/filter/car">
                  <img src="/images/car.png" class="mix-blend-multiply" style="max-width:150px" alt="car">
@@ -108,7 +108,7 @@
         
             </a>
         </div>
-         <div class="d-flex flex-column text-center cursor-pointer">
+         <div class="d-flex flex-column text-center cursor-pointer category">
            
    <a class="text-decoration-none" href="/vehicles/filter/trucks">
      <img src="/images/truck.png"  class="mix-blend-multiply" style="max-width:150px" alt="truck">
@@ -117,7 +117,7 @@
 
    </a>
         </div>
-        <div class="d-flex flex-column text-center cursor-pointer">
+        <div class="d-flex flex-column text-center cursor-pointer category">
            
    <a class="text-decoration-none" href="/vehicles/filter/motorcycles">
      <img src="/images/moto.png"  class="mix-blend-multiply" style="max-width:150px" alt="moto">
@@ -126,13 +126,11 @@
 
    </a>
         </div>
-         <div class="d-flex flex-column text-center cursor-pointer">
+         <div class="d-flex flex-column text-center cursor-pointer  category">
            
    <a class="text-decoration-none" href="/vehicles/filter/van">
-     <img src="/images/van.png"  class="mix-blend-multiply" style="max-width:150px" alt="van">
-            
+     <img src="/images/van.png"  class="mix-blend-multiply" style="max-width:150px" alt="van">   
                Van
-
    </a>
         </div>
     </div>
@@ -244,7 +242,7 @@
                                         <img src="/images/avatar.jpg" style="width:25px; height:25px; object-fit:cover;"
                                             class="rounded-circle me-2" loading="lazy">
                                     @endif
-                                    <small class="fw-bolder">{{ $vehicle->user->username }}
+                                    <small class="fw-bolder">{{ $vehicle->user->name }}
                                          @if($vehicle->user->premium) <span class="text-primary"><i
                                                 class="bi bi-patch-check-fill"></i></span>
                                                  @endif
