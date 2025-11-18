@@ -15,7 +15,7 @@
             <h2 class="h2 fw-bold  px-2 py-1 mt-2">Basic info</h2>
             <div>
                   <label for="category_id" class="form-label fw-bold">category :</label>
-                <select class="form-control" name="category_id" id="category">
+                <select class="form-control" name="category_id" id="category" required>
                     <option value="" disabled selected>select category</option>
                     @foreach($categories as $category)
                         <option value="{{ $category->id }}" @selected(old('category_id','select category')==$category->id)>{{ $category->category }}</option>
@@ -25,7 +25,7 @@
             </div>
             <div id="companyContainer" class="mt-3">
                 <label for="company" class="form-label me-2 fw-bold">car company: </label>
-                <select  class="form-control" id="company_id" name="company_id" autocomplete="off">
+                <select  class="form-control" id="company_id" name="company_id" autocomplete="off"  required>
                     <option value="" disabled selected>select company</option>
                      <option value="other">other</option>
                    
@@ -36,41 +36,39 @@
                 <x-input-error :messages="$errors->get('company_id')" class="mt-2" />
 
                 <label id="carModelLabel" for="carModel" class="form-label me-2 mt-2 fw-bold">car model: </label>
-                <select class="form-control mt-2" name="model_id" id="carModel">
-
-                    <option value="">select model</option>
-                    
+                <select class="form-control mt-2" name="model_id" id="carModel"  required>
+                    <option value="{{ old('model_id') }}" @selected(old('model_id','select model'))>select model</option>
                 </select>
                 
                 <x-input-error :messages="$errors->get('model_id')" class="mt-2" />
             </div>
              <div class="mt-3">
-                <label class="fw-bold" for="title">Custom title (optional):</label>
-                <input class="form-control" type="text" name="title" id="title">
+                <label class="fw-bold" for="title">Custom title <span class="text-sm text-muted">(optional):</span></label>
+                <input class="form-control" type="text" name="title" id="title" value="{{ old('title') }}">
                 <x-input-error :messages="$errors->get('title')" class="mt-2" />
             </div>
             <div class="mt-3">
                 <label for="price" class="form-label fw-bold">price: </label>
-                <input class="form-control" type="number" name="price" id="price" min="0">
+                <input class="form-control" type="number" name="price" id="price" min="0" value="{{ old('price') }}" autofocus required>
                 <x-input-error :messages="$errors->get('price')" class="mt-2" />
             </div>
             <div class="mt-3">
                 <label for="mileage" class="form-label fw-bold">mileage: </label>
-                <input class="form-control" type="number" name="mileage" id="mileage" min="0">
+                <input class="form-control" type="number" name="mileage" value="{{ old('mileage') }}" id="mileage" min="0" autofocus required>
                 <x-input-error :messages="$errors->get('mileage')" class="mt-2" />
             </div>
              <div class="mt-3">
                 <label class="fw-bold" for="year">year:</label>
-                <input class="form-control" type="number" name="year" id="year" min="1950" max="{{ Date('Y') }}">
+                <input class="form-control" type="number" name="year" id="year" value="{{ old('year') }}" min="1950" max="{{ now()->addYear()->year}}" autofocus required>
                 <x-input-error :messages="$errors->get('year')" class="mt-2" />
             </div>
             <hr class="border-2 mt-5">
             <h2 class=" h2 fw-bold mt-2 bg-info bg-opacity-10 px-2 py-1 rounded-3">Extra info</h2>
             <div class="mt-3">
                 <label class="fw-bold" for="body_id">body type:</label>
-                <select class="form-control" name="body_id" id="body_id">
+                <select class="form-control" name="body_id" id="body_id" autofocus  required>
                     @foreach($bodyType as $body)
-                        <option value="{{ $body->id }}">{{ $body->body_type }}</option>
+                        <option value="{{ $body->id }}" @selected(old('body_id')==$body->id)>{{ $body->body_type }}</option>
                     @endforeach
                 </select>
                 <x-input-error :messages="$errors->get('body_id')" class="mt-2" />
@@ -78,20 +76,20 @@
             </div>
             <div class="mt-3">
                 <label for="engineType_id" class="form-label fw-bold">Engine cylinders :</label>
-                <select class="form-control" name="engineType_id" id="engineType_id">
+                <select class="form-control" name="engineType_id" id="engineType_id" autofocus required>
                     <option value="" disabled selected>select</option>
                     @foreach($engineType as $type)
-                        <option value="{{$type->id }}">{{ $type->type }}</option>
+                        <option value="{{$type->id }}" @selected(old('engineType_id')==$type->id)>{{ $type->type }}</option>
                     @endforeach
                 </select>
                 <x-input-error :messages="$errors->get('engineType_id')" class="mt-2" />
             </div>
             <div class="mt-3">
                 <label for="engineSize_id" class="form-label fw-bold">Engine size :</label>
-                <select class="form-control" name="engineSize_id" id="engineSize_id">
+                <select class="form-control" name="engineSize_id" id="engineSize_id" autofocus  required>
                     <option value="" disabled selected>select select</option>
                     @foreach($engineSize as $size)
-                        <option value="{{ $size->id }}">{{ $size->size }}</option>
+                        <option value="{{ $size->id }}"  @selected(old('engineSize_id')==$size->id)>{{ $size->size }}</option>
                     @endforeach
                 </select>
                 <x-input-error :messages="$errors->get('engineSize_id')" class="mt-2" />
@@ -99,40 +97,40 @@
            
             <div class="mt-3">
                 <label for="company" class="form-label fw-bold">Fuel type :</label>
-                <select class="form-control" name="fuel_id" id="fuel_id">
+                <select class="form-control" name="fuel_id" id="fuel_id" autofocus  required>
                     <option value="" disabled selected>select</option>
                     @foreach($fuelType as $fuel)
-                        <option value="{{ $fuel->id }}">{{ $fuel->fuel_type }}</option>
+                        <option value="{{ $fuel->id }}"  @selected(old('fuel_id')==$fuel->id)>{{ $fuel->fuel_type }}</option>
                     @endforeach
                 </select>
                 <x-input-error :messages="$errors->get('fuel_id')" class="mt-2" />
             </div>
             <div class="mt-3">
                 <label for="gearbox_id" class="form-label fw-bold">gear box :</label>
-                <select class="form-control" name="gearbox_id" id="gearbox_id">
+                <select class="form-control" name="gearbox_id" id="gearbox_id" autofocus required>
                      <option value="" disabled selected>select</option>
                     @foreach($gearbox as $gear)
-                        <option value="{{ $gear->id }}">{{ $gear->gearbox_type }}</option>
+                        <option value="{{ $gear->id }}"  @selected(old('gearbox_id')==$gear->id)>{{ $gear->gearbox_type }}</option>
                     @endforeach
                 </select>
                 <x-input-error :messages="$errors->get('gearbox_id')" class="mt-2" />
             </div>
             <div class="mt-3">
                 <label for="condition_id" class="form-label fw-bold">condition :</label>
-                <select class="form-control" name="condition_id" id="condition_id">
+                <select class="form-control" name="condition_id" id="condition_id" autofocus required>
                     <option value="" disabled selected>select</option>
                     @foreach($conditions as $con)
-                        <option value="{{ $con->id }}">{{ $con->condition }}</option>
+                        <option value="{{ $con->id }}"  @selected(old('condition_id')==$con->id)>{{ $con->condition }}</option>
                     @endforeach
                 </select>
                 <x-input-error :messages="$errors->get('condition_id')" class="mt-2" />
             </div>
             <div class="mt-3">
                 <label for="color_id" class="form-label fw-bold">color :</label>
-                <select class="form-control" name="color_id" id="colorName">
+                <select class="form-control" name="color_id" id="colorName" autofocus required>
                       <option value="" disabled selected>select</option> 
                     @foreach($colors as $color)
-                        <option style="background-color: {{ $color->color }}" value="{{ $color->id }}">{{ $color->color }}
+                        <option style="background-color: {{ $color->color }}" value="{{ $color->id }}"  @selected(old('color_id')==$color->id)>{{ $color->color }}
                         </option>
 
                     @endforeach
@@ -144,15 +142,15 @@
 
             <div class="mt-3 w-100">
                 <label for="description" class="form-label fw-bold">description :</label><br>
-                <textarea class="mt-2 w-100" rows="5"  name="description" id="description">
-
+                <textarea class="mt-2 w-100" rows="5"  name="description" id="description" autofocus required>
+               {{ old('description') }}
                 </textarea>
                 <x-input-error :messages="$errors->get('description')" class="mt-2" />
             </div>
             <div class="mt-3">
                 <div class="form-group">
                     <label for="location">Location</label>
-                    <input list="locations" id="location" name="location" placeholder="Enter a location" class="form-control">
+                    <input list="locations" id="location" name="location" value="{{ old('location') }}" placeholder="Enter a location" class="form-control" autofocus required>
                     <datalist id="locations">
                         @foreach($locations as $location)
                             <option value="{{ $location->location }}">
@@ -168,9 +166,9 @@
                     <label class="upload-label fw-bold btn  py-4 px-3 border-2 border-black">
 
                         <img id="staticImage" src="https://www.autotrader.com.lb/bundles/appffrontend/images/1.jpg"
-                            alt="">
+                            alt="car upload">
                         <i id="staticIcon" class="bi bi-upload"></i>
-                        <input class="form-control d-none image-input" type="file" name="images[]" multiple accept="image/*" id="images">
+                        <input class="form-control d-none image-input" type="file" name="images[]" multiple accept="image/*" id="images" autofocus required>
                     <small id="imageCount" class="text-success d-block"></small>
                     </label>
                 </div>

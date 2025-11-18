@@ -272,8 +272,6 @@
                                             <small
                                                 id="like-count-{{ $vehicle->ad?->id }}">{{ ($vehicle->ad?->likes->count() >= 1000) ? number_format($vehicle->ad?->likes->count() / 1000, 1) . 'K' : $vehicle->ad?->likes->count() }}</small>
                                         </button>
-
-
                                     </div>
 
 
@@ -283,6 +281,7 @@
                                 <h4 class=" mb-0 text-danger h4 archivo text-center">Sold</h4>
 
                             @endif
+                            <div class="px-2 mt-2"><small class="text-muted">{{ $vehicle->created_at->diffForHumans() }}</small></div>
                         </div>
                     </div>
                     </a>

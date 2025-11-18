@@ -188,6 +188,7 @@ class AdminController extends Controller
 }
   public function showPaymentRequests() {
         $records=PaymentRequest::with('user')
+        ->orderByDesc('created_at')
         ->get();
         
         $companies=Company::all();
@@ -209,7 +210,7 @@ public function payment(Request $request) {
                         $filename = uniqid() . '.jpg';
                         $imageInstance = Image::read($request->file('proof'));
                         // Resize to desired output size (e.g. 600x800)
-                        $imageInstance = $imageInstance->scale(200,400);
+                        $imageInstance = $imageInstance->scale(600,800);
                         // Encode and save
                         $optimized = $imageInstance->encode(new JpegEncoder(quality: 80));
                         Storage::disk('public')->put("invoices/{$filename}", (string) $optimized);
