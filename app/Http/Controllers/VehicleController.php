@@ -51,12 +51,7 @@ class VehicleController extends Controller
             ->where('dealers.user_id', '<>', Auth::id())
             ->get();
 
-
-        $perPage = 20;
-        $page = request()->get('page', 1); 
-        $cacheKey="vehicles_page_{$page}";
-        $paginatedVehicles = Cache::remember($cacheKey, now()->addMinutes(20), function () use($perPage) {
-            return Vehicle::with([
+        $paginatedVehicles = Vehicle::with([
                 'company',
                 'body',
                 'gearbox',
@@ -80,14 +75,8 @@ class VehicleController extends Controller
                 ->orderByDesc('ads.boosted_at')
                 ->select('vehicles.*')
         
-                ->paginate($perPage);
-        });
-
-
-
-        
-
-
+                ->paginate(2);
+    
 
         return view("vehicles.index", compact('paginatedVehicles', 'companies', 'categories', 'model', 'dealers'));
     }
