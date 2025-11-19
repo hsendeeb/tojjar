@@ -293,7 +293,7 @@
             @endforelse
         </div>
 
-        <div class="d-flex justify-content-center gap-2 mt-3 mb-3">
+        <div class="d-flex justify-content-center gap-2 mt-3 mb-0">
             <span>{{ $paginatedVehicles->links() }}</span>
         </div>
     </div>

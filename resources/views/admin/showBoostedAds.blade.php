@@ -65,6 +65,7 @@
                 <th>views</th>
                 <th>likes</th>
                 <th>boosted</th>
+                <th>boosted at</th>
                 <th>image</th>
             </tr>
 
@@ -79,7 +80,8 @@
                     <td><a href="{{ route('profile.show', $record->user->id) }}">{{ $record->user->name }}</a></td>
 
                     <td>
-                        {{ $record->created_at }}
+                        {{ $record->created_at }} <br>
+                        <small>{{ $record->created_at->diffForHumans() }}</small> 
                     </td>
                     <td>
                         {{ $record->views }}
@@ -89,6 +91,9 @@
                     </td>
                     <td>
                         {{ ($record->boosted) ? 'Yes' : 'No' }}
+                    </td>
+                     <td>
+                        {{ $record->boosted_at }}
                     </td>
                     <td>
                       <a target="_blank" href="{{Storage::url($record->vehicle->images[0]->image_url)  }}">

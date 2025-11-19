@@ -287,6 +287,7 @@ public function showBoostedAds(){
     $companies=Company::all();
      $records=Ad::with('vehicle','user','likes')
         ->where('boosted',true)
+        ->orderByDesc('boosted_at')
         ->get();
         return view('admin.showBoostedAds',compact('records','companies'));
 }
