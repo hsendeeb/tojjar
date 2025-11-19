@@ -45,7 +45,7 @@
         class=" text-center p-2  h3  fw-bolder text-sm fw-bolder">
         <span class="archivo">
           
-        </span>{{ number_format(count($vehicles)) . " " . "results"}}
+        </span>{{ number_format($vehicles->total()) . " " . "results"}}
         </h3>
         <div class="dropdown">
   <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -252,7 +252,7 @@
         </div>
          
       <div class="d-flex justify-content-center gap-2 mt-3 mb-3">
-            <span>{{ $vehicles->links('pagination::bootstrap-5') }}</span>
+            <span>{{ $vehicles->links() }}</span>
         </div>
 
     </div>

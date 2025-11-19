@@ -7,7 +7,8 @@
          <meta name="description" content="Discover unbeatable car deals on Tojjar — your trusted platform for buying and selling vehicles online. Browse listings, compare prices, and find your perfect ride with ease.">
   <meta name="keywords" content="car deals, buy cars, sell cars, vehicle marketplace, Tojjar, used cars, new cars, auto listings">
   <meta name="author" content="hussein deeb">
-       
+       <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1504855919204186"
+     crossorigin="anonymous"></script>
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.13.1/font/bootstrap-icons.min.css" integrity="sha512-t7Few9xlddEmgd3oKZQahkNI4dS6l80+eGEzFQiqtyVYdvcSG2D3Iub77R20BdotfRPA9caaRkg1tyaJiPmO0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />

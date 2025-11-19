@@ -64,6 +64,12 @@
                                                
                <span><i class="bi bi-bookmark-heart-fill"></i></span> {{ __('Liked ads') }}
                 </a>
+                 @if(Auth::user()?->admin)
+            <x-responsive-nav-link :href="route('admin.dashboard', Auth::id())"
+                 >   
+                      <span><i class="bi bi-diagram-3-fill"></i></span>  {{ __('Admin dashboard') }}                       
+                    </x-responsive-nav-link>
+                    @endif
 
                             <!-- Authentication -->
                             <form method="POST" action="{{ route('logout') }}">

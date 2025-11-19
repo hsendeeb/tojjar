@@ -31,7 +31,7 @@
                 </li>
               </ul>
             </div>
-            <form class="mt-3" action="{{ route('payment') }}" method="post" enctype="multipart/form-data">
+            <form id="vehicleForm" class="mt-3" action="{{ route('payment') }}" method="post" enctype="multipart/form-data">
               @csrf
               <label class="form-label" for="username">proof of payment (upload the whish invoice):</label>
               <input type="file" class="form-control mt-2 border-danger form-input" name="proof" id="proof" accept="image/*" required>
@@ -48,15 +48,21 @@
               @endif
               @if(Auth::user()?->paymentRequest?->last()?->status=='rejected') 
               <div class="mt-3 bg-danger bg-opacity-10 rounded-2 p-2">
-              <p><span class="text-danger me-2"><i class="bi bi-x-circle-fill"></i></span>Your last premium plan request is rejected.</p>
-              <p class="fw-bolder">To fix this you can contact  this number:71/994952</p>
+              <p><span class="text-danger me-2"><i class="bi bi-x-circle-fill"></i></span>Your last premium plan request was rejected.</p>
+              <p class="fw-bolder">For more information contact this number:71 994 952</p>
               </div>
               @endif
              
              
 
+ <div class="text-center mt-3 ">
+        <button id="submit" type="submit"
+            class="d-inline-flex gap-2 justify-content-center align-items-center btn btn-danger w-75 text-center px-2 py-2">
+            submit
+            <div id="btn-spinner" class="btn-spinner" style="display:none"></div>
+        </button>
 
-              <button type="submit" class="btn btn-danger w-100 px-4 mt-4">submit request</button>
+    </div>
 
             </form>
 

@@ -70,12 +70,12 @@
                                 src="{{ Storage::url($dealer->user->image)}}" alt=" logo">
                         </div>
                     @else
-                        <div class="rounded-circle overflow-hidden" style="width:70px; height:70px;">
+                        <div class="rounded-circle gradient-border overflow-hidden" style="width:70px; height:70px;">
                             <img class="w-100 h-100 object-fit-cover" 
                                 src="/images/avatar.jpg" alt=" logo">
                         </div>
                     @endif
-                    <small class="text-nowrap mt-2 text-center">{{ $dealer->user->username }} 
+                    <small class="text-nowrap mt-2 text-center">{{ $dealer->user->name }} 
                          @if($dealer->user->premium) <span class="text-primary"><i
                                                 class="bi bi-patch-check-fill"></i></span>
                                                  @endif
@@ -294,7 +294,7 @@
         </div>
 
         <div class="d-flex justify-content-center gap-2 mt-3 mb-3">
-            <span>{{ $paginatedVehicles->links('pagination::bootstrap-5') }}</span>
+            <span>{{ $paginatedVehicles->links() }}</span>
         </div>
     </div>
 

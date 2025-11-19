@@ -22,11 +22,11 @@
                                 @if($dealer->user->image!='public/images/avatar.png')
                                 <img src="{{ Storage::url($dealer->user->image) }}" loading="lazy"
                                     class="img-fluid rounded object-fit-cover" style="height: 250px;width:1000px"
-                                    alt="Vehicle Image">
+                                    alt="dealer Image">
                                     @else
                                      <img src="/images/avatar.jpg" loading="lazy"
                                     class="img-fluid rounded object-fit-cover" style="height: 250px;width:1000px"
-                                    alt="Vehicle Image">
+                                    alt="dealer Image">
                                     @endif
 
                                 
@@ -34,7 +34,7 @@
 
                             <div class="card-body  px-2"  >
                                 <h5 class="text-nowrap h5 text-center card-title archivo  fw-bolder bg-opacity-25  py-1">
-                                    {{$dealer->user->username}} 
+                                    {{$dealer->user->name}} 
                                     @if($dealer->user->premium) <span class="text-primary"><i
                                                 class="bi bi-patch-check-fill"></i></span>
                                                  @endif

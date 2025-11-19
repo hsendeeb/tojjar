@@ -175,7 +175,7 @@
                         @endif
 
                         <div>
-                            <p class="archivo">{{$vehicle->user->username}}
+                            <p class="archivo">{{$vehicle->user->name}}
                                 @if($vehicle->user->premium) <span class="text-primary"><i
                                                 class="bi bi-patch-check-fill"></i></span>
                                                  @endif

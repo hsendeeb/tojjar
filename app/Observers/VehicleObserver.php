@@ -31,8 +31,20 @@ class VehicleObserver
 
     private static function flushVehicleCache()
     {
-        Cache::forget("vehicles");
-        Cache::forget("vehicles.profile");  
+        $perPage = 20;
+
+    // Get one page to access paginator
+    $samplePage = Vehicle::join('ads', 'ads.vehicle_id', 'vehicles.id')
+        ->where('ads.boosted', true)
+        ->select('vehicles.*')
+        ->paginate($perPage);
+
+    $maxPage = $samplePage->lastPage();
+
+    for ($i = 1; $i <= $maxPage; $i++) {
+        Cache::forget("vehicles_page_{$i}");
+    }
+ 
         
     }
 

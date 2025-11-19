@@ -22,7 +22,7 @@
       <div class="modal-header  bg-gradient-primary">
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-         <img class="w-50 mx-auto" src="/images/boost.jpg" alt="boost">
+         <img class="w-50 mx-auto" src="/images/rocket.gif" alt="boost">
         <h3 class=" mx-auto h3 archivo text-center" id="premiumModalLabel">Go Premium</h3>
         <div class="modal-body text-center bg-success bg-opacity-10 rounded-2">
        
@@ -220,7 +220,7 @@
             @empty
                 <div class="container-fluid d-flex flex-column justify-content-center mt-5  ">
                     <img class="img-responsive w-50 mx-auto mix-blend-multiply" src="/images/noAds.png" alt="no ads">
-               <a href="{{ route('placeAd') }}" class="btn rounded-2 w-50 mx-auto mt-3 text-white fw-bolder" style="background-color:red">Post ad</a>
+               <a href="{{ route('placeAd') }}" class="btn btn-primary rounded-2 w-50 mx-auto mt-3 text-white fw-bolder">Post ad</a>
                 </div>
 
 

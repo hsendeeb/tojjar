@@ -46,6 +46,7 @@ $("#company_id").on("change", function () {
         const newInput = document.createElement("input");
         newInput.name = "new-company";
         newInput.className = "form-control mt-1 border-success other-company";
+        newInput.required=true;
 
         const modelLabel = document.createElement("label");
         modelLabel.className = "form-label mt-2 other-company";
@@ -55,6 +56,7 @@ $("#company_id").on("change", function () {
         newModelInput.name = "new-model";
         newModelInput.className =
             "form-control mt-1 border-success other-company";
+
 
         container.appendChild(label);
         container.appendChild(newInput);
