@@ -77,7 +77,7 @@ $("#company_id").on("change", function () {
                 success: function (data) {
                     $("#carModel")
                         .empty()
-                        .append('<option value="other">other</option>');
+                        .append('<option value="">other</option>');
                     $.each(data, function (index, model) {
                         $("#carModel").append(
                             "<option value=" +

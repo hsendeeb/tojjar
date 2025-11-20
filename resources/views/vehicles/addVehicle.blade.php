@@ -36,7 +36,7 @@
                 <x-input-error :messages="$errors->get('company_id')" class="mt-2" />
 
                 <label id="carModelLabel" for="carModel" class="form-label me-2 mt-2 fw-bold">car model: </label>
-                <select class="form-control mt-2" name="model_id" id="carModel"  required>
+                <select class="form-control mt-2" name="model_id" id="carModel">
                     <option value="{{ old('model_id') }}" @selected(old('model_id','select model'))>select model</option>
                 </select>
                 

@@ -126,7 +126,7 @@
                         <div class="col-md-8">
                             <div class="card-body">
                                 <h5 class="card-title">{{$vehicle->company->company_name}}
-                                    <span class="brush px-3 py-1">{{$vehicle->model->model_name}}</span>
+                                    <span class="brush px-3 py-1">{{$vehicle?->model?->model_name}}</span>
                                       @if($vehicle->title)
                              <h3 class="card-title   py-1">
                                {{ $vehicle->title }}

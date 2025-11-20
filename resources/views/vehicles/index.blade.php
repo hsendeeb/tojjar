@@ -201,7 +201,7 @@
                         <div class="card-body  px-2">
                             <h3 class="card-title  fw-bolder  py-1">
                                 {{$vehicle->company->company_name}} <span
-                                    class="fw-bolder  rounded-3 brush   px-4  py-1">{{$vehicle->model->model_name}}</span>
+                                    class="fw-bolder  rounded-3 brush   px-4  py-1">{{$vehicle?->model?->model_name}}</span>
                             </h3>
                             @if($vehicle->title)
                              <h3 class="card-title   py-1">

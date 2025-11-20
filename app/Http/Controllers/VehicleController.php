@@ -75,7 +75,7 @@ class VehicleController extends Controller
                 ->orderByDesc('ads.boosted_at')
                 ->select('vehicles.*')
         
-                ->paginate(2);
+                ->paginate(20);
     
 
         return view("vehicles.index", compact('paginatedVehicles', 'companies', 'categories', 'model', 'dealers'));
@@ -233,7 +233,7 @@ class VehicleController extends Controller
             $image_id = $request->input('image_id');
             $data = $request->validate([
                 'company_id' => 'required',
-                'model_id' => 'required',
+                'model_id' => 'nullable',
                 'title' => 'nullable',
                 'category_id' => 'required',
                 'condition_id' => 'nullable',
