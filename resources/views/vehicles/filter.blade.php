@@ -66,7 +66,7 @@
             <input style="height: 20px"  class="form-control-sm w-50 " id="yearTo" placeholder="To" type="number"  name="yearTo" value="{{ request('yearTo') }}">
        </div>
        <hr class="dropdown-divider">
-       <div class="mt-2 d-flex flex-column">  
+       <div class="mt-2 d-flex flex-column ">  
         <label class="form-label text-sm fw-bold" for="colors"> <span  style="color: {{ request('color') }}"><i class="bi bi-droplet-fill"></i></span>  Color: </label>     
          <input list="colors" class="form-control w-50 p-0" id="yearFrom" type="text"  name="color" value="{{ request('color') }}">
         
@@ -101,6 +101,7 @@
 
   
     <div id="body" class="container-fluid mt-3">
+         <small class="text-primary">Page {{ $vehicles->currentPage() }} of {{ $vehicles->lastPage() }}</small>
         <div class="row">
 
             @forelse($vehicles as $vehicle)
@@ -131,7 +132,7 @@
                                             <img style="height:300px;width:1000px; cursor: pointer;"
                                                 class=" rounded-3 object-fit-cover"
                                                 data-bs-toggle="modal" src="{{ asset('storage/' . $image->image_url) }}"
-                                                alt="Vehicle Image {{ $index + 1 }}">
+                                                alt="Vehicle Image {{ $index + 1 }}" loading="lazy">
                                         </div>
 
 

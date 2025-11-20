@@ -110,6 +110,17 @@
           </div>
         </a>
       </div>
+      <div class="col-md-4">
+        <a href="{{ route('showAds') }}">
+          <div class="card text-bg-primary mb-3"
+            style="width: 18rem;background: linear-gradient(to right, #3700ff, #4e35eedd, #502cd5)">
+            <div class="card-header fw-bolder">Unboosted ads</div>
+            <div class="card-body">
+              <h2 class="card-title h2 text-end archivo">{{$unboostedAds->count() }}</h2>
+            </div>
+          </div>
+        </a>
+      </div>
        <div class="col-md-4">
         <a href="{{ route('showBoostedAds') }}">
           <div class="card text-bg-primary mb-3"

@@ -137,6 +137,7 @@
 
     <h1 id="featured" class="h1 text-center mt-5 archivo brush">Featured Ads <i class="bi bi-award-fill"></i></h1>
     <div id="body" class="container mt-3">
+        <small class="text-primary">Page {{ $paginatedVehicles->currentPage() }} of {{ $paginatedVehicles->lastPage() }}</small>
         <div class="row">
             
             @forelse($paginatedVehicles as $vehicle)
@@ -168,7 +169,7 @@
                                             <img style="height:300px;width:1000px; cursor: pointer;"
                                                 class=" rounded-3 object-fit-cover"
                                                 data-bs-toggle="modal" src="{{ asset('storage/' . $image->image_url) }}"
-                                                alt="Vehicle Image {{ $index + 1 }}">
+                                                alt="Vehicle Image {{ $index + 1 }}" loading="lazy">
                                         </div>
 
 
@@ -294,7 +295,7 @@
         </div>
 
         <div class="d-flex justify-content-center gap-2 mt-3 mb-0">
-            <span>{{ $paginatedVehicles->links() }}</span>
+            <span>{{ $paginatedVehicles->withQueryString()->fragment('featured')->links() }}</span>
         </div>
     </div>
 

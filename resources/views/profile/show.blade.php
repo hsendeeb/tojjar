@@ -47,7 +47,7 @@
                         </div>
                     </div>
                      @if($user->bio)
-                    <div class="text-center mt-2">
+                    <div class="text-center mt-2 py-2">
                         {{ $user->bio }}
 
                     </div>
@@ -61,6 +61,7 @@
 
         <div class="row ">
             <h1 class=" text-center h1 archivo brush px-2"> Ads</h1>
+              <small class="text-primary mt-2">Page {{ $vehicles->currentPage() }} of {{ $vehicles->lastPage() }}</small>
                        @forelse($vehicles as $vehicle)
                 <div class="col-md-3 mt-5">
                     <a class="" href="{{ route('vehicle.show', $vehicle) }}">
@@ -175,6 +176,9 @@
                 </div>
 
             @endforelse
+             <div class="d-flex justify-content-center gap-2 mt-3 mb-0">
+            <span>{{ $vehicles->links() }}</span>
+        </div>
 
 
          

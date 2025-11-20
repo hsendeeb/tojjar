@@ -48,7 +48,11 @@ class AdminController extends Controller
         $boostedAds=Ad::with('vehicle','user','likes')
         ->where('boosted',true)
         ->get();
-        return view('admin.dashboard',compact('users','vehicles','companies','dealers','paymentRequests','premiumUsers','boostedAds'));
+         $unboostedAds=Ad::with('vehicle','user','likes')
+        ->where('boosted',false)
+        ->get();
+        
+        return view('admin.dashboard',compact('users','vehicles','companies','dealers','paymentRequests','premiumUsers','boostedAds','unboostedAds'));
     }
 
     /**
@@ -288,6 +292,14 @@ public function showBoostedAds(){
      $records=Ad::with('vehicle','user','likes')
         ->where('boosted',true)
         ->orderByDesc('boosted_at')
+        ->get();
+        return view('admin.showBoostedAds',compact('records','companies'));
+}
+public function showAds(){
+    $companies=Company::all();
+     $records=Ad::with('vehicle','user','likes')
+        ->where('boosted',false)
+        ->orderByDesc('created_at')
         ->get();
         return view('admin.showBoostedAds',compact('records','companies'));
 }

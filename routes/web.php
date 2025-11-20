@@ -87,6 +87,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
      Route::get('/admin/show/premiumUsers', [AdminController::class, 'showPremiumUsers'])->name('showPremiumUsers');
      Route::get('/admin/show/paymentRequests', [AdminController::class, 'showPaymentRequests'])->name('showPaymentRequests');
      Route::get('/admin/show/boostedAds', [AdminController::class, 'showBoostedAds'])->name('showBoostedAds');
+      Route::get('/admin/show/Ads', [AdminController::class, 'showAds'])->name('showAds');
      Route::post('/admin/accept/{id}/{user_id}', [AdminController::class, 'accept'])->name('admin.accept');
      Route::post('/admin/reject/{id}', [AdminController::class, 'reject'])->name('admin.reject');
 });

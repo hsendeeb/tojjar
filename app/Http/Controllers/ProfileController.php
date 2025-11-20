@@ -142,7 +142,7 @@ $totalLikes = DB::table('likes')
         ])
             ->where("user_id", $id)
             ->orderBy('created_at', 'desc') // 👈 Ensures consistent ordering
-            ->get();
+            ->paginate(10);
 
         return view("profile.show", compact('user', 'vehicles','totalLikes'));
     }
