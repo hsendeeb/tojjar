@@ -30,7 +30,7 @@
         <ul class="list-unstyled">
           <li class="d-flex align-items-start mb-2"><span><i class="bi bi-check-lg me-2"></i></span>  Unlimited ad boosts <span><i class="ms-2 bi bi-rocket-takeoff-fill"></i></span></li>
           <li class="d-flex align-items-start mb-2"><span><i class="bi bi-check-lg me-2"></i></span>  Verification badge <span class="ms-2 text-primary"><i class="bi bi-patch-check-fill"></i></span></li>
-          <li class="d-flex align-items-start mb-2"><span><i class="bi bi-check-lg me-2"></i></span>  Your ads will be at top of search results <span class="ms-2"><i class="bi bi-graph-up-arrow"></i></span>
+          <li class="d-flex align-items-start mb-2"><span><i class="bi bi-check-lg me-2"></i></span>  Your ads will be at top of search results <span class="ms-1"><i class="bi bi-graph-up-arrow"></i></span>
 </li>
         </ul>
       </div>

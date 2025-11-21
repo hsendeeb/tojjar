@@ -8,16 +8,39 @@
     <button id="glass-button" class="glass-button px-4 py-1 rounded-pill text-dark"><i
             class="bi bi-arrow-up-circle-fill"></i></button>
    <div class="py-3" id="searchBar" >
-    <div class="container-fluid  d-flex gap-2 p-1 bg-transparent  ">
+    <div class="container-fluid  d-flex  p-1 bg-transparent  ">
         <form id="searchForm" class="d-flex gap-2 justify-content-center form-control border-0 bg-transparent" method="GET"
             action="{{ route('filteredSearch') }}">
-            
-            <input  id="search" name="company_name" type="text" class="form-control  " required
-                placeholder="search for any vehicles">
-            <button type="submit" class="px-2 fs-3"> <i class="bi bi-search"></i></button>
-
+         
+           <div class="position-relative w-100" >
+  <input type="text" name="company_name" id="search" class="form-control rounded-2 ps-5" placeholder="Search...">
+  <button type="submit" class="position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"><i class="bi bi-search "></i></button>
+</div>
         </form>
-        
+         <button class="btn btn-sm text-primary dropdown-toggle " type="button" data-bs-toggle="dropdown" aria-expanded="false">
+  <i class="fa-solid fa-sliders fs-4"></i>
+  </button>
+  <ul class="dropdown-menu" style="width:300px" >
+       
+        <form class="d-flex gap-1 flex-column justify-content-center" action="{{ route("filteredSearch") }}"
+            method="GET">            
+            <select class=" border-0 " name="category_id" id="category">
+                <option value="" disabled selected>select category</option>
+                @foreach ($categories as $category)
+                    <option value="{{ $category->id }}">{{ $category->category }}</option>
+                @endforeach
+
+            </select>
+            <select class="opacity-50  fw-bolder border-0 " name="company_id" id="company"
+                disabled autocomplete="off">
+                <option value="" disabled selected>select company</option>
+            </select>
+            <select class="opacity-50 text-primary  fw-bolder border-0" name="model_id" id="model">
+                <option value="" disabled selected>select model</option>
+            </select>
+            <button type="submit" class="btn btn-primary p-2  text-white fw-bold">search</button>
+        </form>
+
     </div>
      <div style="display: none;height:100px;" class="bg-white  shadow z-1 overflow-y-auto px-3" id="suggestions">
     </div>
@@ -31,28 +54,6 @@
         @endif
     </div>
 
-
-    <div class="container mt-3 px-2">
-        <form class="d-flex gap-1 flex-wrap justify-content-center" action="{{ route("filteredSearch") }}"
-            method="GET">            
-            <select class="rounded-pill border-0 " name="category_id" id="category">
-                <option value="" disabled selected>select category</option>
-                @foreach ($categories as $category)
-                    <option value="{{ $category->id }}">{{ $category->category }}</option>
-                @endforeach
-
-            </select>
-            <select class="opacity-50  fw-bolder rounded-pill border-0 " name="company_id" id="company"
-                disabled autocomplete="off">
-                <option value="" disabled selected>select company</option>
-            </select>
-            <select class="opacity-50 text-primary rounded-pill fw-bolder border-0" name="model_id" id="model">
-                <option value="" disabled selected>select model</option>
-            </select>
-            <button type="submit" class="btn btn-primary    px-3 py-0  text-white rounded-pill fw-bold">search</button>
-        </form>
-
-    </div>
     </div>
     <h3 class="px-2 mt-3 fw-bold">Dealers</h3>
     <div class="d-flex justify-content-end px-2">

@@ -54,7 +54,7 @@ Route::middleware('auth')->group(function () {
      Route::post('/payment', [AdminController::class, 'payment'])->name('payment');
 });
 Route::put('/views/{id}', [AdController::class, 'incrementViews'])->name('views');
-Route::get("/profile/show/{id}", [ProfileController::class, 'show'])->name('profile.show');
+Route::get("/profile/show/{id?}", [ProfileController::class, 'show'])->name('profile.show');
 Route::get("/get-companies/{id}", [VehicleController::class, 'getCompanies'])->name('getCompanies');
 Route::get("/company/show/{name?}", [CompanyController::class, 'show'])->name('company.show');
 Route::get("/get-models/{id}", [CarModelController::class, "getModels"])
