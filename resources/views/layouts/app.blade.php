@@ -7,6 +7,7 @@
          <meta name="description" content="Discover unbeatable car deals on Tojjar — your trusted platform for buying and selling vehicles online. Browse listings, compare prices, and find your perfect ride with ease.">
   <meta name="keywords" content="car deals, buy cars, sell cars, vehicle marketplace, Tojjar, used cars, new cars, auto listings">
   <meta name="author" content="hussein deeb">
+  <link rel="icon" href="{{ asset('images/logo.png') }}" type="image/png">
        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1504855919204186"
      crossorigin="anonymous"></script>
      <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>

@@ -12,8 +12,18 @@ const BtnLoader = document.getElementById("btn-spinner");
 const form = document.getElementById("vehicleForm");
 if (form) {
     form.addEventListener("submit", function (e) {
+       
         BtnLoader.style.display = "block";
-        console.error(error);
+       
+       const limitedInput= document.querySelector('input[type="file"]');
+    const file = limitedInput.files[0];
+    if (file.size > 5 * 1024 * 1024) { // 5 MB
+        e.preventDefault();
+        BtnLoader.style.display="none";
+        alert("File too large! Max 5 MB.");
+        this.value = ""; // clear the input
+    }
+
     });
     
     }
@@ -440,9 +450,6 @@ document.querySelectorAll(".boostBtn").forEach((btn) => {
         });
     });
 });
-document.querySelectorAll(".sortBtn").forEach((btn) => {
-    btn.addEventListener("click", function () {
-        const sort = btn.getAttribute("data-sort");
-    });
-});
+
+
 

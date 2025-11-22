@@ -37,7 +37,7 @@
                  <div class="mt-3">
                     <label for="model_id">car model:</label>
                 <select class="form-control mt-2" name="model_id" id="carModel">
-                    <option class="active" value="{{$vehicle->model_id}}">{{$vehicle->model->model_name}}</option>
+                    <option class="active" value="{{$vehicle->model_id}}">{{$vehicle?->model?->model_name}}</option>
                 </select>
                  <x-input-error :messages="$errors->get('model_id')" class="mt-2" />
             </div>

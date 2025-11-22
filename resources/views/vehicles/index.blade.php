@@ -231,7 +231,7 @@
                             </div>
 
 
-                            <div class="text-end mt-2 bg-warning bg-opacity-10 rounded-3 px-2">
+                            <div class="text-end mt-2 bg-primary bg-opacity-10 rounded-3 px-2">
                                 <i class="bi bi-geo-alt-fill"></i>
                                 <small class="ms-1">{{ $vehicle->location }}</small><br>
 

@@ -125,7 +125,7 @@ class VehicleController extends Controller
             'price' => ['required', 'integer', 'min:0'],
             'description' => 'required',
             'images' => 'required|array|min:1|max:10',
-            'images.*' => 'image|mimes:jpeg,png,jpg,webp|max:10000',
+            'images.*' => 'image|mimes:jpeg,png,jpg,webp|max:5048',
 
             'engineSize_id' => 'nullable',
             'engineType_id' => 'required',
@@ -247,7 +247,7 @@ class VehicleController extends Controller
                 'price' => ['required', 'integer', 'min:0'],
                 'description' => 'required',
                 'images' => 'array|min:1|max:10',
-                'images.*' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:10000',
+                'images.*' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5048',
                 'engineType_id' => 'required',
                 'engineSize_id' => 'nullable',
                 'user_id' => [Rule::in([Auth::id()])],
