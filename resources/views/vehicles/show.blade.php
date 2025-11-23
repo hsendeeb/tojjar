@@ -178,7 +178,7 @@
 
    <div class="modal fade bg-dark " id="vehicleModal" tabindex="-1"
                                 aria-labelledby="imageModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
-                                <div class="modal-dialog   modal-dialog-centered" >
+                                <div class=" modal-dialog modal-fullscreen-md-down   modal-dialog-centered" >
                                     <div class="modal-content bg-transparent border-0">
                                         <div class="modal-header border-0">
                                             <button type="button" class="btn-close btn-close-white ms-auto"
@@ -199,7 +199,7 @@
                     <div class="carousel-inner  rounded-3">
                         @foreach($vehicle->images as $index => $image)
                             <div class=" carousel-item {{ $index === 0 ? 'active' : '' }}">
-                                <img style="height: 300px;width:1000px;cursor: pointer;" class="rounded-3 object-fit-cover"
+                                <img style="height: 400px;width:1000px;cursor: pointer;" class="rounded-3 object-fit-cover"
                 
                                     src="{{ asset('storage/' . $image->image_url) }}"
                                     alt="Vehicle Image {{ $index + 1 }}">
