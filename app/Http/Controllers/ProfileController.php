@@ -146,4 +146,10 @@ $totalLikes = DB::table('likes')
 
         return view("profile.show", compact('user', 'vehicles','totalLikes'));
     }
+    public function deleteAvatar(Request $request) {
+        $user=User::findOrFail(Auth::id());
+        $user->image='public/images/avatar.png';
+        $user->save();
+        return redirect()->back();
+    }
 }

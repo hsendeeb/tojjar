@@ -40,6 +40,7 @@ Route::middleware('auth')->group(function () {
      Route::put("/ad/like/{id}", [AdController::class, 'like'])->name('like');
      Route::get('/likedAds/{id}', [AdController::class, 'likedAds'])->name('likedAds');
      Route::delete('/image/{id}', [VehicleController::class, 'deleteImage'])->name('deleteImage');
+       Route::delete('/deleteAvatar', [ProfileController::class, 'deleteAvatar'])->name('deleteAvatar');
      Route::post('/ad/boost/{id}', [AdController::class, 'boost'])
           ->middleware('premium')
           ->name('boost');

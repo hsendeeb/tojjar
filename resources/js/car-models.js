@@ -17,7 +17,7 @@ if (form) {
        
        const limitedInput= document.querySelector('input[type="file"]');
     const file = limitedInput.files[0];
-    if (file.size > 5 * 1024 * 1024) { // 5 MB
+    if (file.size > 10 * 1024 * 1024) { // 5 MB
         e.preventDefault();
         BtnLoader.style.display="none";
         alert("File too large! Max 5 MB.");
@@ -158,7 +158,7 @@ $("#search").on("keyup", function () {
              error: function (xhr) {
                 // helpful debug info when something goes wrong (404, 419, etc.)
                 console.error(
-                    "delete image failed",
+                    "failed",
                     xhr.status,
                     xhr.responseText
                 );
@@ -290,7 +290,7 @@ $("#company").on("change", function () {
              error: function (xhr) {
                 // helpful debug info when something goes wrong (404, 419, etc.)
                 console.error(
-                    "delete image failed",
+                    "failed",
                     xhr.status,
                     xhr.responseText
                 );
@@ -450,6 +450,4 @@ document.querySelectorAll(".boostBtn").forEach((btn) => {
         });
     });
 });
-
-
 

@@ -12,6 +12,18 @@
     <form id="send-verification" method="post" action="{{ route('verification.send') }}">
         @csrf
     </form>
+    @if($user->image!='public/images/avatar.png')
+     <form class="mt-3" action="{{ route('deleteAvatar') }}" method="POST">
+         @csrf
+         @method('DELETE')
+          <button  class="btn btn-close bg-danger"></button>
+        </form>
+          <img  src="{{ Storage::url($user->image)}}" style="width:100px; height:100px; object-fit:cover;"
+                class="rounded-circle me-2 mt-3" loading="lazy">
+        @else
+            <img src="/images/avatar.jpg" style="width:100px; height:100px; object-fit:cover;" class="rounded-circle me-2 mt-3"
+                loading="lazy">
+    @endif
 
     <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6" enctype="multipart/form-data">
         @csrf
@@ -29,13 +41,7 @@
                 required autofocus autocomplete="username" />
             <x-input-error class="mt-2" :messages="$errors->get('username')" />
         </div>
-        @if($user->image != 'public/images/avatar.png')
-            <img src="{{ Storage::url($user->image)}}" style="width:100px; height:100px; object-fit:cover;"
-                class="rounded-circle me-2" loading="lazy">
-        @else
-            <img src="/images/avatar.jpg" style="width:100px; height:100px; object-fit:cover;" class="rounded-circle me-2"
-                loading="lazy">
-        @endif
+       
 
         <div>
             <x-input-label for="image" :value="__('image')" />
