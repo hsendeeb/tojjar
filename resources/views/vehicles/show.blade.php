@@ -17,27 +17,11 @@
                         @foreach($vehicle->images as $index => $image)
                             <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
                                 <img style="height: 300px;width:1000px;cursor: pointer;" class="rounded-3 object-fit-cover"
-                                    data-bs-toggle="modal" data-bs-target="#imageModal_{{ $index }}"
+                                    data-bs-toggle="modal" data-bs-target="#vehicleModal"
                                     src="{{ asset('storage/' . $image->image_url) }}"
                                     alt="Vehicle Image {{ $index + 1 }}">
                             </div>
-                            <div class="modal fade" id="imageModal_{{ $index }}" tabindex="-1"
-                                aria-labelledby="imageModalLabel" aria-hidden="true">
-                                <div class="modal-dialog   modal-dialog-centered">
-                                    <div class="modal-content bg-transparent border-0">
-                                        <div class="modal-header border-0">
-                                            <button type="button" class="btn-close btn-close-white ms-auto"
-                                                data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body text-center">
-                                            <img src="{{ asset('storage/' . $image->image_url) }}" alt="full image"
-                                                class="img-fluid rounded">
-                                                
-                                                
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                         
 
                         @endforeach
                     </div>
@@ -191,6 +175,63 @@
             </div>
         </div>
     </div>
+
+   <div class="modal fade bg-dark " id="vehicleModal" tabindex="-1"
+                                aria-labelledby="imageModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+                                <div class="modal-dialog   modal-dialog-centered" >
+                                    <div class="modal-content bg-transparent border-0">
+                                        <div class="modal-header border-0">
+                                            <button type="button" class="btn-close btn-close-white ms-auto"
+                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body text-center">
+                                             <div id="vehicleCarouselModal" class="carousel slide w-100" data-bs-ride="carousel">
+                     <div class="carousel-indicators">
+                                        @foreach($vehicle->images as $i => $img)
+                                            <button type="button"
+                                                data-bs-target="#vehicleCarouselModal-{{ $vehicle->id }}"
+                                                data-bs-slide-to="{{ $i }}"
+                                                class="{{ $i === 0 ? 'active' : '' }}"
+                                                {{ $i === 0 ? 'aria-current="true"' : '' }}
+                                                aria-label="Slide {{ $i + 1 }}"></button>
+                                        @endforeach
+                                    </div>
+                    <div class="carousel-inner  rounded-3">
+                        @foreach($vehicle->images as $index => $image)
+                            <div class=" carousel-item {{ $index === 0 ? 'active' : '' }}">
+                                <img style="height: 300px;width:1000px;cursor: pointer;" class="rounded-3 object-fit-cover"
+                
+                                    src="{{ asset('storage/' . $image->image_url) }}"
+                                    alt="Vehicle Image {{ $index + 1 }}">
+                            </div>
+                         
+
+                        @endforeach
+                    </div>
+                    <button class="carousel-control-prev " type="button" data-bs-target="#vehicleCarouselModal"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon " aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#vehicleCarouselModal"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon text-black" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+                <div class="thumbnail-scroll  d-flex flex-nowrap overflow-auto gap-2 py-2">
+
+                    @foreach($vehicle->images as $index => $image)
+                        <img src="{{ asset('storage/' . $image->image_url) }}" class="img-thumbnail object-fit-cover"
+                            style="width: 80px; height: 60px; cursor: pointer;" data-bs-target="#vehicleCarousel"
+                            data-bs-slide-to="{{ $index }}" aria-label="Slide {{ $index + 1 }}" aria-current="true">
+                    @endforeach
+                </div>                                            
+                                                
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
 
 </x-app-layout>

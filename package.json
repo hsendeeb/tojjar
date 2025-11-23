@@ -21,6 +21,7 @@
     "dependencies": {
         "bootstrap-icons": "^1.13.1",
         "jquery": "^3.7.1",
+        "medium-zoom": "^1.1.0",
         "tom-select": "^2.4.3"
     }
 }
