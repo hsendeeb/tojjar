@@ -115,7 +115,7 @@
         </div>
 
         <div class="row  ">
-            <h1 class=" text-center h1 archivo brush px-2">My Ads</h1>
+            <h1 class=" text-center h1 archivo redBrush text-light px-2">My Ads</h1>
             @forelse ($vehicles as $vehicle)
                 <div class="card mb-3 w-75 mx-auto p-0 mt-3 notHover">
                     <div class="row g-0">

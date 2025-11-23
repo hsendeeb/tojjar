@@ -60,7 +60,7 @@
         </div>
 
         <div class="row ">
-            <h1 class=" text-center h1 archivo brush px-2"> Ads</h1>
+            <h1 class=" text-center h1 archivo redBrush text-light px-2"> Ads</h1>
               <small class="text-primary mt-2">Page {{ $vehicles->currentPage() }} of {{ $vehicles->lastPage() }}</small>
                        @forelse($vehicles as $vehicle)
                 <div class="col-md-3 mt-5">
