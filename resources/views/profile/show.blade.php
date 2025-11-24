@@ -150,7 +150,7 @@
                                              
                             <div id="likeContainer" class="px-1 py-1">
                                         <button data-bs-toggle="tooltip"
-                                            title="{{(!Auth::check()) ? 'log in required' : '' }}" data-id="{{ $vehicle->ad?->id }}" class="fs-5 px-2 likeBtn"><i id="like-icon-{{ $vehicle->ad?->id }}"
+                                            title="{{(!Auth::check()) ? 'login required' : '' }}" data-id="{{ $vehicle->ad?->id }}" class="fs-5 me-3 likeBtn"><i id="like-icon-{{ $vehicle->ad?->id }}"
                                                 class=" {{(Auth::check() && $vehicle->ad?->isLikedBy(Auth::user())) ? 'bi bi-heart-fill text-danger' :'bi bi-heart' }}"></i>
 
                                            <small class="text-sm" id="like-count-{{ $vehicle->ad?->id }}">{{ ($vehicle->ad?->likes->count()>=1000) ? number_format($vehicle->ad?->likes->count()/1000,1).'K':$vehicle->ad?->likes->count() }}</small>

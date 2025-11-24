@@ -29,7 +29,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use App\Models\EngineType;
 use App\Models\Dealer;
-use Spatie\ImageOptimizer\OptimizerChainFactory;
+use Intervention\Image\ImageManager;
+use Intervention\Image\Drivers\Imagick\Driver;
+
 use Intervention\Image\Laravel\Facades\Image;
 use Illuminate\Support\Facades\Log;
 
@@ -122,10 +124,10 @@ class VehicleController extends Controller
             'mileage' => 'required|min:0',
             'color_id' => 'required',
             'location' => ['required', 'string', 'max:100'],
-            'price' => ['required', 'integer', 'min:0'],
+            'price' => ['required', 'integer', 'min:1'],
             'description' => 'required',
             'images' => 'required|array|min:1|max:10',
-            'images.*' => 'image|mimes:jpeg,png,jpg,webp|max:5048',
+            'images.*' => 'image|mimes:jpeg,png,jpg,webp',
 
             'engineSize_id' => 'nullable',
             'engineType_id' => 'required',
@@ -152,24 +154,20 @@ class VehicleController extends Controller
 
         foreach ($request->file('images') as $image) {
             try {
-
+                 $start=microtime(true);
                 $filename = uniqid() . '.jpg';
-
-
                 $imageInstance = Image::read($image);
 
 
                 // Resize to desired output size (e.g. 600x800)
-                $imageInstance = $imageInstance->scale(600, 800);
-
-                // Encode and save
-                $optimized = $imageInstance->encode(new JpegEncoder(quality: 80));
-                Storage::disk('public')->put("vehicle_images/{$filename}", (string) $optimized);
-
-                $optimizedSize = Storage::disk('public')->size("vehicle_images/{$filename}");
-
-
-
+                $imageInstance = $imageInstance->scaleDown(600, 800);
+                        
+                        // Encode and save
+                        $optimized = $imageInstance->encode(new JpegEncoder(quality: 85,progressive:false));
+                Storage::disk('public')->put("vehicle_images/{$filename}",  (string)$optimized);
+              
+                 $duration=microtime(true)-$start;
+                 Log::info($duration);
                 Vehicle_image::create([
                     'vehicle_id' => $vehicle->id,
                     'image_url' => "vehicle_images/{$filename}",
@@ -265,15 +263,19 @@ class VehicleController extends Controller
             if ($request->file('images')) {
                 foreach ($request->file('images') as $image) {
                     try {
+                        $start=microtime(true);
                         $filename = uniqid() . '.jpg';
+                         
+
                         $imageInstance = Image::read($image);
                         // Resize to desired output size (e.g. 600x800)
-                        $imageInstance = $imageInstance->scale(600, 800);
+                        $imageInstance = $imageInstance->scaleDown(600, 800);
+                        
                         // Encode and save
-                        $optimized = $imageInstance->encode(new JpegEncoder(quality: 80));
-                        Storage::disk('public')->put("vehicle_images/{$filename}", (string) $optimized);;
+                        $optimized = $imageInstance->encode(new JpegEncoder(quality: 85,progressive:false));
+                        Storage::disk('public')->put("vehicle_images/{$filename}", (String)$optimized);;
                         $optimizedSize = Storage::disk('public')->size("vehicle_images/{$filename}");
-
+                        
 
                         $vehicle->images()
                             ->create([
@@ -281,6 +283,8 @@ class VehicleController extends Controller
 
 
                             ]);
+                            $duration=microtime(true)-$start;
+                            Log::info($duration);
                     } catch (\Throwable $e) {
                         Log::warning('Image optimization failed: ' . $e->getMessage());
                     }

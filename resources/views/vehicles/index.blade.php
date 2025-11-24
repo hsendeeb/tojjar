@@ -264,8 +264,8 @@
                                     </div>
 
                                     <div id="likeContainer" class=" px-1 py-1">
-                                        <button data-bs-toggle="tooltip" title="{{(!Auth::check()) ? 'log in required' : '' }}"
-                                            data-id="{{ $vehicle->ad?->id }}" class="fs-5 px-2 likeBtn"><i
+                                        <button data-bs-toggle="tooltip"  title="{{(!Auth::check()) ? 'login required' : '' }}"
+                                            data-id="{{ $vehicle->ad?->id }}" class="fs-5 me-3 likeBtn"><i
                                                 id="like-icon-{{ $vehicle->ad?->id }}"
                                                 class=" {{(Auth::check() && $vehicle->ad?->isCurrentUserLike()) ? 'bi bi-heart-fill text-danger' : 'bi bi-heart' }}"></i>
 

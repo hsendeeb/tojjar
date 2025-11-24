@@ -214,9 +214,9 @@ public function payment(Request $request) {
                         $filename = uniqid() . '.jpg';
                         $imageInstance = Image::read($request->file('proof'));
                         // Resize to desired output size (e.g. 600x800)
-                        $imageInstance = $imageInstance->scale(600,800);
+                        $imageInstance = $imageInstance->scaleDown(600,800);
                         // Encode and save
-                        $optimized = $imageInstance->encode(new JpegEncoder(quality: 80));
+                        $optimized = $imageInstance->encode(new JpegEncoder(quality: 80,progressive:false));
                         Storage::disk('public')->put("invoices/{$filename}", (string) $optimized);
     } catch(\Throwable $e) {
         Log::warning('Image optimization failed: ' . $e->getMessage());

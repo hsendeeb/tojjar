@@ -51,7 +51,7 @@
                 <div class="d-flex gap-3 flex-wrap">
 
                     <h1 class="h1 text-start archivo">
-                        {{$vehicle->company->company_name . " " . $vehicle->year . " " . $vehicle?->model?->model_name }}
+                        {{$vehicle->year ." ".$vehicle->company->company_name ." " . $vehicle?->model?->model_name }}
                     </h1>
                     <h1 class=" h1  text-end archivo text-danger"> ${{number_format($vehicle->price)}}</h1>
                 </div>

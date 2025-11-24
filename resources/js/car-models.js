@@ -12,18 +12,7 @@ const BtnLoader = document.getElementById("btn-spinner");
 const form = document.getElementById("vehicleForm");
 if (form) {
     form.addEventListener("submit", function (e) {
-       
         BtnLoader.style.display = "block";
-       
-       const limitedInput= document.querySelector('input[type="file"]');
-    const file = limitedInput.files[0];
-    if (file.size > 10 * 1024 * 1024) { // 5 MB
-        e.preventDefault();
-        BtnLoader.style.display="none";
-        alert("File too large! Max 5 MB.");
-        this.value = ""; // clear the input
-    }
-
     });
     
     }
@@ -313,12 +302,7 @@ likeBtn.forEach((btn) => {
     btn.addEventListener("click", function () {
         const adId = btn.getAttribute("data-id");
        const icon = $(this).closest(".likeBtn").find("#like-icon-" + adId);
-        icon.addClass('text-danger');
-        icon.toggleClass('bi-heart bi-heart-fill');   
-        if(icon.hasClass('bi-heart-fill')) {
-              sound.currentTime = 0;
-                    sound.play();
-        }
+          
         
         $.ajax({
             url: "/ad/like/" + adId,
@@ -330,10 +314,13 @@ likeBtn.forEach((btn) => {
             success: function (data) {
                 $("#like-count-" + adId).text(data.likes);
                 if (data.isLiked) {
-                    console.log(data.isLiked + "" + adId);
-                    
-              
-                } 
+                    icon.addClass('text-danger');
+        icon.toggleClass('bi-heart bi-heart-fill'); 
+         sound.currentTime = 0;
+                    sound.play();
+                } else {
+                    icon.toggleClass('bi-heart bi-heart-fill')
+                }
             },
             error:function(error) {
                 icon.toggleClass="bi bi-heart-fill"
