@@ -308,12 +308,18 @@ const token = document
     .getAttribute("content");
 const sound = document.getElementById("like-sound");
 
-document.querySelectorAll(".likeBtn").forEach((btn) => {
+const likeBtn=document.querySelectorAll(".likeBtn");
+likeBtn.forEach((btn) => {
     btn.addEventListener("click", function () {
         const adId = btn.getAttribute("data-id");
-        const icon = this.closest(".likeBtn").querySelector(
-            "#like-icon-" + adId
-        );
+       const icon = $(this).closest(".likeBtn").find("#like-icon-" + adId);
+        icon.addClass('text-danger');
+        icon.toggleClass('bi-heart bi-heart-fill');   
+        if(icon.hasClass('bi-heart-fill')) {
+              sound.currentTime = 0;
+                    sound.play();
+        }
+        
         $.ajax({
             url: "/ad/like/" + adId,
             method: "put",
@@ -325,15 +331,13 @@ document.querySelectorAll(".likeBtn").forEach((btn) => {
                 $("#like-count-" + adId).text(data.likes);
                 if (data.isLiked) {
                     console.log(data.isLiked + "" + adId);
-                    icon.classList.remove("bi", "bi-heart");
-                    icon.classList.add("bi", "bi-heart-fill", "text-danger");
-                    sound.currentTime = 0;
-                    sound.play();
-                } else {
-                    icon.classList.remove("bi", "bi-heart-fill", "text-danger");
-                    icon.classList.add("bi", "bi-heart");
-                }
+                    
+              
+                } 
             },
+            error:function(error) {
+                icon.toggleClass="bi bi-heart-fill"
+            }
         });
     });
 });

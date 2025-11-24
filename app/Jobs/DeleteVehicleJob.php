@@ -38,6 +38,7 @@ class DeleteVehicleJob implements ShouldQueue
 
             $vehicle->delete();
             Cache::forget('vehicles');
+            
           
         }
     }
