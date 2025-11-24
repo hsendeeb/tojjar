@@ -223,7 +223,7 @@
 
                     @foreach($vehicle->images as $index => $image)
                         <img src="{{ asset('storage/' . $image->image_url) }}" class="img-thumbnail object-fit-cover"
-                            style="width: 80px; height: 60px; cursor: pointer;" data-bs-target="#vehicleCarousel"
+                            style="width: 80px; height: 60px; cursor: pointer;" data-bs-target="#vehicleCarouselModal"
                             data-bs-slide-to="{{ $index }}" aria-label="Slide {{ $index + 1 }}" aria-current="true">
                     @endforeach
                 </div>                                            
