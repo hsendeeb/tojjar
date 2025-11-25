@@ -263,7 +263,7 @@ class VehicleController extends Controller
             if ($request->file('images')) {
                 foreach ($request->file('images') as $image) {
                     try {
-                        $start=microtime(true);
+                    
                         $filename = uniqid() . '.jpg';
                          
 
@@ -272,19 +272,17 @@ class VehicleController extends Controller
                         $imageInstance = $imageInstance->scaleDown(600, 800);
                         
                         // Encode and save
-                        $optimized = $imageInstance->encode(new JpegEncoder(quality: 85,progressive:false));
+                        $optimized = $imageInstance->encode(new JpegEncoder(quality: 85,progressive:false,strip:true));
                         Storage::disk('public')->put("vehicle_images/{$filename}", (String)$optimized);;
-                        $optimizedSize = Storage::disk('public')->size("vehicle_images/{$filename}");
+                     
                         
 
                         $vehicle->images()
                             ->create([
                                 "image_url" => "vehicle_images/{$filename}",
-
-
                             ]);
-                            $duration=microtime(true)-$start;
-                            Log::info($duration);
+                         
+        
                     } catch (\Throwable $e) {
                         Log::warning('Image optimization failed: ' . $e->getMessage());
                     }
@@ -397,7 +395,7 @@ class VehicleController extends Controller
             })
 
             ->when($location, function ($query) use ($location) {
-                $query->where("location", 'LIKE', $location);
+                $query->where("location", 'LIKE', "%".$location."%");
             })
             ->when($color, function ($query) use ($color) {
                 $query->with("color")

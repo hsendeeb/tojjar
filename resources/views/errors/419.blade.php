@@ -1,0 +1,9 @@
+@extends('errors.minimal')
+
+@section('title', __('Page Expired'))
+@section('message')
+    <img class="img-fluid mix-blend-multiply" src="/images/expired.jpg" alt="not found">
+    <p>Sorry, the page you are looking for could not be found.</p>
+    <a class="btn w-100 mt-5 text-white" style="background-color: red" href="{{ url('/') }}">Go back home</a>
+
+@endsection
