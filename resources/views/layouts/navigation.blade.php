@@ -49,7 +49,7 @@
                         </x-slot>
 
                         <x-slot name="content">
-                            <x-dropdown-link :href="route('profile.index', Auth::id())">
+                            <x-dropdown-link :href="route('profile.index')">
                                 {{ __('Profile') }}
                                 @if(Auth::user()->image != 'public/images/avatar.png')
                             <img src="{{ Storage::url(Auth::user()->image)}}"
@@ -142,7 +142,7 @@
 
                 <div class=" mt-3 space-y-1">
                     <div class="d-flex align-items-center px-2 ">
-                    <x-responsive-nav-link :href="route('profile.index', Auth::id())"
+                    <x-responsive-nav-link :href="route('profile.index')"
                         :active="request()->routeIs('profile.index')">   
                         {{ __('Profile') }}                       
                     </x-responsive-nav-link>

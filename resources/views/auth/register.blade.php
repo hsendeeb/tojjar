@@ -53,7 +53,7 @@
             
             <input class="form-control" id="private" type="radio" name="account_type" value="private">
             <label class="me-4" for="private">private user</label>
-             <input class="form-control" id="dealer" type="radio" name="account_type" value="dealer">
+             <input class="form-control" id="dealers" type="radio" name="account_type" value="dealer">
               <label  for="dealer">Dealer</label>
              
         </div>

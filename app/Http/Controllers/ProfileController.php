@@ -20,16 +20,16 @@ class ProfileController extends Controller
     /**
      * Display the user's profile form.
      */
-    public function index(string $id)
+    public function index()
     {
       
 
 $totalLikes = DB::table('likes')
     ->join('ads', 'likes.ad_id', '=', 'ads.id')
-    ->where('ads.user_id', $id)
+    ->where('ads.user_id', Auth::id())
     ->count();
         $user = User::with('subscription')
-        ->where('id',$id)
+        ->where('id',Auth::id())
         ->first();
        
         $id = Auth::id();

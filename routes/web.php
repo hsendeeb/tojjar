@@ -26,7 +26,7 @@ Route::get("/", [VehicleController::class, 'index'])
 Route::get('/blockPage', [AdminController::class, 'blockPage'])->name('blockPage');
 
 Route::middleware('auth')->group(function () {
-     Route::get("/profile/{id}", [ProfileController::class, 'index'])->name('profile.index');
+     Route::get("/MyProfile", [ProfileController::class, 'index'])->name('profile.index');
      Route::get('/edit', [ProfileController::class, 'edit'])->name('profile.edit');
      Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
      Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -55,7 +55,7 @@ Route::middleware('auth')->group(function () {
      Route::post('/payment', [AdminController::class, 'payment'])->name('payment');
 });
 Route::put('/views/{id}', [AdController::class, 'incrementViews'])->name('views');
-Route::get("/profile/show/{id?}", [ProfileController::class, 'show'])->name('profile.show');
+Route::get("/profile/{id?}", [ProfileController::class, 'show'])->name('profile.show');
 Route::get("/get-companies/{id}", [VehicleController::class, 'getCompanies'])->name('getCompanies');
 Route::get("/company/show/{name?}", [CompanyController::class, 'show'])->name('company.show');
 Route::get("/get-models/{id}", [CarModelController::class, "getModels"])
