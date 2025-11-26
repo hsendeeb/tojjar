@@ -60,6 +60,7 @@
                 <th>email</th>
                 <th>phone</th>
                 <th>status</th>
+                <th>premium</th>
                 <th>image</th>
             </tr>
           
@@ -74,6 +75,7 @@
                 <td>{{ $record->email }}</td>
                 <td>{{ $record->phone }}</td>
                  <td>{{ $record->status }}</td>
+                  <td>{{ ($record->premium) ? 'Yes' : 'No' }}</td>
                 <td>
                      @if($record->image != 'public/images/avatar.png')
                             <img src="{{ Storage::url($record->image)}}" style="width:40px;  object-fit:cover;"
@@ -95,6 +97,14 @@
                     @csrf
                     @method('PUT')
                     <button type="submit"  class="btn btn-sm btn-danger ">Unblock</button>
+                    </form> 
+                    @endif
+                   
+                    @if(!$record->premium && $record->subscription->isEmpty())
+                     <form class="mt-2" action="{{ route('admin.upgrade',$record->id) }}" method="POST">
+                    @csrf
+            
+                    <button type="submit"  class="btn btn-sm btn-outline-success ">Upgrade to premium <i class="bi bi-rocket-fill"></i></button>
                     </form> 
                     @endif
 

@@ -75,7 +75,7 @@ class AdController extends Controller
     public function boost(string $id)
     {
         $user = Auth::user();
-        if ($user->premium) {
+        if ($user->premium && $user?->subscription->last()->is_active) {
             $ad = Ad::findOrFail($id);
             if (!$ad->boosted) {
                 $ad->boosted = true;
@@ -90,6 +90,6 @@ class AdController extends Controller
             } else {
                 return response()->json('ad is already boosted');
             }
-        }
+        } 
     }
 }

@@ -303,4 +303,26 @@ public function showAds(){
         ->get();
         return view('admin.showBoostedAds',compact('records','companies'));
 }
+public function upgradeToPremium(string $id) {
+    $user=User::findOrFail($id);
+    
+    if($user->subscription->isEmpty()){
+       $subscribed= Subscription::create([
+            'user_id'=>$user->id,
+            'plan'=>'premium',
+            'starts_at'=>now(),
+            'ends_at'=>now()->addMonth(),
+            'is_active'=>true,
+        ]);
+        
+        }
+        if($subscribed){
+
+        $user->update(['premium'=>true]);
+        $user->load('subscription');
+        $user->save();
+          Mail::to($user->email)->send(new SubscriptionEmail($user));
+        }
+    return redirect()->back();
+}
 }

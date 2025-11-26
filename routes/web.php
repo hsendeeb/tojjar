@@ -81,6 +81,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
      Route::post("/admin/model", [CarModelController::class, 'store'])->name('model.store');
      Route::put('/admin/block/{id}', [AdminController::class, 'block'])->name('admin.block');
      Route::put('/admin/unblock/{id}', [AdminController::class, 'unBlock'])->name('admin.unBlock');
+      Route::post('/admin/upgrade/{id}', [AdminController::class, 'upgradeToPremium'])->name('admin.upgrade');
      Route::post('/admin', [AdminController::class, 'store'])->name('admin.store');
      Route::get('/admin/show', [AdminController::class, 'showAdmins'])->name('admin.showAdmins');
      Route::delete('/admin/{id}', [AdminController::class, 'destroy'])->name('admin.delete');

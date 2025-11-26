@@ -5,7 +5,9 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\Models\Subscription;
 use App\Models\User;
+use App\Mail\SubscriptionExpired;
 use App\Models\Ad;
+use Illuminate\Support\Facades\Mail;
 
 class ExpireSubscriptions extends Command
 {
@@ -49,6 +51,7 @@ class ExpireSubscriptions extends Command
                    ->where('boosted', true)
                    ->update(['boosted' => false]);
             }
+            Mail::to($subscription->user->email)->send(new SubscriptionExpired($subscription->user));
         }
     }
 }
