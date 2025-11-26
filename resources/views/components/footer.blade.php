@@ -16,19 +16,15 @@
           <p class="text-center"></p>
 
           <ul class="list-unstyled d-flex flex-row justify-content-center">
+           
             <li>
-              <a class="text-white px-2" href="#!">
-                <i class="fab fa-facebook-square"></i>
-              </a>
-            </li>
-            <li>
-              <a class="text-white px-2" href="#!">
+              <a class="text-white px-2 fs-1" href="https://www.instagram.com/tojjarlb/">
                 <i class="fab fa-instagram"></i>
               </a>
             </li>
             <li>
-              <a class="text-white ps-2" href="#!">
-                <i class="fab fa-youtube"></i>
+              <a class="text-white ps-2 fs-1" href="https://wa.me/71994952">
+                <i class="fab fa-whatsapp"></i>
               </a>
             </li>
           </ul>
