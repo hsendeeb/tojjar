@@ -19,7 +19,7 @@
           <li class="d-flex align-items-start mb-2"><span><i class="bi bi-check-lg me-2"></i></span>  Your ads will be at top of search results <span><i class="bi bi-graph-up-arrow ms-1"></i></span>
 </li>
         </ul>
-            <h2 class="text-primary h2 text-center mt-3 mb-3">$20 <small class="text-muted">/month</small></h2>
+            <h2 class="text-primary h2 text-center mt-3 mb-3">$15 <small class="text-muted">/month</small></h2>
             <div class="p-3 bg-info bg-opacity-10 rounded-2">
               <ul class="list-unstyled">
                 <li class="mt-2">1.pay via whish to this number: <span

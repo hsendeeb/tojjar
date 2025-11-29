@@ -138,14 +138,17 @@ class VehicleController extends Controller
 
             $newCompany = trim(strtolower($request->input('new-company')));
             $newModel = $request->input('new-model');
-            $company = Company::UpdateOrCreate(
+            $company = Company::firstOrCreate(
                 ['company_name' => $newCompany],
                 ['company_name' => $newCompany]
             );
-            $model = CarModel::Create([
-                'model_name' => $newModel,
-                'company_id' => $company->id
-            ]);
+            $model = CarModel::firstOrCreate(
+                [ 'model_name' => $newModel,   ],
+            [ 
+                 'model_name' => $newModel,
+                  'company_id' => $company->id
+                  ]
+        );
             $data['company_id'] = $company->id;
             $data['model_id'] = $model->id;
         }
