@@ -64,7 +64,7 @@
               <small class="text-primary mt-2">Page {{ $vehicles->currentPage() }} of {{ $vehicles->lastPage() }}</small>
                        @forelse($vehicles as $vehicle)
                 <div class="col-md-3 mt-5">
-                    <a class="viewBtn" href="{{ route('vehicle.show', $vehicle) }}">
+                    <a class="viewBtn" data-id="{{ $vehicle->ad->id }}" href="{{ route('vehicle.show', $vehicle) }}">
                          <div class="card shadow ">
 
                         <div class="position-relative d-inline-block">
