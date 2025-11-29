@@ -328,7 +328,7 @@ likeBtn.forEach((btn) => {
         });
     });
 });
-document.querySelectorAll("#viewBtn").forEach((btn) => {
+document.querySelectorAll(".viewBtn").forEach((btn) => {
     btn.addEventListener("click", function () {
         const adId = btn.getAttribute("data-id");
         const viewedAds = JSON.parse(localStorage.getItem("viewedAds") || "{}");
