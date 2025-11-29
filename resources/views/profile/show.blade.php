@@ -64,7 +64,7 @@
               <small class="text-primary mt-2">Page {{ $vehicles->currentPage() }} of {{ $vehicles->lastPage() }}</small>
                        @forelse($vehicles as $vehicle)
                 <div class="col-md-3 mt-5">
-                    <a class="" href="{{ route('vehicle.show', $vehicle) }}">
+                    <a class="viewBtn" href="{{ route('vehicle.show', $vehicle) }}">
                          <div class="card shadow ">
 
                         <div class="position-relative d-inline-block">
@@ -143,8 +143,8 @@
                            
                                 <div class="d-flex justify-content-between ">
                                     <div class="w-75">
-                                    <a id="viewBtn" data-id="{{$vehicle->ad->id}}" name="viewMore" href="{{ route('vehicle.show', $vehicle) }}"
-                                        class="btn bg-black fw-bolder text-white w-100">view more <i
+                                    <a  data-id="{{$vehicle->ad->id}}" name="viewMore" href="{{ route('vehicle.show', $vehicle) }}"
+                                        class="btn bg-black fw-bolder text-white w-100 viewBtn">view more <i
                                             class="bi bi-arrow-right-circle-fill"></i></a>
                                              </div>
                                              
