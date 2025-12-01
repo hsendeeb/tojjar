@@ -49,7 +49,7 @@ class ExpireSubscriptions extends Command
                 $subscription->user->update(['premium' => false]);
                    Ad::where('user_id', $subscription->user_id)
                    ->where('boosted', true)
-                   ->update(['boosted' => false]);
+                   ->update(['boosted' => false,'boosted_at'=>null],);
             }
             Mail::to($subscription->user->email)->send(new SubscriptionExpired($subscription->user));
         }
