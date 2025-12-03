@@ -220,8 +220,13 @@ class VehicleController extends Controller
         $engineSize = $this->cacheDropdown('engineSize', 30, fn() => EngineSize::all());
         $locations = Vehicle::where('user_id', Auth::id())->get('location');
 
+          if(Auth::id()==$vehicle->user->id) {
+               return view('vehicles.edit', compact('locations', 'vehicle', 'conditions', 'companies', 'bodyType', 'categories', 'carModel', 'fuelType', 'gearbox', 'colors', 'engineType', 'engineSize'));
 
-        return view('vehicles.edit', compact('locations', 'vehicle', 'conditions', 'companies', 'bodyType', 'categories', 'carModel', 'fuelType', 'gearbox', 'colors', 'engineType', 'engineSize'));
+          } else {
+            abort(403);
+          }
+     
     }
 
     /**
