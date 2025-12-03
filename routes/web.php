@@ -38,7 +38,7 @@ Route::middleware('auth')->group(function () {
      Route::put("/sold/{id}", [VehicleController::class, 'markAsSold'])->name('markSold');
      Route::put("/available/{id}", [VehicleController::class, 'markAsAvailable'])->name('markAvailable');
      Route::put("/ad/like/{id}", [AdController::class, 'like'])->name('like');
-     Route::get('/likedAds/{id}', [AdController::class, 'likedAds'])->name('likedAds');
+     Route::get('/likedAds', [AdController::class, 'likedAds'])->name('likedAds');
      Route::delete('/image/{id}', [VehicleController::class, 'deleteImage'])->name('deleteImage');
        Route::delete('/deleteAvatar', [ProfileController::class, 'deleteAvatar'])->name('deleteAvatar');
      Route::post('/ad/boost/{id}', [AdController::class, 'boost'])

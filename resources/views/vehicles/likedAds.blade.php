@@ -12,7 +12,7 @@
 
             @forelse($vehicles as $vehicle)
                 <div class="col-md-3 mt-5">
-                    <a class="" href="{{ route('vehicle.show', $vehicle) }}">
+                    <a class="viewBtn" data-id="{{ $vehicle->ad->id }}" href="{{ route('vehicle.show', $vehicle) }}">
                         <div class="card shadow ">
 
                             <div class="position-relative d-inline-block">
@@ -38,8 +38,8 @@
                                     <span class="bg-success bg-opacity-10 fw-bolder rounded-pill text-success px-2"><i
                                             class="bi bi-calendar3"></i> {{$vehicle->year}}</span>
                                     <span
-                                        style="background-color:{{ ($vehicle->color->color == 'white') ? 'silver' : $vehicle->color->color }};"
-                                        class=" text-white bg-opacity-25 fs-6 fw-bolder rounded-pill px-2">
+                           style="background-color:{{ ($vehicle->color->color == 'black') ? 'black' . ';' . 'color:white' : $vehicle->color->color }};"
+                                        class="  bg-opacity-25 fs-6 fw-bolder rounded-pill px-2">
                                         <i class=" bi bi-droplet-fill"></i> {{$vehicle->color->color}}</span>
 
                                     <span class="text-sm bg-secondary bg-opacity-25 fs-6 fw-bolder rounded-pill px-2"> <i
@@ -55,7 +55,7 @@
                                 </div>
 
 
-                                <div class="text-end mt-2 bg-warning bg-opacity-10 rounded-3 px-2">
+                                <div class="text-end mt-2 bg-primary bg-opacity-10 rounded-3 px-2">
                                     <i class="bi bi-geo-alt-fill"></i>
                                     <small class="ms-1">{{ $vehicle->location }}</small><br>
 
@@ -76,25 +76,28 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="card-footer  bg-white p-2 mt-1">
-                                @if($vehicle->available)
+                           <div class="card-footer  bg-white p-1 mt-1">
+                            @if($vehicle->available)
 
-                                    <div class="d-flex ">
-                                        <div class="w-100">
-                                            <a name="viewMore" href="{{ route('vehicle.show', $vehicle) }}"
-                                                class="btn bg-black fw-bolder text-white w-100">view more <i
-                                                    class="bi bi-arrow-right-circle-fill"></i></a>
-                                        </div>
-
-                                        
-
-
+                                <div class="d-flex justify-content-between">
+                                    <div class="w-100">
+                                        <a  data-id="{{ $vehicle->ad->id }}" name="viewMore"
+                                            href="{{ route('vehicle.show', $vehicle) }}"
+                                            class="btn bg-black fw-bolder text-white viewBtn w-100">view more <i
+                                                class="bi bi-arrow-right-circle-fill"></i></a>
                                     </div>
 
-                                @else
-                                    <h4 class=" mb-0 bg-danger bg-opacity-25 text-danger h4 archivo text-center py-1">Sold</h4>
-                                @endif
-                            </div>
+                                   
+
+
+                                </div>
+
+                            @else
+                                <h4 class=" mb-0 text-danger h4 archivo text-center">Sold</h4>
+
+                            @endif
+                            <div class="px-2 mt-2"><small class="text-muted">{{ $vehicle->created_at->diffForHumans() }}</small></div>
+                        </div>
                         </div>
                     </a>
                 </div>

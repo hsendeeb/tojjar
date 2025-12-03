@@ -47,9 +47,9 @@ class AdController extends Controller
         $ad = Ad::findOrFail($id);
         return response()->json(["views" => $ad->views]);
     }
-    public function likedAds(string $id)
+    public function likedAds()
     {
-        $user = User::findOrFail($id);
+        $user = Auth::user();
         $vehicles = Vehicle::with(
             'company',
             'body',

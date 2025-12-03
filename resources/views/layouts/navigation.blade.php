@@ -60,7 +60,7 @@
                         @endif
 
                             </x-dropdown-link>
-                                 <a class="d-block w-100 px-4 py-2 text-start text-sm " href="{{route('likedAds',Auth::id()) }}">
+                                 <a class="d-block w-100 px-4 py-2 text-start text-sm " href="{{route('likedAds')}} ">
                                                
                <span><i class="bi bi-bookmark-heart-fill"></i></span> {{ __('Liked ads') }}
                 </a>
@@ -113,7 +113,7 @@
                 <i class="bi bi-cloud-arrow-up-fill"></i> {{ __('place AD') }}
             </x-responsive-nav-link>
             @auth
-                <x-responsive-nav-link :href="route('likedAds', Auth::id())"
+                <x-responsive-nav-link :href="route('likedAds')"
                         :active="request()->routeIs('likedAds')">   
                        <span><i class="bi bi-bookmark-heart-fill"></i></span> {{ __('liked ads') }}                       
                     </x-responsive-nav-link>
