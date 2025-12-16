@@ -251,9 +251,17 @@
                     </a>
                 </div>
             @empty
-                <div class="text-center mb-2">
-                    <img class="w-50 mx-auto  mb-3 mix-blend-multiply" src="/images/noResults.png">
-                    <a href="{{ route('dashboard') }}" class="btn btn-outline-danger rounded-pill px-4">Go back</a>
+                <div class="container-fluid d-flex flex-column justify-content-center ">
+                     <lottie-player class="w-50 mx-auto mix-blend-multiply" 
+    src="/images/nodata.json"  
+    background="transparent"  
+    speed="1"  
+    style=""  
+    loop  
+    autoplay>
+</lottie-player>
+<h2 class="text-center text-secondary">No results found</h2>
+                    <a href="{{ route('dashboard') }}" class="btn btn-outline-danger rounded-3 w-50 mx-auto px-4 mt-2 ">Go back</a>
                 </div>
             @endforelse
         </div>

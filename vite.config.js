@@ -9,11 +9,11 @@ export default defineConfig({
         }),
     ],
     server: {
-        host:'192.168.1.3',
+        host:'192.168.1.6',
         port:5173,
         strictPort:true,
         hmr:{
-            host:'192.168.1.3'
+            host:'192.168.1.6'
         }
     }
 });

@@ -218,8 +218,16 @@
                     </div>
                 </div>
             @empty
-                <div class="container-fluid d-flex flex-column justify-content-center mt-5  ">
-                    <img class="img-responsive w-50 mx-auto mix-blend-multiply" src="/images/noAds.png" alt="no ads">
+                <div class="container-fluid d-flex flex-column justify-content-center ">
+                   <lottie-player class="w-75 mx-auto" 
+    src="/images/car-motorly.json"  
+    background="transparent"  
+    speed="1"  
+    style=""  
+    loop  
+    autoplay>
+</lottie-player>
+<h2 class="text-center text-secondary">No ads found</h2>
                <a href="{{ route('placeAd') }}" class="btn btn-primary rounded-2 w-50 mx-auto mt-3 text-white fw-bolder">Post ad</a>
                 </div>
 
