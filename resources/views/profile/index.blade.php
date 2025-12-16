@@ -218,7 +218,7 @@
                     </div>
                 </div>
             @empty
-                <div class="container-fluid d-flex flex-column justify-content-center ">
+                <div class="container-fluid d-flex flex-column align-items-center justify-content-center ">
                    <lottie-player class="w-75 mx-auto" 
     src="/images/car-motorly.json"  
     background="transparent"  
