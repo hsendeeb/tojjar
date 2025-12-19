@@ -192,13 +192,10 @@
 
                             </div>
                             <hr class="mt-2 ">
-                            <div class="text-sm mt-2 bg-info bg-opacity-10 px-2  rounded-3" style="height: 80px">
-                                <pre
-                                    class="font-semibold font-sans">{{ Str::words(wordwrap($vehicle->description, 30, "\n"), 8)}}</pre>
-                            </div>
+                  
 
 
-                            <div class="text-end mt-2 bg-primary bg-opacity-10 rounded-3 px-2">
+                            <div class="text-end mt-2 bg-secondary bg-opacity-10 rounded-3 px-2">
                                 <i class="bi bi-geo-alt-fill"></i>
                                 <small class="ms-1">{{ $vehicle->location }}</small><br>
 
@@ -209,7 +206,7 @@
                                             alt="user image" loading="lazy">
                                     @else
                                         <img src="/images/avatar.jpg" style="width:25px; height:25px; object-fit:cover;"
-                                            class="rounded-circle me-2" loading="lazy">
+                                            class="rounded-circle me-2" loading="lazy" alt="user image">
                                     @endif
                                     <small class="fw-bolder">{{ $vehicle->user->name }}
                                         @if($vehicle->user->premium) <span class="text-primary"><i

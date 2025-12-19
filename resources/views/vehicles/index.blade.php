@@ -242,7 +242,7 @@
                                             alt="user image" loading="lazy">
                                     @else
                                         <img src="/images/avatar.jpg" style="width:25px; height:25px; object-fit:cover;"
-                                            class="rounded-circle me-2" loading="lazy">
+                                            class="rounded-circle me-2" loading="lazy" alt="user image">
                                     @endif
                                     <small class="fw-bolder">{{ $vehicle->user->name }}
                                          @if($vehicle->user->premium) <span class="text-primary"><i
