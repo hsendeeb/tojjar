@@ -185,7 +185,7 @@ class VehicleController extends Controller
             'views' => 0,
             'boosted' => false,
         ]);
-        return redirect()->route("dashboard");
+        return redirect()->route("dashboard")->with('uploaded','Ad uploaded successfully');
     }
 
     /**

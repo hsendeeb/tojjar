@@ -3,7 +3,31 @@
     <div id="loader-wrapper">
         <div class="spinner"></div>
     </div>
-
+   
+    @if(session('uploaded'))
+     <div id="alert" class="alert alert-success alert-dismissible fade show" role="alert">
+  <strong>Ad uploaded successfully <i class="bi bi-check-circle-fill"></i></strong> 
+  
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+        <div style=" position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;  ">
+           <lottie-player class="w-75 mx-auto" 
+    src="/images/Confetti.json"  
+    background="transparent"  
+    speed="1"  
+    style=""   
+    autoplay>
+</lottie-player>
+    </div>
+    @endif
+   
+      
 
     <button id="glass-button" class="glass-button px-4 py-1 rounded-pill text-dark"><i
             class="bi bi-arrow-up-circle-fill"></i></button>

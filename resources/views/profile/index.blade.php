@@ -22,7 +22,15 @@
       <div class="modal-header  bg-gradient-primary">
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-         <img class="w-50 mx-auto" src="/images/rocket.gif" alt="boost">
+             <lottie-player class="w-75 mx-auto" 
+    src="/images/rocket.json"  
+    background="transparent"  
+    speed="1"  
+    style=""  
+    loop  
+    autoplay>
+</lottie-player>
+        
         <h3 class=" mx-auto h3 archivo text-center" id="premiumModalLabel">Go Premium</h3>
         <div class="modal-body text-center bg-success bg-opacity-10 rounded-2">
        
