@@ -1,8 +1,5 @@
 <x-app-layout>
-      <div id="loader-wrapper">
-        <div class="spinner"></div>
-      </div>
-
+     
     <button id="glass-button" class="glass-button px-4 py-1 rounded-pill text-dark"><i
             class="bi bi-arrow-up-circle-fill"></i></button>
    <div class="container-fluid pt-4 d-flex  p-1 bg-transparent">

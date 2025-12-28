@@ -52,6 +52,7 @@
 
             <!-- Page Content -->
             <main>
+                <x-loader/>
                 {{ $slot }}
             </main>
         </div>

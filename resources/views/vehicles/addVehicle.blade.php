@@ -1,7 +1,5 @@
 <x-app-layout>
-     <div id="loader-wrapper">
-        <div class="spinner"></div>
-    </div>
+  
     <a class="btn btn-outline-danger rounded-2 ms-2 mt-2 px-3 py-1" href="/">back</a>   
     <div class="container-fluid mt-2 d-flex justify-content-center ">
         <img class="mix-blend-multiply rounded-2" id="forSale" style="width: 200px;height:200px;object-fit:cover;" src="/images/forSale.png">

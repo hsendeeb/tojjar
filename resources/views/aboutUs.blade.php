@@ -48,9 +48,7 @@
   </style>
 </head>
 <body>
-    <div id="loader-wrapper">
-        <div class="spinner"></div>
-    </div>
+   <x-loader/>
     @include('layouts.navigation')
 
 

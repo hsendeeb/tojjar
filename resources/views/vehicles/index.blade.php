@@ -1,8 +1,6 @@
 <x-app-layout>
  
-    <div id="loader-wrapper">
-        <div class="spinner"></div>
-    </div>
+   
    
     @if(session('uploaded'))
      <div id="alert" class="alert alert-success alert-dismissible fade show" role="alert">
