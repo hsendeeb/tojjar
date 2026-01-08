@@ -125,14 +125,14 @@
             @forelse ($vehicles as $vehicle)
                 <div class="card mb-3 w-75 mx-auto p-0 mt-3 notHover">
                     <div class="row g-0">
-                        <div class="col-md-4">
+                        <div class="col-md-6 col-lg-4">
                             <img style="height: 200px;width:1000px" src="{{ Storage::url($vehicle->images[0]->image_url ?? null) }}"
                                 class="img-fluid rounded-start object-fit-cover" alt="Card image">
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
                                 <h5 class="card-title">{{$vehicle->company->company_name}}
-                                    <span class="brush px-3 py-1">{{$vehicle?->model?->model_name}}</span>
+                                    <span class="px-3 py-1">{{$vehicle?->model?->model_name}}</span>
                                       @if($vehicle->title)
                              <h3 class="card-title   py-1">
                                {{ $vehicle->title }}

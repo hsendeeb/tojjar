@@ -108,7 +108,7 @@
         <div class="row">
 
             @forelse($vehicles as $vehicle)
-                <div class="col-md-3 mt-5">
+                <div class="col-md-6 col-lg-3  mt-5">
                     <a class="viewBtn" data-id="{{ $vehicle->ad->id }}" href="{{ route('vehicle.show', $vehicle) }}">
                           <div class="card shadow ">
 
@@ -165,9 +165,9 @@
                         </div>
 
                         <div class="card-body  px-2">
-                            <h3 class="card-title  fw-bolder bg-opacity-25  py-1">
+                            <h3 class="card-title archivo py-1">
                                 {{$vehicle->company->company_name}} <span
-                                    class="fw-bolder  rounded-3 brush  bg-warning bg-opacity-25 px-4  py-1">{{$vehicle?->model?->model_name}}</span>
+                                 >{{$vehicle?->model?->model_name}}</span>
                             </h3>
                               @if($vehicle->title)
                              <h3 class="card-title   py-1">
@@ -189,9 +189,7 @@
 
                             </div>
                             <hr class="mt-2 ">
-                  
-
-
+                
                             <div class="text-end mt-2 bg-secondary bg-opacity-10 rounded-3 px-2">
                                 <i class="bi bi-geo-alt-fill"></i>
                                 <small class="ms-1">{{ $vehicle->location }}</small><br>
